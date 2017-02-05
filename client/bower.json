@@ -1,0 +1,26 @@
+{
+  "name": "Atelier 2",
+  "homepage": "https://github.com/mcesarvela/atelier2",
+  "authors": [
+    "Ismail Daoudy",
+    "Ikram Ahmani",
+    "Chakib Bouabd",
+    "Marco Vela"
+  ],
+  "description": "Projet pour atelier 2",
+  "main": "index.html",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "^3.1.1",
+    "angular": "^1.6.1",
+    "bootstrap-sass": "^3.3.7"
+  }
+}
