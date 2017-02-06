@@ -9,8 +9,8 @@ insert into place(name,lat, lng, indication)
 
 INSERT INTO `destination` (`id`, `name`, `lng`, `lat`) VALUES (NULL, 'Toulouse', '1.450488', '43.607489');
 INSERT INTO `destination` (`id`, `name`, `lng`, `lat`) VALUES (NULL, 'Le havre', '0.121646', '49.527592');
-INSERT INTO `destination` (`name`, `lng`, `lat`) VALUES ('Le Mont Saint Michel','-1.5120517','48.6360033');                                           
-INSERT INTO `destination` (`name`, `lng`, `lat`) VALUES ('Disneyland Paris','2.7736192','48.8722344');
+INSERT INTO `destination` (`id`, `name`, `lng`, `lat`) VALUES (NULL, 'Le Mont Saint Michel','-1.5120517','48.6360033');                                           
+INSERT INTO `destination` (`id`, `name`, `lng`, `lat`) VALUES (NULL, 'Disneyland Paris','2.7736192','48.8722344');
 
 
 INSERT INTO `hint` (`id`, `value`, `type`, `id_destination`) VALUES (NULL, 'Commune du du Sud-Ouest de France', 'text', '1');
