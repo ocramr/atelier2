@@ -6,9 +6,12 @@
  * Time: 19:11
  */
 use app\controller\GameController;
+use app\controller\UserController;
 
-$app->group('/game', function () use ($app){
+$app->group('/backoffice', function () use ($app){
 
-    $app->post('', GameController::class. ':createGame')->setName('orders');
+    $app->post('/register', UserController::class. ':register')->setName('register');
+
+    $app->get('/login', UserController::class. ':login')->setName('login');
 
 });
