@@ -31,5 +31,6 @@ $app->group('/destinations', function () use ($app){
 
     $app->get('', ManagementController::class. ':getdestinations')->setName('destinations');
     $app->delete('/{id}', ManagementController::class. ':deletedestination')->setName('destintion');
+    $app->post('', ManagementController::class. ':createDestination')->setName('createDestination');
 
 });

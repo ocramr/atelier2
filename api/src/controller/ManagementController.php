@@ -43,4 +43,19 @@ class ManagementController extends AbstractController
             }
         }
 
+        public function createDestination($req, $res, $args)
+        {
+            $destination = new Destination();
+            $arguments = $req->getParsedBody();
+            $destination->name = filter_var($arguments["name"]);
+            $destination->lng = filter_var($arguments["lng"]);
+            $destination->lat = filter_var($arguments["lat"]);
+            if ($destination->save())
+                return $this->json_success($res, 200, "Ajouter avec succes");
+            else
+                return $this->json_error($res, 500, "Erreur d'ajout");
+
+            //var_dump($destination->toJson());
+        }
+
 }
