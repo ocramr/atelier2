@@ -1,5 +1,5 @@
 */vendor/*
-api/conf
 .idea/
 composer.lock
 bower_components
+api/conf
