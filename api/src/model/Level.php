@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\Model;
 class Level extends Model
 {
     protected $table = 'level';
-    protected $timestamps = false;
+    public $timestamps = false;
 
     public function games(){
         return $this->hasMany('app\model\Game','id_level');

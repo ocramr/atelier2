@@ -11,7 +11,7 @@ namespace app\model;
 class Game extends \Illuminate\Database\Eloquent\Model
 {
     protected $table = 'game';
-    protected $timestamps = false;
+    public $timestamps = false;
 
     public function places(){
         return $this->belongsToMany('app\model\Place', 'place_game', 'id_game', 'id_place');

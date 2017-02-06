@@ -16,9 +16,16 @@ $app->group('/backoffice', function () use ($app){
     $app->get('/login', UserController::class. ':login')->setName('login');
 
 });
-/*
-* Author : ikram
-*/
+
+
+$app->group('/places', function () use ($app){
+
+    $app->get('[/]', ManagementController::class. ':getListePlaces')->setName('listPlaces');
+
+    $app->put('/{id}', ManagementController::class. ':editPlace');
+        
+});
+
 
 $app->group('/destinations', function () use ($app){
 
