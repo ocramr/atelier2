@@ -8,19 +8,19 @@ SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 
 -- -----------------------------------------------------
--- Schema mydb
+-- Schema fyw
 -- -----------------------------------------------------
 
 -- -----------------------------------------------------
--- Schema mydb
+-- Schema fyw
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `mydb` DEFAULT CHARACTER SET utf8 ;
-USE `mydb` ;
+CREATE SCHEMA IF NOT EXISTS `fyw` DEFAULT CHARACTER SET utf8 ;
+USE `fyw` ;
 
 -- -----------------------------------------------------
--- Table `mydb`.`user`
+-- Table `fyw`.`user`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`user` (
+CREATE TABLE IF NOT EXISTS `fyw`.`user` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `last_name` VARCHAR(255) NULL,
   `first_name` VARCHAR(255) NULL,
@@ -32,9 +32,9 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`place`
+-- Table `fyw`.`place`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`place` (
+CREATE TABLE IF NOT EXISTS `fyw`.`place` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `lng` VARCHAR(255) NOT NULL,
   `lat` VARCHAR(255) NOT NULL,
@@ -44,9 +44,9 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`destination`
+-- Table `fyw`.`destination`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`destination` (
+CREATE TABLE IF NOT EXISTS `fyw`.`destination` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `lng` VARCHAR(255) NOT NULL,
   `lat` VARCHAR(255) NOT NULL,
@@ -55,9 +55,9 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`hint`
+-- Table `fyw`.`hint`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`hint` (
+CREATE TABLE IF NOT EXISTS `fyw`.`hint` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `value` VARCHAR(255) NULL,
   `indication` VARCHAR(255) NULL,
@@ -66,16 +66,16 @@ CREATE TABLE IF NOT EXISTS `mydb`.`hint` (
   INDEX `id_dest_idx` (`id_destination` ASC),
   CONSTRAINT `id_dest`
     FOREIGN KEY (`id_destination`)
-    REFERENCES `mydb`.`destination` (`id`)
+    REFERENCES `fyw`.`destination` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`level`
+-- Table `fyw`.`level`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`level` (
+CREATE TABLE IF NOT EXISTS `fyw`.`level` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `max_attempts` VARCHAR(255) NULL,
   `distance` VARCHAR(255) NOT NULL,
@@ -85,9 +85,9 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`game`
+-- Table `fyw`.`game`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`game` (
+CREATE TABLE IF NOT EXISTS `fyw`.`game` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `pseudo` VARCHAR(255) NULL,
   `token` VARCHAR(255) NULL,
@@ -101,21 +101,21 @@ CREATE TABLE IF NOT EXISTS `mydb`.`game` (
   INDEX `id_destination_idx` (`id_destination` ASC),
   CONSTRAINT `id_level`
     FOREIGN KEY (`id_level`)
-    REFERENCES `mydb`.`level` (`id`)
+    REFERENCES `fyw`.`level` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `id_destination`
     FOREIGN KEY (`id_destination`)
-    REFERENCES `mydb`.`destination` (`id`)
+    REFERENCES `fyw`.`destination` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`place_game`
+-- Table `fyw`.`place_game`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`place_game` (
+CREATE TABLE IF NOT EXISTS `fyw`.`place_game` (
   `id_place` INT NOT NULL,
   `id_game` INT NULL,
   `is_final` TINYINT(1) NULL,
@@ -123,12 +123,12 @@ CREATE TABLE IF NOT EXISTS `mydb`.`place_game` (
   INDEX `id_partie_idx` (`id_game` ASC),
   CONSTRAINT `id_place`
     FOREIGN KEY (`id_place`)
-    REFERENCES `mydb`.`place` (`id`)
+    REFERENCES `fyw`.`place` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `id_game`
     FOREIGN KEY (`id_game`)
-    REFERENCES `mydb`.`game` (`id`)
+    REFERENCES `fyw`.`game` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
