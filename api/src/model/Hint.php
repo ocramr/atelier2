@@ -11,5 +11,5 @@ namespace app\model;
 class Hint extends \Illuminate\Database\Eloquent\Model
 {
     protected $table = 'hint';
-    protected $timestamps = false;
+    public $timestamps = false;
 }

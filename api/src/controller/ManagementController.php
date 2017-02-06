@@ -10,6 +10,7 @@ use Interop\Container\ContainerInterface;
 
 class ManagementController extends AbstractController
 {
+
     public function getListePlaces($req, $resp, $atbs){
          return $this->json_success($resp, 200, Place::all());
     }
@@ -27,4 +28,9 @@ class ManagementController extends AbstractController
             return $this->json_error($resp, 404, "Not Found");
         }
     }
+    
+    public function getdestinations($req,$res,$args){
+            die('dd');
+    }
+
 }
