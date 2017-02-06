@@ -38,6 +38,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`place` (
   `id` INT NOT NULL,
   `lng` VARCHAR(255) NULL,
   `lat` VARCHAR(255) NULL,
+  `indication` VARCHAR(255) NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
