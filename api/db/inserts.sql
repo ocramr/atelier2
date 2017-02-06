@@ -24,13 +24,13 @@ INSERT INTO `hint` (`id`, `value`, `type`, `id_destination`) VALUES (NULL, 'Sain
 INSERT INTO `hint` (`id`, `value`, `type`, `id_destination`) VALUES (NULL, '../api/img/blason_le_havre.png', 'url', '2');
 
 INSERT INTO `place` (`id`, `lng`, `lat`, `indication`) VALUES
-(NULL, '7.266555', '43.716896', 'Château de Valrose'),
-(NULL, '7.753173', '48.580887', 'Palais Rohan'),
-(NULL, '0.103315', '49.485045', 'Musée d''art moderne André Malraux'),
-(NULL, '1.265599', '45.860447', 'Parc de l''Aurence'),
-(NULL, '5.069667', '47.311461', 'Université de Bourgogne'),
-(NULL, '3.069648', '50.640208', 'Notre Dame de la Treille'),
-(NULL, '1.865608', '50.966423', 'Port de Calais');
+(NULL, 'Nice', '7.266555', '43.716896', 'Château de Valrose'),
+(NULL, 'Strasbourg', '7.753173', '48.580887', 'Palais Rohan'),
+(NULL, 'Le Havre', '0.103315', '49.485045', 'Musée d''art moderne André Malraux'),
+(NULL, 'Limoges', '1.265599', '45.860447', 'Parc de l''Aurence'),
+(NULL, 'Dijon', '5.069667', '47.311461', 'Université de Bourgogne'),
+(NULL, 'Lille', '3.069648', '50.640208', 'Notre Dame de la Treille'),
+(NULL, 'Calais', '1.865608', '50.966423', 'Port de Calais');
 
 
 INSERT INTO `destination` (`name`, `lng`, `lat`) VALUES 
