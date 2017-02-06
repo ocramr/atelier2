@@ -1,4 +1,4 @@
-/conf
+/api/conf
 */vendor/*
 .idea/
 composer.lock
