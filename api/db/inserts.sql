@@ -21,6 +21,7 @@ INSERT INTO `hint` (`id`, `value`, `type`, `id_destination`) VALUES (NULL, 'Situ
 INSERT INTO `hint` (`id`, `value`, `type`, `id_destination`) VALUES (NULL, 'Son port est le deuxième de France pour le trafic total, et le premier port français pour les conteneurs.', 'text', '2');
 INSERT INTO `hint` (`id`, `value`, `type`, `id_destination`) VALUES (NULL, 'Musée d''art moderne André-Malraux', 'text', '2');
 INSERT INTO `hint` (`id`, `value`, `type`, `id_destination`) VALUES (NULL, 'Saint Thomas Basket', 'text', '2');
+INSERT INTO `hint` (`id`, `value`, `type`, `id_destination`) VALUES (NULL, '../api/img/blason_le_havre.png', 'url', '2');
 
 INSERT INTO `place` (`id`, `lng`, `lat`, `indication`) VALUES
 (NULL, 'Nice', '7.266555', '43.716896', 'Château de Valrose'),
