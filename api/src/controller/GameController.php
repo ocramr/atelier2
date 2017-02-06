@@ -18,4 +18,8 @@ class GameController extends AbstractController
     {
         parent::__construct($container);
     }
+    public function getdestinations($req,$res,$args)
+    {
+        die('dd');
+    }
 }
