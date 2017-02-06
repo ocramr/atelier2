@@ -21,7 +21,7 @@ USE `mydb` ;
 -- Table `mydb`.`user`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`user` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `last_name` VARCHAR(255) NULL,
   `first_name` VARCHAR(255) NULL,
   `email` VARCHAR(255) NULL,
@@ -35,9 +35,9 @@ ENGINE = InnoDB;
 -- Table `mydb`.`place`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`place` (
-  `id` INT NOT NULL,
-  `lng` VARCHAR(255) NULL,
-  `lat` VARCHAR(255) NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `lng` VARCHAR(255) NOT NULL,
+  `lat` VARCHAR(255) NOT NULL,
   `indication` VARCHAR(255) NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
@@ -47,9 +47,9 @@ ENGINE = InnoDB;
 -- Table `mydb`.`destination`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`destination` (
-  `id` INT NOT NULL,
-  `lng` VARCHAR(255) NULL,
-  `lat` VARCHAR(255) NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `lng` VARCHAR(255) NOT NULL,
+  `lat` VARCHAR(255) NOT NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
@@ -76,9 +76,9 @@ ENGINE = InnoDB;
 -- Table `mydb`.`level`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`level` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `max_attempts` VARCHAR(255) NULL,
-  `distance` VARCHAR(255) NULL,
+  `distance` VARCHAR(255) NOT NULL,
   `time` VARCHAR(255) NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
@@ -88,11 +88,11 @@ ENGINE = InnoDB;
 -- Table `mydb`.`game`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`game` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `pseudo` VARCHAR(255) NULL,
   `token` VARCHAR(255) NULL,
   `score` VARCHAR(255) NULL,
-  `state` VARCHAR(255) NULL,
+  `state` INT NULL DEFAULT 0,
   `duration` VARCHAR(255) NULL,
   `id_level` INT NULL,
   `id_destination` INT NULL,
