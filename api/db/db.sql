@@ -22,8 +22,8 @@ USE `mydb` ;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`user` (
   `id` INT NOT NULL,
-  `nom` VARCHAR(255) NULL,
-  `prenom` VARCHAR(255) NULL,
+  `last_name` VARCHAR(255) NULL,
+  `first_name` VARCHAR(255) NULL,
   `email` VARCHAR(255) NULL,
   `username` VARCHAR(255) NULL,
   `password` VARCHAR(255) NULL,
@@ -58,7 +58,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`hint` (
   `id` INT NOT NULL,
-  `valeur` VARCHAR(255) NULL,
+  `value` VARCHAR(255) NULL,
   `indication` VARCHAR(255) NULL,
   `id_destination` INT NULL,
   PRIMARY KEY (`id`),
@@ -76,9 +76,9 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`level` (
   `id` INT NOT NULL,
-  `nbr_essais` VARCHAR(255) NULL,
+  `max_attempts` VARCHAR(255) NULL,
   `distance` VARCHAR(255) NULL,
-  `temps` VARCHAR(255) NULL,
+  `time` VARCHAR(255) NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
@@ -91,8 +91,8 @@ CREATE TABLE IF NOT EXISTS `mydb`.`game` (
   `pseudo` VARCHAR(255) NULL,
   `token` VARCHAR(255) NULL,
   `score` VARCHAR(255) NULL,
-  `etat` VARCHAR(255) NULL,
-  `temps_partie` VARCHAR(255) NULL,
+  `state` VARCHAR(255) NULL,
+  `duration` VARCHAR(255) NULL,
   `id_level` INT NULL,
   `id_destination` INT NULL,
   PRIMARY KEY (`id`),
