@@ -38,7 +38,7 @@ INSERT INTO `hint` (`id`, `value`, `type`, `id_destination`) VALUES (NULL, '../a
 INSERT INTO `hint` (`id`, `value`, `type`, `id_destination`) VALUES (NULL, 'attraction', 'text', '4');
 INSERT INTO `hint` (`id`, `value`, `type`, `id_destination`) VALUES (NULL, 'Le Château de la Belle au bois dormant,', 'text', '4');
 
-INSERT INTO `place` (`id`, `lng`, `lat`, `indication`) VALUES
+INSERT INTO `place` (`id`,`name`, `lng`, `lat`, `indication`) VALUES
 (NULL, 'Nice', '7.266555', '43.716896', 'Château de Valrose'),
 (NULL, 'Strasbourg', '7.753173', '48.580887', 'Palais Rohan'),
 (NULL, 'Le Havre', '0.103315', '49.485045', 'Musée d''art moderne André Malraux'),

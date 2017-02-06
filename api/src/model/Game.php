@@ -18,10 +18,10 @@ class Game extends \Illuminate\Database\Eloquent\Model
     }
 
     public function level(){
-        return $this->belongsTo('app\model\Level','id_level');
+        return $this->hasOne('app\model\Level','id_level');
     }
 
     public function destination(){
-        return $this->belongsTo('app\model\Destination','id_destination');
+        return $this->hasOne('app\model\Destination','id_destination');
     }
 }
