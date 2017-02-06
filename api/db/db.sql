@@ -58,7 +58,7 @@ ENGINE = InnoDB;
 -- Table `mydb`.`hint`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`hint` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `value` VARCHAR(255) NULL,
   `indication` VARCHAR(255) NULL,
   `id_destination` INT NULL,
