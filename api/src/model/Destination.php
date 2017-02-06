@@ -11,7 +11,7 @@ namespace app\model;
 class Destination extends \Illuminate\Database\Eloquent\Model
 {
     protected $table = 'destination';
-    protected $timestamps = false;
+    public $timestamps = false;
 
     public function games(){
         return $this->hasMany('app\model\Game','id_destination');

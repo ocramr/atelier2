@@ -22,6 +22,7 @@ $app->group('/backoffice', function () use ($app){
 
 $app->group('/destinations', function () use ($app){
 
-    $app->get('', ManagementController::class. ':getdestinations')->setName('orders');
+    $app->get('', ManagementController::class. ':getdestinations')->setName('destinations');
+    $app->delete('/{id}', ManagementController::class. ':deletedestination')->setName('destintion');
 
 });
