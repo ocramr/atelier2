@@ -65,7 +65,7 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `fyw`.`hint` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `value` VARCHAR(255) NULL,
-  `indication` VARCHAR(255) NULL,
+  `type` ENUM('text','url'),
   `id_destination` INT NULL,
   PRIMARY KEY (`id`),
   INDEX `id_dest_idx` (`id_destination` ASC),
