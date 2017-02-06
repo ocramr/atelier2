@@ -36,6 +36,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `fyw`.`place` (
   `id` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(25) NOT NULL, 
   `lng` VARCHAR(255) NOT NULL,
   `lat` VARCHAR(255) NOT NULL,
   `indication` VARCHAR(255) NULL,
@@ -48,7 +49,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `fyw`.`destination` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(255) NOT NULL, 
+  `name` VARCHAR(25) NOT NULL, 
   `lng` VARCHAR(255) NOT NULL,
   `lat` VARCHAR(255) NOT NULL,
   PRIMARY KEY (`id`))
