@@ -1,11 +1,11 @@
 ALTER TABLE `hint` CHANGE `indication` `type` ENUM("text","url") CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL;
 
-insert into place(name,lng, lat, indication) 
-		values ('Paris','2.287592000000018','48.862725','La ville lumière'),
-        ('Metz','6.1757155999999895','49.1193089','Ancienne capitale de la Lorraine'),
-        ('Château de Versailles','2.120355','48.804865','Elle fut la résidence de Louis XIV'),
-        ('Belfort','6.863849','47.639674','Monument du lion'),
-        ('Dijon','5.041479999999979','47.322047','La moutarde');
+insert into place(name,lat, lng, indication) 
+		values ('Paris','48.862725','2.287592000000018','La ville lumière'),
+        ('Metz','49.1193089','6.1757155999999895','Ancienne capitale de la Lorraine'),
+        ('Château de Versailles','48.804865','2.120355','Elle fut la résidence de Louis XIV'),
+        ('Belfort','47.639674','6.863849','Monument du lion'),
+        ('Dijon','47.322047','5.041479999999979','La moutarde');
 
 INSERT INTO `destination` (`id`, `name`, `lng`, `lat`) VALUES (NULL, 'Toulouse', '1.450488', '43.607489');
 INSERT INTO `destination` (`id`, `name`, `lng`, `lat`) VALUES (NULL, 'Le havre', '0.121646', '49.527592');
