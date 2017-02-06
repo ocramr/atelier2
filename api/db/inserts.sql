@@ -9,8 +9,8 @@ insert into place(name,lat, lng, indication)
 
 INSERT INTO `destination` (`id`, `name`, `lng`, `lat`) VALUES (NULL, 'Toulouse', '1.450488', '43.607489');
 INSERT INTO `destination` (`id`, `name`, `lng`, `lat`) VALUES (NULL, 'Le havre', '0.121646', '49.527592');
-INSERT INTO `destination` (`name`, `lng`, `lat`) VALUES ('Le Mont Saint Michel','-1.5120517','48.6360033');                                           
-INSERT INTO `destination` (`name`, `lng`, `lat`) VALUES ('Disneyland Paris','2.7736192','48.8722344');
+INSERT INTO `destination` (`id`, `name`, `lng`, `lat`) VALUES (NULL, 'Le Mont Saint Michel','-1.5120517','48.6360033');                                           
+INSERT INTO `destination` (`id`, `name`, `lng`, `lat`) VALUES (NULL, 'Disneyland Paris','2.7736192','48.8722344');
 
 
 INSERT INTO `hint` (`id`, `value`, `type`, `id_destination`) VALUES (NULL, 'Commune du du Sud-Ouest de France', 'text', '1');
@@ -33,8 +33,8 @@ INSERT INTO `hint` (`id`, `value`, `type`, `id_destination`) VALUES (NULL, 'Norm
 INSERT INTO `hint` (`id`, `value`, `type`, `id_destination`) VALUES (NULL, 'Le Mont était rattaché depuis l\'époque de Charlemagne au diocèse d\'Avranches', 'text', '3');
 
 INSERT INTO `hint` (`id`, `value`, `type`, `id_destination`) VALUES (NULL, 'complexe touristique et urbain ', 'text', '4');
-INSERT INTO `hint` (`id`, `value`, `type`, `id_destination`) VALUES (NULL, '../img/Mickey_Mouse', 'img', '4');
-INSERT INTO `hint` (`id`, `value`, `type`, `id_destination`) VALUES (NULL, '../img/Walt_Disney', 'img', '4');
+INSERT INTO `hint` (`id`, `value`, `type`, `id_destination`) VALUES (NULL, '../api/img/Mickey_Mouse.png', 'url', '4');
+INSERT INTO `hint` (`id`, `value`, `type`, `id_destination`) VALUES (NULL, '../api/img/Walt_Disney.JPG', 'url', '4');
 INSERT INTO `hint` (`id`, `value`, `type`, `id_destination`) VALUES (NULL, 'attraction', 'text', '4');
 INSERT INTO `hint` (`id`, `value`, `type`, `id_destination`) VALUES (NULL, 'Le Château de la Belle au bois dormant,', 'text', '4');
 
