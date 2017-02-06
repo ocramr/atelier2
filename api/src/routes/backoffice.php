@@ -7,6 +7,7 @@
  */
 use app\controller\GameController;
 use app\controller\UserController;
+use app\controller\ManagementController;
 
 $app->group('/backoffice', function () use ($app){
 
@@ -21,6 +22,6 @@ $app->group('/backoffice', function () use ($app){
 
 $app->group('/destinations', function () use ($app){
 
-    $app->get('', GameController::class. ':getdestinations')->setName('orders');
+    $app->get('', ManagementController::class. ':getdestinations')->setName('orders');
 
 });
