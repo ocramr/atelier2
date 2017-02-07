@@ -18,5 +18,9 @@ class GameController extends AbstractController
     {
         parent::__construct($container);
     }
+    public function playGame($req, $res, $args)
+    {
+        //die("ddd");
+    }
 
 }
