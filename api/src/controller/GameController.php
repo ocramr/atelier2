@@ -5,6 +5,7 @@
  * Date: 6/02/17
  * Time: 14:24
  */
+use \app\model\Game;
 
 namespace app\controller;
 
@@ -21,6 +22,10 @@ class GameController extends AbstractController
     public function playGame($req, $res, $args)
     {
         //die("ddd");
+    }
+
+    public function ranking($req, $resp, $args){
+        return $this->json_success($resp, 200, Game::all()->orderBy('score'));
     }
 
 }
