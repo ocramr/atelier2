@@ -1,13 +1,14 @@
 angular.module('app').controller('GameController', ['$scope', '$http', 'GameFactory',
-    function($scope, $http, GameController){
+    function($scope, $http, GameFactory){
 
     $scope.game = {};
 
     $scope.start = function (pseudo, level) {
         GameFactory.play({"pseudo" : pseudo, "level": level}).then(function (response) {
-
+            var game = new Game(response.data);
+            console.log(game);
         }, function (error) {
-
+            console.log(error);
         });
     };
 
