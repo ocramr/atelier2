@@ -8,6 +8,7 @@ use \app\model\Place;
 
 use Interop\Container\ContainerInterface;
 use app\model\Destination;
+use app\model\Level;
 
 class ManagementController extends AbstractController
 {
@@ -80,6 +81,22 @@ class ManagementController extends AbstractController
             $newPlace->indication = $data['indication'];
             if($newPlace->save()) return $this->json_success($resp, 201, $newPlace->toJson());
             return $this->json_error($resp, 500, "Erreur lors de l'ajout");
+        }
+
+        public function createLevel($req, $res, $args)
+        {
+            $arguments = $req->getParsedBody();
+            if (!isset($arguments["max_attempts"]) || !isset($arguments["distance"]) || !isset($arguments["time"]))
+                return $this->json_error($res, 400, "Missing Parameters");
+
+            $level = new Level();
+            $level->max_attempts = filter_var($arguments["max_attempts"], FILTER_SANITIZE_STRING);
+            $level->distance = filter_var($arguments["distance"], FILTER_SANITIZE_STRING);
+            $level->time = filter_var($arguments["time"], FILTER_SANITIZE_STRING);
+            if ($level->save())
+                return $this->json_success($res, 200, "Succes");
+            else
+                return $this->json_error($res, 500, "Erreur d'ajout");
         }
 
 }
