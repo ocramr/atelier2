@@ -5,9 +5,10 @@
         <title>Find your Way</title>
         <link rel="stylesheet" href="css/style.css">
         <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css" />
-        <script src="bower_components/jquery/src/jquery.js"></script>
         <script src="bower_components/angular/angular.js"></script>
         <script src="bower_components/leaflet/dist/leaflet.js"></script>
+        <script src="lib/angular-leaflet-directive.min.js"></script>
+        <script src="http://cdn.leafletjs.com/leaflet-0.7.1/leaflet.js"></script>
         <style>
             .border{
                 border: 1px solid black;
@@ -16,10 +17,12 @@
             }
         </style>
     </head>
-    <body class="container">
+<body class="container" ng-app="app">
         <center><h1>Find your way!</h1></center>
-        <section class="row border">
-            <div class="col-md-8 border" id="mapid">map</div>
+        <section class="row border" ng-controller="GameController">
+            <div class="col-md-8 border" id="mapid">
+                <leaflet width="640px" height="480px">
+            </div>
             <div class="col-md-4 border" id="mapid">indice</div>
         </section>
     </body>
