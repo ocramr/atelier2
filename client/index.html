@@ -5,23 +5,22 @@
         <title>Find your Way</title>
         <link rel="stylesheet" href="css/style.css">
         <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css" />
-        <script src="bower_components/jquery/src/jquery.js"></script>
-        <script src="bower_components/angular/angular.js"></script>
-        <script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script>
-        <script src="js/app.js"></script>
-        <style>
-            .border{
-                border: 1px solid black;
-                height: 300px;
-                padding: 5px;
-            }
-        </style>
     </head>
     <body class="container">
         <center><h1>Find your way!</h1></center>
-        <section class="row border">
-            <div class="col-md-8 border" id="mapid">map</div>
-            <div class="col-md-4 border" id="mapid">indice</div>
+        <section class="row">
+            <button type="button" class="btn btn-primary pull-right">High Scores</button>
+            <button type="button" class="btn btn-danger pull-right">Pause</button>
         </section>
+        <section class="col-md-8">
+            <div class="bordered map" id="mapid">map</div>
+        </section>
+        <section class="col-md-4">
+            <div class="bordered box">indice</div>
+            <div class="bordered box">Destination</div>
+        </section>
+        <script src="bower_components/angular/angular.js"></script>
+        <script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script>
+        <script src="js/app.js"></script>
     </body>
 </html>

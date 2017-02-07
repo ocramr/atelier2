@@ -5806,5 +5806,24 @@ button.close {
 @media print {
   .hidden-print {
     display: none !important; } }
+body {
+  background-color: whitesmoke; }
+
+.bordered {
+  overflow: auto;
+  box-shadow: 1px 1px 8px #555;
+  border-radius: 4px;
+  background-color: white; }
+
+.map {
+  margin-top: 10px;
+  height: 510px; }
+
+.box {
+  margin-top: 8px;
+  height: 250px; }
+
+.btn {
+  margin-right: 32px; }
 
 /*# sourceMappingURL=style.css.map */
