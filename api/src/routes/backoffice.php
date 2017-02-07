@@ -23,7 +23,9 @@ $app->group('/places', function () use ($app){
     $app->get('[/]', ManagementController::class. ':getListePlaces')->setName('listPlaces');
 
     $app->put('/{id}', ManagementController::class. ':editPlace');
-        
+
+    $app->post('[/]', ManagementController::class. ':addPlace');
+    
 });
 
 
