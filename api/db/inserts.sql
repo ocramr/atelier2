@@ -55,3 +55,4 @@ INSERT INTO `destination` (`name`, `lng`, `lat`) VALUES
 ('Le Mont Saint Michel','-1.5120517','48.6360033'),                                               
 ('Disneyland Paris','2.7736192','48.8722344');
 
+INSERT INTO `level` (`id`, `max_attempts`, `distance`, `time`) VALUES (NULL, '20', '500', '1000');
