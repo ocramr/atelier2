@@ -27,7 +27,12 @@ angular.module('app').controller('GameController', ['$scope', '$http', 'GameFact
     };
 
     $scope.finishGame = function () {
-
+         GameFactory.finish($scope.game.id , {"score" : $scope.game.score, "duration": $scope.game.duration})
+                    .then(function(data){
+                        console.log(data)
+                    },function(error){
+                        console.log(error)
+                    })
     };
 
 
