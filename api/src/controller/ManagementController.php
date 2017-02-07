@@ -75,4 +75,20 @@ class ManagementController extends AbstractController
                 return $this->json_error($res, 500, "Erreur de modification");
         }
 
+        public function addPlace($req, $resp, $args){
+            $data = $req->getParsedBody();
+            if(!isset($data['name'])) return $this->json_error($resp, 400, "Missing Param name");
+            if(!isset($data['lng'])) return $this->json_error($resp, 400, "Missing Param lng");
+            if(!isset($data['lat'])) return $this->json_error($resp, 400, "Missing Param lat");
+            if(!isset($data['indication'])) return $this->json_error($resp, 400, "Missing Param indication");
+            
+            $newPlace = new Place();
+            $newPlace->name = $data['name'];
+            $newPlace->lng = $data['lng'];
+            $newPlace->lat = $data['lat'];
+            $newPlace->indication = $data['indication'];
+            if($newPlace->save()) return $this->json_success($resp, 201, $newPlace->toJson());
+            return $this->json_error($resp, 500, "Erreur lors de l'ajout");
+        }
+
 }
