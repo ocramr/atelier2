@@ -14,7 +14,7 @@ class ManagementController extends AbstractController
         public function getdestinations($req,$res,$args)
             {
                 $destinations = Destination::all();
-                $res->getBody()->write($destinations->toJson());
+                return $this->json_success($res, 200, $destinations);
             }
         public function deletedestination($req,$res,$args)
             {
@@ -25,15 +25,15 @@ class ManagementController extends AbstractController
                     $this->json_success($res, 200, 'La destination a été supprimé avec succès');
                 }
             }
-        public function getListePlaces($req, $resp, $atbs){
+        public function getListePlaces($req, $resp, $args){
                 return $this->json_success($resp, 200, Place::all());
         }
 
-        public function editPlace($req, $resp, $atbs){
+        public function editPlace($req, $resp, $args){
             try{
                 $data = $req->getParsedBody();
                 if(!isset($data['indication'])) return $this->json_error($resp, 400, "Missing Param");
-                $place = Place::findOrfail($atbs['id']);
+                $place = Place::findOrfail($args['id']);
                 $place->indication = filter_var($data['indication'], FILTER_SANITIZE_STRING);
                 $place->save();
                 return $this->json_success($resp, 200, $place);
