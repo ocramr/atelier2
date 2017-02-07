@@ -1,10 +1,10 @@
 <?php
 use app\AppInit;
 
-require_once '../../vendor/autoload.php';
+require_once '../vendor/autoload.php';
 
 
-AppInit::bootEloquent('../../conf/conf.ini');
+AppInit::bootEloquent('../conf/conf.ini');
 
 $configuration = [
     'settings'=>[
