@@ -42,6 +42,7 @@ class UserController extends AbstractController
             }else{
                 return $this->json_error($response, 400);
             }
+
         }
     }
 
