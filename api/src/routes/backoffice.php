@@ -9,7 +9,7 @@ use app\controller\GameController;
 use app\controller\UserController;
 use app\controller\ManagementController;
 
-$app->group('/backoffice', function () use ($app){
+$app->group('/user', function () use ($app){
 
     $app->post('/register', UserController::class. ':register')->setName('register');
 
