@@ -5,7 +5,6 @@
  * Date: 6/02/17
  * Time: 14:24
  */
-use \app\model\Game;
 
 namespace app\controller;
 
