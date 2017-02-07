@@ -12,6 +12,7 @@ angular.module('app').service('Game', [
             this.level = data.level;
             this.places = data.places;
             this.destination = data.destination;
+            this.isPlaying = true;
         };
 
         return Game;
