@@ -94,7 +94,7 @@ class ManagementController extends AbstractController
             $level->distance = filter_var($arguments["distance"], FILTER_SANITIZE_STRING);
             $level->time = filter_var($arguments["time"], FILTER_SANITIZE_STRING);
             if ($level->save())
-                return $this->json_success($res, 200, "Succes");
+                return $this->json_success($res, 200, json_encode($level));
             else
                 return $this->json_error($res, 500, "Erreur d'ajout");
         }
