@@ -12,12 +12,12 @@ angular.module('app').controller('GameController', ['$scope', '$http', 'GameFact
 
     $scope.start = function () {
         console.log($scope.game.pseudo);
-        /*GameFactory.play({"pseudo" : pseudo, "level": level}).then(function (response) {
+        GameFactory.play({"pseudo" : $scope.game.pseudo, "level": 0}).then(function (response) {
          var game = new Game(response.data);
          console.log(game);
          }, function (error) {
          console.log(error);
-         });*/
+         });
     };
 
     $scope.pauseOrResume = function () {

@@ -39,6 +39,20 @@ $app->group('/destinations', function () use ($app){
 
 $app->group('/levels', function () use ($app){
 
-    $app->post('', ManagementController::class. ':createLevel')->setName('createLevel');
+    $app->post('', ManagementController::class. ':createLevel')->setName('createLevel')->add('checkTOKEN');
+
+    $app->get('', UserController::class. ':getLevels')->setName('levels')->add('CORS');
 
 });
+
+$app->group('/game', function () use ($app){
+
+    $app->put('/{id}/save', GameController::class. ':save')->setName('saveGame');
+
+    $app->get('/ranking', GameController::class. ':ranking')->setName('ranking');
+})->add('checkTOKEN');
+
+$app->post('/game/play', GameController::class. ':playGame')->setName('playgame');
+
+
+

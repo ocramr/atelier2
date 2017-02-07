@@ -6,13 +6,13 @@ angular.module('app').factory('GameFactory', ['$http',function ($http) {
 
     return {
         play:function (json) {
-            return $http.post('http://play.finyourway.local/game/play', json);
+            return $http.post('http://backend.findyourway.local/game/play', json);
         },
         finish:function (id, json) {
-            return $http.put('http://play.finyourway.local/game/save/'+id, json);
+            return $http.put('http://backend.finyourway.local/game/save/'+id, json);
         },
         ranking: function () {
-            return $http.get('http://play.finyourway.local/game/ranking');
+            return $http.get('http://backend.finyourway.local/game/ranking');
         }
     }
 

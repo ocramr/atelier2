@@ -31,5 +31,5 @@ $configuration['notFoundHandler'] = function ($c) {
 
 $c = new \Slim\Container($configuration);
 $app = new Slim\App($c);
-require '../../src/routes/rest.php';
+require '../src/routes/route.php';
 $app->run();
