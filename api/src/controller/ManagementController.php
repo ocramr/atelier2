@@ -11,19 +11,10 @@ use app\model\Destination;
 
 class ManagementController extends AbstractController
 {
-        public function getdestinations($req,$res,$args)
+        public function getDestinations($req,$res,$args)
             {
                 $destinations = Destination::all();
                 return $this->json_success($res, 200, $destinations);
-            }
-        public function deletedestination($req,$res,$args)
-            {
-                $destination = Destination::where('id', '=', $args['id'])->firstOrFail();
-                
-                if($destination->delete())
-                {
-                    $this->json_success($res, 200, 'La destination a été supprimé avec succès');
-                }
             }
         public function getListePlaces($req, $resp, $args){
                 return $this->json_success($resp, 200, Place::all());

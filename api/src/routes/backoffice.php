@@ -9,7 +9,7 @@ use app\controller\GameController;
 use app\controller\UserController;
 use app\controller\ManagementController;
 
-$app->group('/backoffice', function () use ($app){
+$app->group('/user', function () use ($app){
 
     $app->post('/register', UserController::class. ':register')->setName('register');
 
@@ -31,8 +31,7 @@ $app->group('/places', function () use ($app){
 
 $app->group('/destinations', function () use ($app){
 
-    $app->get('', ManagementController::class. ':getdestinations')->setName('destinations');
-    $app->delete('/{id}', ManagementController::class. ':deletedestination')->setName('destintion');
+    $app->get('', ManagementController::class. ':getDestinations')->setName('destinations');
     $app->post('', ManagementController::class. ':createDestination')->setName('createDestination');
     $app->put('/{id}', ManagementController::class. ':updateDestination')->setName('updateDestination');
 

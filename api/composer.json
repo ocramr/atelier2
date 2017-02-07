@@ -2,7 +2,8 @@
   "require": {
     "illuminate/database": "5.0.33",
     "slim/slim": "3.*",
-    "ircmaxell/random-lib": "^1.2"
+    "ircmaxell/random-lib": "^1.2",
+    "tuupola/slim-jwt-auth": "^2.3"
   },
   "autoload":{
     "psr-4": {

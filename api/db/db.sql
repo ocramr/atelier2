@@ -41,6 +41,7 @@ CREATE TABLE IF NOT EXISTS `fyw`.`place` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(25) NOT NULL, 
   `lng` VARCHAR(255) NOT NULL,
+  `type_indication` ENUM('text','url'),
   `lat` VARCHAR(255) NOT NULL,
   `indication` VARCHAR(255) NULL,
   PRIMARY KEY (`id`))
