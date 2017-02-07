@@ -1,5 +1,9 @@
 <!DOCTYPE html>
+<<<<<<< HEAD
+<html lang="fr" ng-app="app" >
+=======
 <html lang="fr" >
+>>>>>>> 2748d5f1309e214e3af086aafcf04541bbe17bcb
     <head>
         <meta charset="UTF-8">
         <title>Find your Way</title>
@@ -8,7 +12,7 @@
         <script src="bower_components/jquery/dist/jquery.js"></script>
         <script src="bower_components/bootstrap-sass/assets/javascripts/bootstrap.js"></script>
     </head>
-    <body ng-app="app" class="container">
+<body ng-app="app" class="container" ng-controller="GameController">
         <h1 class="text-center">Find your way!</h1>
         <div ng-include="'modal.html'"></div>
         <section class="row">
@@ -16,15 +20,25 @@
             <button type="button" class="btn btn-danger pull-right">Pause</button>
             <button type="button" class="btn btn-success pull-left" data-toggle="modal" data-target="#myModal">New Game</button>
         </section>
-        <section class="col-md-8">
-            <div class="bordered map" id="mapid">map</div>
+        <section class="col-md-8" >
+            <div class="bordered map" id="mapid">
+                <leaflet width="730px" height="510px" center="cen" event-broadcast="events" paths="paths">
+            </div>
         </section>
         <section class="col-md-4">
             <div class="bordered box">indice</div>
             <div class="bordered box">Destination</div>
         </section>
+
+</body>
         <script src="bower_components/angular/angular.js"></script>
-        <script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script>
+        <script src="http://cdn.leafletjs.com/leaflet-0.7.1/leaflet.js"></script>
+        <script src="lib/angular-leaflet-directive.min.js"></script>
         <script src="app/app.js"></script>
-    </body>
+        <script src="app/controller/game_controller.js"></script>
+        <script src="app/model/game.js"></script>
+         <script src="lib/utils.js"></script>
+        <script src="app/factory/game_factory.js"></script>
+
+
 </html>
