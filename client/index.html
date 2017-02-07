@@ -1,29 +1,35 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr" ng-app="app" >
     <head>
         <meta charset="UTF-8">
         <title>Find your Way</title>
         <link rel="stylesheet" href="css/style.css">
         <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css" />
-        <script src="bower_components/angular/angular.js"></script>
-        <script src="bower_components/leaflet/dist/leaflet.js"></script>
-        <script src="lib/angular-leaflet-directive.min.js"></script>
-        <script src="http://cdn.leafletjs.com/leaflet-0.7.1/leaflet.js"></script>
-        <style>
-            .border{
-                border: 1px solid black;
-                height: 300px;
-                padding: 5px;
-            }
-        </style>
     </head>
-<body class="container" ng-app="app">
+<body class="container"  ng-controller="GameController">
         <center><h1>Find your way!</h1></center>
-        <section class="row border" ng-controller="GameController">
-            <div class="col-md-8 border" id="mapid">
-                <leaflet width="640px" height="480px">
+        <section class="row">
+            <button type="button" class="btn btn-primary pull-right">High Scores</button>
+            <button type="button" class="btn btn-danger pull-right">Pause</button>
+        </section>
+        <section class="col-md-8" >
+            <div class="bordered map" id="mapid">
+                <leaflet width="730px" height="510px" center="cen" event-broadcast="events" paths="paths">
             </div>
-            <div class="col-md-4 border" id="mapid">indice</div>
+        </section>
+        <section class="col-md-4">
+            <div class="bordered box">indice</div>
+            <div class="bordered box">Destination</div>
         </section>
     </body>
+        <script src="bower_components/angular/angular.js"></script>
+        <script src="http://cdn.leafletjs.com/leaflet-0.7.1/leaflet.js"></script>
+        <script src="lib/angular-leaflet-directive.min.js"></script>
+        <script src="app/app.js"></script>
+        <script src="app/controller/game_controller.js"></script>
+        <script src="app/model/game.js"></script>
+         <script src="lib/utils.js"></script>
+        <script src="app/factory/game_factory.js"></script>
+
+
 </html>

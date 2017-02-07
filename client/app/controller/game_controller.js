@@ -29,5 +29,32 @@ angular.module('app').controller('GameController', ['$scope', '$http', 'GameFact
 
     };
 
+    angular.extend($scope, {
+	  markers: {},            
+	  europeanPaths: {}, 
+	  events: {
+            map: {
+                enable: ['click', 'drag', 'blur', 'touchstart', 'moveend'],
+                logic: 'emit'
+            }
+      },
+	  cen: {
+		lat: 47.282448,
+		lng: 1.883957,
+		zoom: 6
+	  }			  
+	});	
+    
+
+    $scope.$on('leafletDirectiveMap.click', function(event,args){
+        $scope.clicked_lat = args.leafletEvent.latlng.lat;
+        $scope.clicked_lng = args.leafletEvent.latlng.lng;
+
+        console.log(distance($scope.clicked_lat,49.28214015975995, $scope.clicked_lng, 3.438720703125))
+    });
+
+  
+
+		
 
 }]);
