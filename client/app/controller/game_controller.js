@@ -1,7 +1,14 @@
-angular.module('app').controller('GameController', ['$scope', '$http', 'GameFactory',
-    function($scope, $http, GameFactory){
+angular.module('app').controller('GameController', ['$scope', '$http', 'GameFactory', 'LevelFactory',
+    function($scope, $http, GameFactory, LevelFactory){
 
     $scope.game = {};
+
+    $scope.levels = [];
+    LevelFactory.all().then(function(response){
+        $scope.levels = response.data;
+    },function(error){
+        console.log(error)
+    })
 
     $scope.start = function (pseudo, level) {
         GameFactory.play({"pseudo" : pseudo, "level": level}).then(function (response) {
