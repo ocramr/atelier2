@@ -1,5 +1,3 @@
-ALTER TABLE `hint` CHANGE `indication` `type` ENUM("text","url") CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL;
-
 insert into place(name,lat, lng, indication) 
 		values ('Paris','48.862725','2.287592000000018','La ville lumière'),
         ('Metz','49.1193089','6.1757155999999895','Ancienne capitale de la Lorraine'),
@@ -48,11 +46,9 @@ INSERT INTO `place` (`id`,`name`, `lng`, `lat`, `indication`) VALUES
 (NULL, 'Calais', '1.865608', '50.966423', 'Port de Calais');
 INSERT INTO `place`(`name`, `lng`, `lat`, `indication`) VALUES  
 ('Le Mont-Saint-Michel','-1.5462265','48.6244853','Le Mont-Saint-Michel est une commune française située dans le département de la Manche en Normandie'),
-('Côte d\'Azur','5.3996418','43.3840896','La Côte d’Azur est la partie orientale du littoral méditerranéen français et inclut la côte monégasque');
+("Côte d'Azur','5.3996418','43.3840896','La Côte d’Azur est la partie orientale du littoral méditerranéen français et inclut la côte monégasque");
 
 
-INSERT INTO `destination` (`name`, `lng`, `lat`) VALUES 
-('Le Mont Saint Michel','-1.5120517','48.6360033'),                                               
-('Disneyland Paris','2.7736192','48.8722344');
+
 
 INSERT INTO `level` (`id`, `max_attempts`, `distance`, `time`) VALUES (NULL, '20', '500', '1000');
