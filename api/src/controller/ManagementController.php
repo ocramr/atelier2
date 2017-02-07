@@ -47,15 +47,32 @@ class ManagementController extends AbstractController
         {
             $destination = new Destination();
             $arguments = $req->getParsedBody();
-            $destination->name = filter_var($arguments["name"]);
-            $destination->lng = filter_var($arguments["lng"]);
-            $destination->lat = filter_var($arguments["lat"]);
+            if (!isset($arguments["name"]) || !isset($arguments["lng"]) || !isset($arguments["lat"]))
+                return $this->json_error($res, 400, "Missing Parameters");
+
+            $destination->name = filter_var($arguments["name"], FILTER_SANITIZE_STRING);
+            $destination->lng = filter_var($arguments["lng"], FILTER_SANITIZE_STRING);
+            $destination->lat = filter_var($arguments["lat"], FILTER_SANITIZE_STRING);
             if ($destination->save())
-                return $this->json_success($res, 200, "Ajouter avec succes");
+                return $this->json_success($res, 200, "Ajoutée avec succes");
             else
                 return $this->json_error($res, 500, "Erreur d'ajout");
+        }
 
-            //var_dump($destination->toJson());
+         public function updateDestination($req, $res, $args)
+        {
+            $arguments = $req->getParsedBody();
+            if (!isset($arguments["name"]) || !isset($arguments["lng"]) || !isset($arguments["lat"]))
+                return $this->json_error($res, 400, "Missing Parameters");
+
+            $destination = Destination::where("id", "=", $args["id"])->firstOrFail();
+            $destination->name = filter_var($arguments["name"], FILTER_SANITIZE_STRING);
+            $destination->lng = filter_var($arguments["lng"], FILTER_SANITIZE_STRING);
+            $destination->lat = filter_var($arguments["lat"], FILTER_SANITIZE_STRING);
+            if ($destination->save())
+                return $this->json_success($res, 200, $destination);
+            else
+                return $this->json_error($res, 500, "Erreur de modification");
         }
 
 }
