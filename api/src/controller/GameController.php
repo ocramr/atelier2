@@ -8,20 +8,39 @@
 
 namespace app\controller;
 
-
-use Interop\Container\ContainerInterface;
 use \app\model\Game;
 use \app\model\Destination;
 use \app\model\Place;
 use \app\model\Hint;
 
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use \Psr\Http\Message\ServerRequestInterface as Request;
+use \Psr\Http\Message\ResponseInterface as Response;
 
 class GameController extends AbstractController
 {
 
-    public function __construct(ContainerInterface $container)
-    {
-        parent::__construct($container);
+    public function save(Request $request, Response $response, $args){
+        try {
+            $id = $args['id'];
+            $game = Game::where('id', '=', $args['id'])->findOrFail();
+            $data = $request->getParsedBody();
+            if(!isset($data['score']))   return $this->json_error($response, 400, "Paramètre Manquant : Score");
+            else if(!isset($data['duration']))   return $this->json_error($response, 400, "Paramètre Manquant : Duration");
+            else{
+                $game->score = filter_var($data['score'], FILTER_SANITIZE_NUMBER_INT);
+                $game->duration = filter_var($data['duration'], FILTER_SANITIZE_NUMBER_INT);
+                $game->state = GAME::STATUS_FINISHED;
+                if($game->update()>0){
+                    return $this->json_success($response, 200, $game->toJson());
+                }else{
+                    return $this->json_error($response, 400, "Erreur pour l'update");
+                }
+            }
+
+        }catch (ModelNotFoundException $mne){
+            return $this->json_error($response, 400, "Partie non trouvé");
+        }
     }
     public function playGame($req, $res, $args)
     {
@@ -66,6 +85,10 @@ class GameController extends AbstractController
         else
            return $this->json_error($res, 200, 'Erreur de création de la partie');
         
+    }
+
+    public function ranking($req, $resp, $args){
+        return $this->json_success($resp, 200, Game::orderBy('score')->get());
     }
 
 }

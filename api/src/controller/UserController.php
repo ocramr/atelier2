@@ -9,6 +9,7 @@
 namespace app\controller;
 
 use app\model\User;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Interop\Container\ContainerInterface;
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
@@ -53,6 +54,20 @@ class UserController extends AbstractController
      * @return Response|static
      */
     public function login(Request $request, Response $response, $args){
-
+        $data = $request->getParsedBody();
+        if(!isset($data['username'])) return $this->json_error($response, 400, "Paramètre manquant: Username");
+        else if(!isset($data['password']) ) return $this->json_error($response, 400, "Paramètre manquant: Password");
+        else{
+            try{
+                $user = User::where('username','=', filter_var($data['username']))->findOrFail();
+                if(password_verify(filter_var($data['password'], FILTER_SANITIZE_STRING), $user->password)){
+                    return $this->json_success($response, 200, "OK");
+                }else{
+                    return $this->json_error($response, 400, "Nom d'utilisateur ou mot de passe incorrecte");
+                }
+            }catch (ModelNotFoundException $mne){
+                return $this->json_error($response, 400, "Nom d'utilisateur inexistent");
+            }
+        }
     }
 }

@@ -36,3 +36,9 @@ $app->group('/destinations', function () use ($app){
     $app->put('/{id}', ManagementController::class. ':updateDestination')->setName('updateDestination');
 
 });
+
+$app->group('/levels', function () use ($app){
+
+    $app->post('', ManagementController::class. ':createLevel')->setName('createLevel');
+
+});
