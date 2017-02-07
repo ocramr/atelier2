@@ -9,15 +9,23 @@ use \app\model\Game;
 
 namespace app\controller;
 
-
+use app\model\Game;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Interop\Container\ContainerInterface;
+use \Psr\Http\Message\ServerRequestInterface as Request;
+use \Psr\Http\Message\ResponseInterface as Response;
 
 class GameController extends AbstractController
 {
 
-    public function __construct(ContainerInterface $container)
-    {
-        parent::__construct($container);
+    public function save(Request $request, Response $response, $args){
+        try {
+            $id = $args['id'];
+            $game = Game::where('id', '=', $args['id'])->findOrFail();
+            $game->state = GAME::STATUS_FINISHED;
+        }catch (ModelNotFoundException $mne){
+            return $this->json_error($response, 400, "Partie non trouvé");
+        }
     }
     public function playGame($req, $res, $args)
     {
@@ -25,7 +33,7 @@ class GameController extends AbstractController
     }
 
     public function ranking($req, $resp, $args){
-        return $this->json_success($resp, 200, Game::all()->orderBy('score'));
+        return $this->json_success($resp, 200, Game::orderBy('score')->get());
     }
 
 }
