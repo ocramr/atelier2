@@ -10,7 +10,6 @@ namespace app\controller;
 
 use app\model\Game;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Interop\Container\ContainerInterface;
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 
@@ -21,7 +20,20 @@ class GameController extends AbstractController
         try {
             $id = $args['id'];
             $game = Game::where('id', '=', $args['id'])->findOrFail();
-            $game->state = GAME::STATUS_FINISHED;
+            $data = $request->getParsedBody();
+            if(!isset($data['score']))   return $this->json_error($response, 400, "Paramètre Manquant : Score");
+            else if(!isset($data['duration']))   return $this->json_error($response, 400, "Paramètre Manquant : Duration");
+            else{
+                $game->score = filter_var($data['score'], FILTER_SANITIZE_NUMBER_INT);
+                $game->duration = filter_var($data['duration'], FILTER_SANITIZE_NUMBER_INT);
+                $game->state = GAME::STATUS_FINISHED;
+                if($game->update()>0){
+                    return $this->json_success($response, 200, $game->toJson());
+                }else{
+                    return $this->json_error($response, 400, "Erreur pour l'update");
+                }
+            }
+
         }catch (ModelNotFoundException $mne){
             return $this->json_error($response, 400, "Partie non trouvé");
         }
