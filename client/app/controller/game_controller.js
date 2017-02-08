@@ -45,6 +45,7 @@ angular.module('app').controller('GameController', ['$scope', '$http', 'Game','G
     };
 
     $scope.init = function () {
+        console.log($scope.game)
         angular.extend($scope, {
             markers: {},
             europeanPaths: {},
@@ -168,6 +169,30 @@ angular.module('app').controller('GameController', ['$scope', '$http', 'Game','G
         $scope.clicked_lng = args.leafletEvent.latlng.lng;
 
         console.log(distance($scope.clicked_lat, 49.28214015975995, $scope.clicked_lng, 3.438720703125))
+        var munichMarkers = {
+            munich1 : {
+                lat : 47.282448,
+                lng : 1.883957,
+                draggable : true
+            },
+            munich2 : {
+                lat :  $scope.clicked_lat,
+                lng : $scope.clicked_lng,
+                draggable : true
+            },
+        };
+        angular.extend($scope, {
+            markers: munichMarkers
+        });
+        angular.extend($scope, {
+            paths: {
+                p1: {
+                latlngs: [$scope.markers.munich1, $scope.markers.munich2],
+                color: '#FF0000',
+                weight: 3,
+                }
+            }
+        });	
     });
 
     $scope.init();
