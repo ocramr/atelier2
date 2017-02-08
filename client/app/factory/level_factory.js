@@ -1,7 +1,7 @@
-angular.module('app').factory('LevelFactory', ['$http',function ($http) {
+angular.module('app').factory('LevelFactory', ['API_URL','$http',function (API_URL, $http) {
     return {
         all:function () {
-            return $http.get('http://backend.findyourway.local/levels');
+            return $http.get(API_URL+'levels');
         }
     }
 }]);

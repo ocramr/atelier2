@@ -12,12 +12,18 @@
                     <div>
                         <label>
                             Nom
-                            <input type="text" placeholder="Chosissez votre nom" ng-model="game.pseudo"/>
+                            <input type="text" placeholder="Chosissez votre nom" ng-model="newGame.pseudo"/>
                         </label>
                     </div>
                     <div>
                         <label>
                             Niveau
+                            <select ng-model="newGame.level" >
+                                <option selected value="">-- Select --</option>
+                                <option ng-repeat="level in levels track by level.id" ng-value="level.id">
+                                    Distance : {{level.distance}} - Time : {{level.time}}
+                                </option>
+                            </select>
                         </label>
                     </div>
                     <button class="btn btn-primary" ng-click="start()">Commencer</button>

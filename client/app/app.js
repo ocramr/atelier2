@@ -1,1 +1,1 @@
-angular.module("app", ['leaflet-directive']);
+angular.module("app", ['leaflet-directive']).constant('API_URL', 'http://backend.findyourway.local/');

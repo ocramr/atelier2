@@ -10,6 +10,7 @@ namespace app\controller;
 
 use \app\model\Game;
 use \app\model\Destination;
+use app\model\Level;
 use \app\model\Place;
 use \app\model\Hint;
 
@@ -44,46 +45,58 @@ class GameController extends AbstractController
     }
     public function playGame($req, $res, $args)
     {
-        $tab = array();
-        $factory = new \RandomLib\Factory;
-        $generator = $factory->getMediumStrengthGenerator();
-
-        $game = new Game;
-        $game->pseudo = filter_var($req->getParsedBody()['pseudo'], FILTER_SANITIZE_STRING);
-        $game->token = $generator->generateString(32, 'abcdefghijklmnopqrstuvwxyz123456789');
-        $game->id_level = filter_var($req->getParsedBody()['level'], FILTER_VALIDATE_INT);
-
-        $destination = Destination::all()->random(1);
-        $game->id_destination = $destination->id;
-
-        $places = Place::all()->random(5);
-        $game->save();
-        foreach($places as $place)
-        {
-            $p = Place::where('id', '=', $place->id)->firstOrFail();
-            $game->places()->attach($p);
-            $tab[] = array("name" => $p->name,
+        $data = $req->getParsedBody();
+        if(!isset($data['pseudo'])) return $this->json_error($res, 400, "Paramètre manquante : Pseudo");
+        if(!isset($data['level'])) return $this->json_error($res, 400, "Paramètre manquante : Level");
+        else {
+            $tab = array();
+            $factory = new \RandomLib\Factory;
+            $generator = $factory->getMediumStrengthGenerator();
+            try {
+                $game = new Game();
+                $game->pseudo = filter_var($data['pseudo'], FILTER_SANITIZE_STRING);
+                $game->token = $generator->generateString(32, 'abcdefghijklmnopqrstuvwxyz123456789');
+                $level_id = filter_var($data['level'], FILTER_SANITIZE_NUMBER_INT);
+                $level = Level::where('id', '=', $level_id)->firstOrFail();
+                $game->level()->associate($level);
+                $destination = Destination::all()->random(1);
+                $game->destination()->associate($destination);
+                $places = Place::all()->random(5);
+                if ($game->save()) {
+                    foreach ($places as $place) {
+                        $p = Place::where('id', '=', $place->id)->firstOrFail();
+                        $game->places()->attach($p);
+                        $tab[] = array("name" => $p->name,
                             "lng" => $p->lng,
                             "lat" => $p->lat,
                             "indication" => $p->indication,
-                            "type_indication"=> $p->type_indication);
-        }
-        $hints = Hint::where('id_destination', '=', $destination->id)->get();
-        $game_details[] = array("id_game" => $game->id,
+                            "type_indication" => $p->type_indication);
+                    }
+                    $hints = Hint::where('id_destination', '=', $destination->id)->get();
+                    $game_details = ["id_game" => $game->id,
                         "token" => $game->token,
                         "pseudo" => $game->pseudo,
+                        "level"=>$game->level,
                         "destination" => array(
-                                "name" => $destination->name,
-                                "lng" => $destination->lng,
-                                "lat" => $destination->lat,
-                                "hints" => $hints->toArray()
+                            "name" => $destination->name,
+                            "lng" => $destination->lng,
+                            "lat" => $destination->lat,
+                            "hints" => $hints->toArray()
                         ),
-                        "places" => $tab
-        );
-        if($game->save())
-           return $this->json_success($res, 200, json_encode($game_details));
-        else
-           return $this->json_error($res, 200, 'Erreur de création de la partie');
+                        "places" => $tab]
+                    ;
+                    if ($game->save())
+                        return $this->json_success($res, 200, json_encode($game_details));
+                    else
+                        return $this->json_error($res, 400, 'Erreur pour la création des lieux');
+                } else{
+                    return $this->json_error($res, 400, 'Erreur de création de la partie');
+                }
+
+            }catch (ModelNotFoundException $mne){
+                return $this->json_error($res, 400, "Niveau non trouvé");
+            }
+        }
         
     }
 
