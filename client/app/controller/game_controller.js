@@ -3,7 +3,10 @@ angular.module('app').controller('GameController', ['$scope', '$http', 'Game','G
 
     $scope.newGame ={};
     $scope.levels = [];
-
+    $scope.position = 0;
+    $scope.markers = new Array();
+    $scope.paths = new Array();
+    
     $scope.start = function () {
         if($scope.newGame.pseudo && $scope.newGame.level){
             GameFactory.play({"pseudo" : $scope.newGame.pseudo, "level": $scope.newGame.level}).then(function (response) {
@@ -12,7 +15,6 @@ angular.module('app').controller('GameController', ['$scope', '$http', 'Game','G
                 $scope.game = new Game(response.data);
                 DataService.listPlaces($scope.game.places);
                 DataService.listDestination($scope.game.destination);
-                console.log($scope.game);
             }, function (error) {
                 console.log(error);
             });
@@ -44,54 +46,21 @@ angular.module('app').controller('GameController', ['$scope', '$http', 'Game','G
             })
     };
 
-    $scope.init = function () {
-        console.log($scope.game)
-        angular.extend($scope, {
-            markers: {},
-            europeanPaths: {},
-            events: {
-                map: {
-                    enable: ['click', 'drag', 'blur', 'touchstart', 'moveend'],
-                    logic: 'emit'
+        $scope.init = function () {
+            angular.extend($scope, {
+                events: {
+                    map: {
+                        enable: ['click', 'drag', 'blur', 'touchstart', 'moveend'],
+                        logic: 'emit'
+                    }
+                },
+                cen: {
+                    lat: 47.282448,
+                    lng: 1.883957,
+                    zoom: 6
                 }
-            },
-            cen: {
-                lat: 47.282448,
-                lng: 1.883957,
-                zoom: 6
-            }
-        });
-        $scope.$on('leafletDirectiveMap.click', function (event, args) {
-        $scope.clicked_lat = args.leafletEvent.latlng.lat;
-        $scope.clicked_lng = args.leafletEvent.latlng.lng;
-
-
-        console.log(distance($scope.clicked_lat, 49.28214015975995, $scope.clicked_lng, 3.438720703125))
-        var munichMarkers = {
-            munich1 : {
-                lat : 47.282448,
-                lng : 1.883957,
-            },
-            munich2 : {
-                lat :  $scope.clicked_lat,
-                lng : $scope.clicked_lng,
-            },
+            });
         };
-        console.log(munichMarkers)
-        angular.extend($scope, {
-            markers: munichMarkers
-        });
-        angular.extend($scope, {
-            europeanPaths: {
-                    p1: {
-                        color: 'red',
-                        weight: 6,
-                        latlngs: [$scope.markers.munich1, $scope.markers.munich2],
-                    },
-
-                }
-        });	
-    });
 
         if(!$scope.levels || $scope.levels.length == 0) {
             LevelFactory.all().then(function (response) {
@@ -99,6 +68,49 @@ angular.module('app').controller('GameController', ['$scope', '$http', 'Game','G
             }, function (error) {
                 console.log(error);
             });
+       
+        
+
+            $scope.$on("leafletDirectiveMap.click", function(event, args){
+
+            if ($scope.game.isPlaying) {
+                //Get lat and lng of the clicked place
+                clicked_lat = args.leafletEvent.latlng.lat;
+                clicked_lng = args.leafletEvent.latlng.lng;
+
+                //Get lat and lng du lieu récupérer de la bd
+                lat2 = $scope.game.places[$scope.position].lat;
+                lng2 = $scope.game.places[$scope.position].lng;
+
+                //Calculer la distance entre les deux lieux
+                d = distance(clicked_lat,parseInt(lat2),clicked_lng,parseInt(lng2))
+
+                if(d <= $scope.game.level.distance)
+                {
+                    $scope.position++;
+                    $scope.markers.push({
+                        lat: parseFloat(lat2),
+                        lng: parseFloat(lng2) 
+                    });
+                    if($scope.position > 1)
+                        {
+                            $scope.paths = {
+                                            p1: {
+                                                color: 'red',
+                                                weight: 6,
+                                                latlngs: $scope.markers,
+                                                }
+                                            }
+                        } 
+                }    
+                else
+                {
+                    console.log('Réessayez')
+                }                     
+                    
+            }
+            }); 
+          
             //test
             /*$scope.game = new Game({
                 "id_game": 26,
@@ -187,15 +199,9 @@ angular.module('app').controller('GameController', ['$scope', '$http', 'Game','G
             });
 
             DataService.listPlaces($scope.game.places);
-            DataService.listDestination($scope.game.destination);*/
+            DataService.listDestination($scope.game.destination);
 
-        }
-
-
-
-
+        })  */
     };
-
-    
-    $scope.init();
+    $scope.init();  
 }]);
