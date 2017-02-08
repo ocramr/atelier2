@@ -1,0 +1,8 @@
+
+<h1 class="text-center ">Destination</h1>
+<h2 class="text-center">{{destination.name}}</h2>
+<p>Lat: {{destination.lat}}</p>
+<p>Lng: {{destination.lng}}</p>
+<div ng-repeat="hint in destination.hints">
+    <p>{{hint.value}}</p>
+</div>

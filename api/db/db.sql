@@ -123,9 +123,8 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `fyw`.`place_game` (
   `id_place` INT NOT NULL,
-  `id_game` INT NULL,
-  `is_final` TINYINT(1) NULL,
-  PRIMARY KEY (`id_place`),
+  `id_game` INT NOT NULL,
+  PRIMARY KEY (`id_place`, `id_game`),
   INDEX `id_partie_idx` (`id_game` ASC),
   CONSTRAINT `id_place`
     FOREIGN KEY (`id_place`)

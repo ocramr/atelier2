@@ -1,10 +1,10 @@
 <?php
 use app\AppInit;
 
-require_once '../../vendor/autoload.php';
+require_once '../vendor/autoload.php';
 
 
-AppInit::bootEloquent('../../conf/conf.ini');
+AppInit::bootEloquent('../conf/conf.ini');
 
 $configuration = [
     'settings'=>[
@@ -31,5 +31,5 @@ $configuration['notFoundHandler'] = function ($c) {
 
 $c = new \Slim\Container($configuration);
 $app = new Slim\App($c);
-require '../../src/routes/rest.php';
+require '../src/routes/route.php';
 $app->run();
