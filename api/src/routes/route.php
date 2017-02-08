@@ -12,6 +12,7 @@ use app\controller\ManagementController;
 $app->options('/{routes:.+}', function ($request, $response, $args) {
     return $response;
 })->add('CORS');
+
 $app->group('/user', function (){
 
     $this->post('/register', UserController::class. ':register')->setName('register');
@@ -53,6 +54,7 @@ $app->group('/game', function () {
     $this->put('/{id}/save', GameController::class. ':save')->setName('saveGame');
 
     $this->get('/ranking', GameController::class. ':ranking')->setName('ranking');
+
 })->add('checkTOKEN')->add('CORS');
 
 $app->post('/game/play', GameController::class. ':playGame')->setName('playgame')->add('CORS');

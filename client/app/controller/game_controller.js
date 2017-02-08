@@ -47,8 +47,6 @@ angular.module('app').controller('GameController', ['$scope', '$http', 'Game','G
     $scope.init = function () {
         console.log($scope.game)
         angular.extend($scope, {
-            markers: {},
-            europeanPaths: {},
             events: {
                 map: {
                     enable: ['click', 'drag', 'blur', 'touchstart', 'moveend'],
@@ -173,12 +171,12 @@ angular.module('app').controller('GameController', ['$scope', '$http', 'Game','G
             munich1 : {
                 lat : 47.282448,
                 lng : 1.883957,
-                draggable : true
+                //draggable : true
             },
             munich2 : {
                 lat :  $scope.clicked_lat,
                 lng : $scope.clicked_lng,
-                draggable : true
+                //draggable : true
             },
         };
         angular.extend($scope, {

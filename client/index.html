@@ -4,7 +4,7 @@
         <meta charset="UTF-8">
         <title>Find your Way</title>
         <link rel="stylesheet" href="css/style.css">
-        <link rel="stylesheet" href="bower_components/leaflet/dist/leaflet.css" />
+        <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.1/leaflet.css">
         <script src="bower_components/jquery/dist/jquery.js"></script>
         <script src="bower_components/bootstrap-sass/assets/javascripts/bootstrap.js"></script>
     </head>
@@ -22,7 +22,7 @@
                 </section>
                 <section class="col-md-8" >
                     <div class="bordered map">
-                        <leaflet width="730px" height="510px" center="cen" event-broadcast="events" paths="paths">
+                        <leaflet width="730px" markers="markers" height="510px" center="cen" event-broadcast="events" paths="paths">
                     </div>
                 </section>
             </ng-controller>
