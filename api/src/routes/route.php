@@ -55,7 +55,7 @@ $app->group('/game', function () {
 
     $this->get('/ranking', GameController::class. ':ranking')->setName('ranking');
 
-})->add('checkTOKEN')->add('CORS');
+})->add('CORS');
 
 $app->post('/game/play', GameController::class. ':playGame')->setName('playgame')->add('CORS');
 
