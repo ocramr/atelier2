@@ -1,11 +1,12 @@
-angular.module('app').controller('GameController', ['$scope', '$http', 'Game','GameFactory', 'LevelFactory','DataService',
-    function($scope, $http, Game, GameFactory, LevelFactory, DataService){
+angular.module('app').controller('GameController', ['$scope', '$http', 'Game','GameFactory', 'LevelFactory','DataService', '$rootScope',
+    function($scope, $http, Game, GameFactory, LevelFactory, DataService, $rootScope){
 
     $scope.newGame ={};
     $scope.levels = [];
     $scope.position = 0;
     $scope.markers = new Array();
     $scope.paths = new Array();
+    $rootScope.position = $scope.position;
     
     $scope.start = function () {
         if($scope.newGame.pseudo && $scope.newGame.level){
@@ -86,6 +87,7 @@ angular.module('app').controller('GameController', ['$scope', '$http', 'Game','G
                         if(d <= $scope.game.level.distance)
                         {
                             $scope.position++;
+                            $rootScope.position = $scope.position
                             $scope.markers.push({
                                 lat: parseFloat(lat2),
                                 lng: parseFloat(lng2)

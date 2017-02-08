@@ -1,8 +1,12 @@
 
-<h1 class="text-center ">Destination</h1>
-<!--<h2 class="text-center">{{destination.name}}</h2>
-<p>Lat: {{destination.lat}}</p>
-<p>Lng: {{destination.lng}}</p>-->
-<div ng-repeat="hint in destination.hints">
-    <p>{{hint.value}}</p>
+<h1 class="text-center ">Destination</h1><br/>
+<div ng-repeat="hint in destination.hints | limitTo:position">
+    <div ng-if="hint.type == 'text'">
+        <p><b>Astuce : </b>{{hint.value}} | Type text</p>
+    </div>
+    <div ng-if="hint.type == 'url'">
+        <p><b>Astuce : </b>{{hint.value}} | Type URL</p>
+        <!-- Vhost ou autre solution pour acceder au rep img -->
+    </div>
 </div>
+
