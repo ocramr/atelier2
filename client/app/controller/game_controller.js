@@ -6,6 +6,7 @@ angular.module('app').controller('GameController', ['$scope', '$http', 'Game','G
     $scope.position = 0;
     $scope.markers = new Array();
     $scope.paths = new Array();
+    $scope.ranking = [];
     
     $scope.start = function () {
         if($scope.newGame.pseudo && $scope.newGame.level){
@@ -34,6 +35,14 @@ angular.module('app').controller('GameController', ['$scope', '$http', 'Game','G
                 localStorage.removeItem("findYourWay");
             }
         }
+    };
+
+    $scope.ranking = function () {
+       GameFactory.ranking().then(function(response){
+           $scope.ranking = response.data;
+       },function(error){
+           console.log(error)
+       })
     };
 
     $scope.finishGame = function () {
@@ -73,7 +82,7 @@ angular.module('app').controller('GameController', ['$scope', '$http', 'Game','G
 
             $scope.$on("leafletDirectiveMap.click", function(event, args){
 
-            if ($scope.game.isPlaying) {
+            if ($scope.game && $scope.game.isPlaying) {
                 //Get lat and lng of the clicked place
                 clicked_lat = args.leafletEvent.latlng.lat;
                 clicked_lng = args.leafletEvent.latlng.lng;
@@ -112,14 +121,14 @@ angular.module('app').controller('GameController', ['$scope', '$http', 'Game','G
             }); 
           
             //test
-            /*$scope.game = new Game({
+            $scope.game = new Game({
                 "id_game": 26,
                 "token": "za3m9bxudw3lwgxp4fxfhsg8ql3394pd",
                 "pseudo": "test",
                 "level": {
                     "id": 1,
                     "max_attempts": "20",
-                    "distance": "500",
+                    "distance": "100000",
                     "time": "1000"
                 },
                 "destination": {
@@ -200,9 +209,6 @@ angular.module('app').controller('GameController', ['$scope', '$http', 'Game','G
 
             DataService.listPlaces($scope.game.places);
             DataService.listDestination($scope.game.destination);
-
-        })  */
-    };
+        };
     $scope.init();  
-
 }]);

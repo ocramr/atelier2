@@ -12,9 +12,10 @@
 {{levels}}
             <h1 class="text-center">Find your way!</h1>
             <ng-controller ng-controller="GameController">
+                <div ng-include="'rankingModal.html'"></div>
                 <div ng-include="'modal.html'"></div>
                 <section class="row">
-                    <button type="button" class="btn btn-primary pull-right">High Scores</button>
+                    <button type="button" class="btn btn-primary pull-right"  data-toggle="modal" data-target="#rankingModal" ng-click="ranking()">High Scores</button>
                     <button ng-if="game" type="button" class="btn {{game.isPlaying? 'btn-success' : 'btn-danger'}} pull-right" ng-click="pauseOrResume()">
                         {{game.isPlaying ? 'Pause' : 'Play'}}
                     </button>
@@ -48,6 +49,7 @@
         <script src="app/factory/game_factory.js"></script>
         <script src="app/factory/level_factory.js"></script>
         <script src="app/directives/places-directive.js"></script>
+        <script src="app/directives/ranking-directive.js"></script>
         <script src="app/directives/destination-directive.js"></script>
         <script src="app/controller/game_controller.js"></script>
         <script src="app/controller/places_controller.js"></script>
