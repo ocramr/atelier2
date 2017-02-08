@@ -46,7 +46,7 @@ INSERT INTO `place` (`id`,`name`, `lng`, `lat`, `indication`) VALUES
 (NULL, 'Calais', '1.865608', '50.966423', 'Port de Calais');
 INSERT INTO `place`(`name`, `lng`, `lat`, `indication`) VALUES  
 ('Le Mont-Saint-Michel','-1.5462265','48.6244853','Le Mont-Saint-Michel est une commune française située dans le département de la Manche en Normandie'),
-("Côte d'Azur','5.3996418','43.3840896','La Côte d’Azur est la partie orientale du littoral méditerranéen français et inclut la côte monégasque");
+('Côte d\'Azur','5.3996418','43.3840896','La Côte d\’Azur est la partie orientale du littoral méditerranéen français et inclut la côte monégasque');
 
 
 

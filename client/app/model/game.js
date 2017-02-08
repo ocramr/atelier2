@@ -1,8 +1,6 @@
+angular.module('app').service('Game', [function(){
 
-angular.module('app').service('Game', [
-    function(){
-
-        var Game = function(data){
+        function Game(data){
             this.id = data.id_game;
             this.pseudo = data.pseudo;
             this.token = data.token;
@@ -13,6 +11,8 @@ angular.module('app').service('Game', [
             this.places = data.places;
             this.destination = data.destination;
             this.isPlaying = true;
+            console.log("data");
+            console.log(data);
         };
 
         return Game;

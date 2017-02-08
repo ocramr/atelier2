@@ -9,50 +9,53 @@ use app\controller\GameController;
 use app\controller\UserController;
 use app\controller\ManagementController;
 
-$app->group('/user', function () use ($app){
+$app->options('/{routes:.+}', function ($request, $response, $args) {
+    return $response;
+})->add('CORS');
+$app->group('/user', function (){
 
-    $app->post('/register', UserController::class. ':register')->setName('register');
+    $this->post('/register', UserController::class. ':register')->setName('register');
 
-    $app->get('/login', UserController::class. ':login')->setName('login');
+    $this->get('/login', UserController::class. ':login')->setName('login');
 
 });
 
 
-$app->group('/places', function () use ($app){
+$app->group('/places', function (){
 
-    $app->get('[/]', ManagementController::class. ':getListePlaces')->setName('listPlaces');
+    $this->get('[/]', ManagementController::class. ':getListePlaces')->setName('listPlaces');
 
-    $app->put('/{id}', ManagementController::class. ':editPlace');
+    $this->put('/{id}', ManagementController::class. ':editPlace');
 
-    $app->post('[/]', ManagementController::class. ':addPlace');
+    $this->post('[/]', ManagementController::class. ':addPlace');
     
 });
 
 
-$app->group('/destinations', function () use ($app){
+$app->group('/destinations', function (){
 
-    $app->get('', ManagementController::class. ':getDestinations')->setName('destinations');
-    $app->post('', ManagementController::class. ':createDestination')->setName('createDestination');
-    $app->put('/{id}', ManagementController::class. ':updateDestination')->setName('updateDestination');
-
-});
-
-$app->group('/levels', function () use ($app){
-
-    $app->post('', ManagementController::class. ':createLevel')->setName('createLevel')->add('checkTOKEN');
-
-    $app->get('', UserController::class. ':getLevels')->setName('levels')->add('CORS');
+    $this->get('', ManagementController::class. ':getDestinations')->setName('destinations');
+    $this->post('', ManagementController::class. ':createDestination')->setName('createDestination');
+    $this->put('/{id}', ManagementController::class. ':updateDestination')->setName('updateDestination');
 
 });
 
-$app->group('/game', function () use ($app){
+$app->group('/levels', function (){
 
-    $app->put('/{id}/save', GameController::class. ':save')->setName('saveGame');
+    $this->post('', ManagementController::class. ':createLevel')->setName('createLevel')->add('checkTOKEN');
 
-    $app->get('/ranking', GameController::class. ':ranking')->setName('ranking');
-})->add('checkTOKEN');
+    $this->get('', UserController::class. ':getLevels')->setName('levels')->add('CORS');
 
-$app->post('/game/play', GameController::class. ':playGame')->setName('playgame');
+});
+
+$app->group('/game', function () {
+
+    $this->put('/{id}/save', GameController::class. ':save')->setName('saveGame');
+
+    $this->get('/ranking', GameController::class. ':ranking')->setName('ranking');
+})->add('checkTOKEN')->add('CORS');
+
+$app->post('/game/play', GameController::class. ':playGame')->setName('playgame')->add('CORS');
 
 
 
