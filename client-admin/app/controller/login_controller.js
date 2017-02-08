@@ -3,5 +3,9 @@ app.controller('LoginController', ['$scope', '$http', 'API_URL',
 
         $scope.apiUrl = API_URL;
 
-        console.log('login');
+        $scope.user = {};
+
+        $scope.login = function () {
+          console.log($scope.user.username);
+        };
     }]);
