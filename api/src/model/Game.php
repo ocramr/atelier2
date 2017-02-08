@@ -11,6 +11,7 @@ namespace app\model;
 class Game extends \Illuminate\Database\Eloquent\Model
 {
     protected $table = 'game';
+    protected $primaryKey = "id";
     public $timestamps = false;
 
     const STATUS_CREATED = 0;

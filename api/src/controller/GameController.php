@@ -24,7 +24,7 @@ class GameController extends AbstractController
     public function save(Request $request, Response $response, $args){
         try {
             $id = $args['id'];
-            $game = Game::where('id', '=', $args['id'])->findOrFail();
+            $game = Game::where('id', '=', $args['id'])->firstOrFail();
             $data = $request->getParsedBody();
             if(!isset($data['score']))   return $this->json_error($response, 400, "Paramètre Manquant : Score");
             else if(!isset($data['duration']))   return $this->json_error($response, 400, "Paramètre Manquant : Duration");
