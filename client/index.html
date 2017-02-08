@@ -27,14 +27,14 @@
             </ng-controller>
             <section class="col-md-4">
                 <div class="bordered box" ng-controller="PlacesController">
-                    <div ng-if="places"><places></places></div>
-                    <div ng-if="!places"></div>
+                    <div ng-if="places">
+                        <places></places>
+                    </div>
                 </div>
                 <div class="bordered box" ng-controller="DestinationController">
                     <div ng-if="destination">
                         <destination></destination>
                     </div>
-                   <div ng-if="!destination"></div>
                 </div>
             </section>
 
