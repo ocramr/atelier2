@@ -12,3 +12,6 @@ $app->group('/game', function () use ($app){
 
 $app->post('/game/play', GameController::class. ':playGame')->setName('playgame');
 
+
+$app->get('/levels', UserController::class. ':getLevels')->setName('levels')->add('CORS');
+

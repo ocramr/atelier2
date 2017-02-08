@@ -34,3 +34,10 @@ function checkTOKEN(Request $req, Response $resp, callable $next){
         $resp = $next($req, $resp);
         return $resp;
 }
+
+function CORS(Request $req, Response $resp, callable $next) {
+    $origin = $req->getHeader('origin');
+    if (empty($origin)) $origin = '*';
+    $resp = $resp->withHeader('Access-Control-Allow-Origin',$origin );
+    return $next($req, $resp);
+}

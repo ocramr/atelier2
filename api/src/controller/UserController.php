@@ -9,6 +9,7 @@
 namespace app\controller;
 
 use app\model\User;
+use app\model\Level;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Interop\Container\ContainerInterface;
 use \Psr\Http\Message\ServerRequestInterface as Request;
@@ -69,5 +70,9 @@ class UserController extends AbstractController
                 return $this->json_error($response, 400, "Nom d'utilisateur inexistent");
             }
         }
+    }
+
+    public function getLevels(Request $request, Response $response, $args){
+        return $this->json_success($response, 200, Level::all()->toJson());
     }
 }
