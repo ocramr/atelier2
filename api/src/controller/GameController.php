@@ -101,7 +101,13 @@ class GameController extends AbstractController
     }
 
     public function ranking($req, $resp, $args){
-        return $this->json_success($resp, 200, Game::orderBy('score')->get());
+        return $this->json_success($resp, 200, Game::select('pseudo', 'duration', 'score', 'state', 'id_level', 'id_destination')
+                                                    ->where('state',"=",Game::STATUS_FINISHED)
+                                                    ->with('level')
+                                                    ->with('destination')
+                                                    ->orderBy('score', 'DESC')
+                                                    ->get()
+                                                    );
     }
 
 }

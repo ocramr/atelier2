@@ -51,11 +51,11 @@ $app->group('/levels', function (){
 
 $app->group('/game', function () {
 
-    $this->put('/{id}/save', GameController::class. ':save')->setName('saveGame');
+    $this->put('/{id}/save', GameController::class. ':save')->setName('saveGame')->add('checkTOKEN');
 
     $this->get('/ranking', GameController::class. ':ranking')->setName('ranking');
 
-})->add('checkTOKEN')->add('CORS');
+})->add('CORS');
 
 $app->post('/game/play', GameController::class. ':playGame')->setName('playgame')->add('CORS');
 
