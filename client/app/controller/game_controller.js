@@ -204,4 +204,5 @@ angular.module('app').controller('GameController', ['$scope', '$http', 'Game','G
         })  */
     };
     $scope.init();  
+
 }]);

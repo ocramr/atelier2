@@ -46,8 +46,8 @@ class GameController extends AbstractController
     public function playGame($req, $res, $args)
     {
         $data = $req->getParsedBody();
-        if(!isset($data['pseudo'])) return $this->json_error($res, 400, "Paramètre manquante : Pseudo");
-        if(!isset($data['level'])) return $this->json_error($res, 400, "Paramètre manquante : Level");
+        if(!isset($data['pseudo'])) return $this->json_error($res, 400, "Paramètre manquante : pseudo");
+        if(!isset($data['level'])) return $this->json_error($res, 400, "Paramètre manquante : level");
         else {
             $tab = array();
             $factory = new \RandomLib\Factory;

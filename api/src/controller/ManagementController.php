@@ -68,19 +68,40 @@ class ManagementController extends AbstractController
         }
 
         public function addPlace($req, $resp, $args){
+            //variable pour stocker l'url de l'image si le user utilise une image
+            $newPlaceImg = "";
             $data = $req->getParsedBody();
             if(!isset($data['name'])) return $this->json_error($resp, 400, "Missing Param name");
             if(!isset($data['lng'])) return $this->json_error($resp, 400, "Missing Param lng");
             if(!isset($data['lat'])) return $this->json_error($resp, 400, "Missing Param lat");
-            if(!isset($data['indication'])) return $this->json_error($resp, 400, "Missing Param indication");
-            
+
+            //Si le champ indication n'existe pas
+            if(!isset($_FILES['indication']) && !isset($data['indication'])){
+                return $this->json_error($resp, 400, "Missing Param indication");
+            }
+
+            //si le user upload une image
+            if(isset($_FILES['indication'])){
+                move_uploaded_file($_FILES['indication']['tmp_name'], '../img/'.$_FILES['indication']['name']);
+                $newPlaceImg = 'img/'.$_FILES['indication']['name'];
+            }
+
             $newPlace = new Place();
             $newPlace->name = $data['name'];
             $newPlace->lng = $data['lng'];
             $newPlace->lat = $data['lat'];
-            $newPlace->indication = $data['indication'];
+            //si l'image existe en l'enregistre sinon on prend la chaine de caractéres
+            if($newPlaceImg === ""){
+                $newPlace->indication = $data['indication'];
+                $newPlace->type_indication = "text";
+            }
+            else{
+                $newPlace->indication = $newPlaceImg;
+                $newPlace->type_indication = "url";
+            }
             if($newPlace->save()) return $this->json_success($resp, 201, $newPlace->toJson());
             return $this->json_error($resp, 500, "Erreur lors de l'ajout");
+  
         }
 
         public function createLevel($req, $res, $args)
