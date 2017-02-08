@@ -10,20 +10,21 @@
     </head>
     <body class="container">
             <h1 class="text-center">Find your way!</h1>
-            <div ng-controller="GameController">
+            <ng-controller ng-controller="GameController">
                 <div ng-include="'modal.html'"></div>
                 <section class="row">
                     <button type="button" class="btn btn-primary pull-right">High Scores</button>
-                    <button type="button" class="btn btn-danger pull-right" ng-click="pauseOrResume()">Pause</button>
+                    <button ng-if="game" type="button" class="btn {{game.isPlaying? 'btn-success' : 'btn-danger'}} pull-right" ng-click="pauseOrResume()">
+                        {{game.isPlaying ? 'Pause' : 'Play'}}
+                    </button>
                     <button type="button" class="btn btn-success pull-left" data-toggle="modal" data-target="#myModal">New Game</button>
-                    <timer interval="1000"/>
                 </section>
                 <section class="col-md-8" >
-                    <div class="bordered map" id="mapid">
+                    <div class="bordered map">
                         <leaflet width="730px" height="510px" center="cen" event-broadcast="events" paths="paths">
                     </div>
                 </section>
-            </div>
+            </ng-controller>
             <section class="col-md-4">
                 <div class="bordered box" ng-controller="PlacesController">
                     <div ng-if="places"><places></places></div>
