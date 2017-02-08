@@ -59,6 +59,38 @@ angular.module('app').controller('GameController', ['$scope', '$http', 'Game','G
                 zoom: 6
             }
         });
+        $scope.$on('leafletDirectiveMap.click', function (event, args) {
+        $scope.clicked_lat = args.leafletEvent.latlng.lat;
+        $scope.clicked_lng = args.leafletEvent.latlng.lng;
+
+
+        console.log(distance($scope.clicked_lat, 49.28214015975995, $scope.clicked_lng, 3.438720703125))
+        var munichMarkers = {
+            munich1 : {
+                lat : 47.282448,
+                lng : 1.883957,
+            },
+            munich2 : {
+                lat :  $scope.clicked_lat,
+                lng : $scope.clicked_lng,
+            },
+        };
+        console.log(munichMarkers)
+        angular.extend($scope, {
+            markers: munichMarkers
+        });
+        angular.extend($scope, {
+            europeanPaths: {
+                    p1: {
+                        color: 'red',
+                        weight: 6,
+                        latlngs: [$scope.markers.munich1, $scope.markers.munich2],
+                    },
+
+                }
+        });	
+    });
+
         if(!$scope.levels || $scope.levels.length == 0) {
             LevelFactory.all().then(function (response) {
                 $scope.levels = response.data;
