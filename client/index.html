@@ -11,6 +11,7 @@
 <body class="container">
             <h1 class="text-center">Find your way!</h1>
             <ng-controller ng-controller="GameController">
+                <h2 class="text-center"><timer interval="1000"><b>{{hours}} hour{{hoursS}}, {{minutes}} minute{{minutesS}}, {{seconds}} second{{secondsS}}.</b></timer></h2>
                 <div ng-include="'rankingModal.html'"></div>
                 <div ng-include="'modal.html'"></div>
                 <section class="row">
@@ -53,5 +54,11 @@
         <script src="app/controller/game_controller.js"></script>
         <script src="app/controller/places_controller.js"></script>
         <script src="app/controller/destination_controller.js"></script>
+        
+        <script src="bower_components/moment/min/moment.min.js"></script>
+        <script src="bower_components/moment/min/locales.min.js"></script>
+        <script src="bower_components/humanize-duration/humanize-duration.js"></script>
+        <script src="bower_components/angular-timer/dist/angular-timer.min.js"></script>
+
         <script src="lib/utils.js"></script>
 </html>

@@ -9,7 +9,8 @@ angular.module('app').factory('GameFactory', ['API_URL','$http',function (API_UR
             return $http.post(API_URL+'game/play', json);
         },
         finish:function (id, json) {
-            return $http.put(API_URL+'game/save/'+id, json);
+            console.log(json)
+            return $http.put(API_URL+'game/'+id+'/save', json);
         },
         ranking: function () {
             return $http.get(API_URL+'game/ranking');

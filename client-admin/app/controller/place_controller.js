@@ -1,7 +1,20 @@
-app.controller('PlaceController', ['$scope', '$http', 'API_URL',
-    function($scope, $http, API_URL) {
+app.controller('PlaceController', ['$scope', '$http', 'PlaceFactory',
+    function($scope, $http, PlaceFactory) {
 
-        $scope.apiUrl = API_URL;
+        $scope.places = [];
 
-        console.log('place');
+        $scope.listAll = function () {
+          PlaceFactory.all().then(function (response) {
+              $scope.places = response.data;
+          },function (error) {
+              console.log(error);
+          })
+        };
+
+        $scope.edit = function (place) {
+            console.log(place);
+        };
+
+
+        $scope.listAll();
     }]);
