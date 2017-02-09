@@ -97,6 +97,7 @@ angular.module('app').controller('GameController', ['$scope', '$http', 'Game','G
                     if(d <= $scope.game.level.distance)
                     {
                         $scope.position++;
+                        $rootScope.position = $scope.position;
                         $scope.markers.push({
                             lat: parseFloat(lat2),
                             lng: parseFloat(lng2) 
@@ -105,8 +106,8 @@ angular.module('app').controller('GameController', ['$scope', '$http', 'Game','G
                             {
                                 $scope.paths = {
                                                 p1: {
-                                                    color: 'red',
-                                                    weight: 6,
+                                                    color: 'green',
+                                                    weight: 4,
                                                     latlngs: $scope.markers,
                                                     }
                                                 }
@@ -126,19 +127,21 @@ angular.module('app').controller('GameController', ['$scope', '$http', 'Game','G
                     if(d < $scope.game.level.distance)
                     {
                         score = 10;
-                        angular.extend($scope, {
-                            markers: {
-                                point_destination : {
-                                    lat : parseFloat(lat2),
-                                    lng : parseFloat(lng2),
-                                    icon : {
+                        $scope.markers.push({
+                            lat: parseFloat(lat2),
+                            lng: parseFloat(lng2),
+                            icon : {
                                         iconUrl: 'https://cdn2.iconfinder.com/data/icons/flat-seo-web-ikooni/128/flat_seo2-19-512.png',
-                                        iconSize:     [80, 80],
+                                        iconSize:     [60, 60],
                                         }
-                                    
-                                }
-                            }
                         });
+                        $scope.paths = {
+                                        p1: {
+                                            color: 'green',
+                                            weight: 4,
+                                            latlngs: $scope.markers,
+                                            }
+                        }
                     }
                     if(d < 2 * $scope.game.level.distance)
                     {
