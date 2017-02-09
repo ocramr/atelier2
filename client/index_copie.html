@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="fr" ng-app="app" >
+    <head>
+        <meta charset="UTF-8">
+        <title>Find your Way</title>
+        <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.1/leaflet.css">
+        <script src="bower_components/jquery/dist/jquery.js"></script>
+        <script src="bower_components/bootstrap-sass/assets/javascripts/bootstrap.js"></script>
+        
+        <style>
+        .btn{
+            margin: 0;
+            margin-top: 5px;
+        }
+            .blue_background{
+            background-color: cornflowerblue;
+            width: 100%;
+            height: 230px;
+            position: fixed;
+            z-index: -10;
+            box-shadow: 0px 2px 10px 0px #343434;
+            clear: both;
+        }
+        .flex-container {
+            display: flex;
+            width: 83%;
+            margin: 0 auto;
+
+        }
+
+        .flex-item {
+            background-color: white;
+            width: 20%;
+            height: 120px;
+            margin: 10px;
+            box-shadow: 0px 0px 5px 0px #343434;
+        }
+        .Chrono{
+            height: 70px;
+        }
+        .Place{
+            margin-top: 25%;
+        }
+        .Destinations{
+            height: 320px;
+            padding: 5px;
+        }
+        .padding{
+            padding: 4px;
+        }
+        </style>
+
+    </head>
+<body>
+
+    <!-- PARTIE EN BLEU DANS LE BACKGROUD -->
+    <div class="blue_background"></div>
+
+    <div class="container">       
+
+            <!-- MODALS -->  
+            <!--<div ng-include="'rankingModal.html'"></div>
+            <div ng-include="'modal.html'"></div>-->
+
+        <!-- MAPE -->    
+        <section class="col-md-8" >
+            <div class="bordered map">
+                <leaflet width="730px" height="510px" center="cen" event-broadcast="events" paths="paths" markers="markers">
+            </div>
+        </section>
+
+        <!-- RIGHT SIDE -->
+        <section class="col-md-4">
+            <button type="button" class="btn btn-primary btn-block"  data-toggle="modal" data-target="#rankingModal" >High Scores</button>
+            <button type="button" class="btn btn-danger btn-block">Pause</button>
+            <button type="button" class="btn btn-success btn-block" data-toggle="modal" data-target="#myModal">New Game</button>
+            <div class="bordered box Chrono">
+                <h2 class="text-center">00:00:00</h2>
+            </div>
+            <div class="bordered box Destinations">
+                <div class="padding">
+                    <div class="text-center Place">
+                        <h1 class="text-center ">Indication</h1>
+                    </div>
+                </div>
+             </div>
+        </section>
+    </div>
+
+    <!-- INDICES -->
+    <div class="flex-container">
+        <div class="flex-item"><p class="text-center Indice">INDICE</p></div>
+        <div class="flex-item"><p class="text-center Indice">INDICE</p></div>
+        <div class="flex-item"><p class="text-center Indice">INDICE</p></div>  
+        <div class="flex-item"><p class="text-center Indice">INDICE</p></div>
+        <div class="flex-item"><p class="text-center Indice">INDICE</p></div>  
+    </div>
+
+</body>
+        <script src="bower_components/angular/angular.js"></script>
+        <script src="bower_components/leaflet/dist/leaflet.js"></script>
+        <script src="lib/angular-leaflet-directive.min.js"></script>
+        <script src="app/app.js"></script>
+        <script src="app/model/game.js"></script>
+        <script src="app/service/data_service.js"></script>
+        <script src="app/factory/game_factory.js"></script>
+        <script src="app/factory/level_factory.js"></script>
+        <script src="app/directives/places-directive.js"></script>
+        <script src="app/directives/ranking-directive.js"></script>
+        <script src="app/directives/destination-directive.js"></script>
+        <script src="app/controller/game_controller.js"></script>
+        <script src="app/controller/places_controller.js"></script>
+        <script src="app/controller/destination_controller.js"></script>
+        <script src="lib/utils.js"></script>
+</html>
