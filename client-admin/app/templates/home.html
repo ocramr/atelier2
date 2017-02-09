@@ -2,12 +2,16 @@
     <div class="col-sm-3">
         <nav class="nav-sidebar">
             <ul class="nav">
-                <li class="active"><a href="#">Gestion des destinations</a></li>
-                <li><a href="#">Gestion des lieux</a></li>
-                <li><a href="#">Modification des niveux</a></li>
-                <li><a href="#">Param&egrave;tres</a></li>
+                <li class="active"><a ui-sref=".destination">Gestion des destinations</a></li>
+                <li ><a ui-sref=".places">Gestion des lieux</a></li>
+                <li ><a ui-sref=".levels">Modification des niveaux</a></li>
                 <li class="nav-divider"></li>
+                <li><a ui-sref=".settings">Param&egrave;tres</a></li>
+
             </ul>
         </nav>
+    </div>
+    <div class="col-sm-9">
+        <div ui-view></div>
     </div>
 </div>

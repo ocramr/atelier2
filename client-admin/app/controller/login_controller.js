@@ -1,11 +1,11 @@
-app.controller('LoginController', ['$scope', '$http', 'API_URL',
-    function($scope, $http, API_URL) {
+app.controller('LoginController', ['$scope', '$http', '$location', 'API_URL',
+    function($scope, $http, $location, API_URL) {
 
         $scope.apiUrl = API_URL;
 
         $scope.user = {};
 
         $scope.login = function () {
-          console.log($scope.user.username);
+          $location.path('/home');
         };
     }]);
