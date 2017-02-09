@@ -7,7 +7,7 @@ angular.module('backoffice').factory('UserFactory', ['$http', 'API_URL',function
             return $http.post(API_URL+'user/register', json);
         },
         login:function (json) {
-            return $http.post('http://backend.finyourway.local/user/login', json);
+            return $http.post(API_URL+'/user/login', json);
         }
     }
 
