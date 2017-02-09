@@ -83,6 +83,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `fyw`.`level` (
   `id` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(20) NOT NULL UNIQUE,
   `max_attempts` VARCHAR(255) NULL,
   `distance` VARCHAR(255) NOT NULL,
   `time` VARCHAR(255) NULL,

@@ -1,7 +1,21 @@
-app.controller('DestinationController', ['$scope', '$http', 'API_URL',
-    function($scope, $http, API_URL) {
+app.controller('DestinationController', ['$scope', '$http',  'DestinationFactory',
+    function($scope, $http, DestinationFactory) {
 
-        $scope.apiUrl = API_URL;
+        $scope.destinations = [];
 
-        console.log('destination');
+        $scope.listAll = function () {
+            DestinationFactory.all().then(function (response) {
+                $scope.destinations = response.data;
+                console.log($scope.destinations);
+            }, function (error) {
+                console.log(error);
+            });
+        };
+
+        $scope.edit = function (destination) {
+          console.log(destination);
+        };
+
+
+        $scope.listAll();
     }]);

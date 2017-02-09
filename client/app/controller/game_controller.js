@@ -1,19 +1,25 @@
 angular.module('app').controller('GameController', ['$scope', '$http', 'Game','GameFactory', 'LevelFactory','DataService', '$rootScope',
     function($scope, $http, Game, GameFactory, LevelFactory, DataService, $rootScope){
 
-    $scope.newGame ={};
     $scope.levels = [];
-    $scope.position = 0;
-    $scope.markers = [];
-    $scope.paths = [];
     $scope.ranking = [];
-    $rootScope.position = $scope.position;
+    initValues();
+
+    function initValues() {
+        $scope.newGame={};
+        $scope.markers = [];
+        $scope.paths = [];
+        $scope.position = 0;
+        $rootScope.position = $scope.position;
+        DataService.reset();
+    }
     
     $scope.start = function () {
+
         if($scope.newGame.pseudo && $scope.newGame.level){
             GameFactory.play({"pseudo" : $scope.newGame.pseudo, "level": $scope.newGame.level}).then(function (response) {
                 angular.element('#myModal').modal('hide');
-                $scope.newGame={};
+                initValues();
                 $scope.game = new Game(response.data);
                 DataService.listPlaces($scope.game.places);
                 DataService.listDestination($scope.game.destination);
@@ -68,7 +74,7 @@ angular.module('app').controller('GameController', ['$scope', '$http', 'Game','G
                     zoom: 6
                 }
             });
-        
+
             if(!$scope.levels || $scope.levels.length == 0) {
                 LevelFactory.all().then(function (response) {
                     $scope.levels = response.data;
