@@ -19,7 +19,7 @@ $app->group('/user', function (){
 
     $this->get('/login', UserController::class. ':login')->setName('login');
 
-});
+})->add('CORS');
 
 $app->group('/places', function (){
 
