@@ -10,6 +10,7 @@ angular.module('app').controller('GameController', ['$scope', '$http', 'Game','G
     $rootScope.position = $scope.position;
     
     $scope.start = function () {
+        DataService.reset();
         if($scope.newGame.pseudo && $scope.newGame.level){
             GameFactory.play({"pseudo" : $scope.newGame.pseudo, "level": $scope.newGame.level}).then(function (response) {
                 angular.element('#myModal').modal('hide');

@@ -11,8 +11,6 @@ angular.module('app').service('Game', [function(){
             this.places = data.places;
             this.destination = data.destination;
             this.isPlaying = true;
-            console.log("data");
-            console.log(data);
         };
 
         return Game;

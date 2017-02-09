@@ -49,6 +49,29 @@
         .padding{
             padding: 4px;
         }
+        .ind{ 
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        #item-flex-animation.ng-enter
+        { 
+            -webkit-transition:0.2s all linear;
+            transition:0.2s all linear;
+        } 
+        
+        #item-flex-animation.ng-enter{
+            opacity: 0;
+            -webkit-transform: translateY(-90px);
+            transform: translateY(-90px);
+        }
+
+        #item-flex-animation.ng-enter.ng-enter-active {
+            opacity:1;
+            -webkit-transform: translateY(0);
+            transform: translateY(0);
+        }
+
         </style>
 
     </head>
@@ -58,10 +81,10 @@
     <div class="blue_background"></div>
 
     <div class="container">       
-
+        <ng-controller ng-controller="GameController"> 
             <!-- MODALS -->  
-            <!--<div ng-include="'rankingModal.html'"></div>
-            <div ng-include="'modal.html'"></div>-->
+            <div ng-include="'rankingModal.html'"></div>
+            <div ng-include="'modal.html'"></div>
 
         <!-- MAPE -->    
         <section class="col-md-8" >
@@ -72,16 +95,19 @@
 
         <!-- RIGHT SIDE -->
         <section class="col-md-4">
-            <button type="button" class="btn btn-primary btn-block"  data-toggle="modal" data-target="#rankingModal" >High Scores</button>
-            <button type="button" class="btn btn-danger btn-block">Pause</button>
+            <button type="button" class="btn btn-primary btn-block"  data-toggle="modal" data-target="#rankingModal" ng-click="ranking()">High Scores</button>
+            <button ng-if="game" type="button" class="btn {{game.isPlaying? 'btn-danger' : 'btn-success'}} btn-block" ng-click="pauseOrResume()">
+                        {{game.isPlaying ? 'Pause' : 'Play'}}
+            </button>
             <button type="button" class="btn btn-success btn-block" data-toggle="modal" data-target="#myModal">New Game</button>
             <div class="bordered box Chrono">
                 <h2 class="text-center">00:00:00</h2>
             </div>
-            <div class="bordered box Destinations">
+        </ng-controller>
+            <div class="bordered box Destinations" ng-controller="PlacesController">
                 <div class="padding">
-                    <div class="text-center Place">
-                        <h1 class="text-center ">Indication</h1>
+                    <div class="text-center Place" ng-if="places">
+                        <places></places>
                     </div>
                 </div>
              </div>
@@ -89,17 +115,16 @@
     </div>
 
     <!-- INDICES -->
-    <div class="flex-container">
-        <div class="flex-item"><p class="text-center Indice">INDICE</p></div>
-        <div class="flex-item"><p class="text-center Indice">INDICE</p></div>
-        <div class="flex-item"><p class="text-center Indice">INDICE</p></div>  
-        <div class="flex-item"><p class="text-center Indice">INDICE</p></div>
-        <div class="flex-item"><p class="text-center Indice">INDICE</p></div>  
+    <div class="flex-container" ng-controller="DestinationController">
+        <div ng-repeat="hint in destination.hints | limitTo:position" ng-if="destination" class=" flex-item" id="item-flex-animation" >
+            <destination></destination>
+        </div>  
     </div>
 
 </body>
         <script src="bower_components/angular/angular.js"></script>
         <script src="bower_components/leaflet/dist/leaflet.js"></script>
+        <script src="bower_components/angular-animate/angular-animate.js"></script>
         <script src="lib/angular-leaflet-directive.min.js"></script>
         <script src="app/app.js"></script>
         <script src="app/model/game.js"></script>
