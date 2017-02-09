@@ -179,12 +179,13 @@ angular.module('app').controller('GameController', ['$scope', '$http', 'Game','G
                         score = 1;
                     }
                     $scope.$on('timer-tick', function (event, data) {
-                        duration = $scope.game.level.time - data.timerElement.innerHTML;
+                        var duration = $scope.game.level.time - data.timerElement.innerHTML;
+                        if(score != "" && duration != ""){
+                            $scope.finishGame(score,duration);
+                        }
                         $scope.$broadcast('timer-stop'); 
                     });
-                    if(score != "" && duration != ""){
-                         $scope.finishGame(score,duration);
-                    }
+
                 }        
             }
             }); 
