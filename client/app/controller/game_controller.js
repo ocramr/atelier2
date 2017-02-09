@@ -49,8 +49,8 @@ angular.module('app').controller('GameController', ['$scope', '$http', 'Game','G
            console.log(error)
        })
     };
-    $scope.finishGame = function (score,duration) {
-        GameFactory.finish($scope.game.id, {"score": score, "duration": duration})
+    $scope.finishGame = function (score, duration) {
+        GameFactory.finish($scope.game.id, {"score": score, "duration": duration}, $scope.game.token)
             .then(function (data) {
                 $scope.game = undefined;
                 DataService.reset();
