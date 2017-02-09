@@ -1,12 +1,11 @@
-app.controller('RegisterController', ['$scope', '$http', '$location', 'UserFactory',
-    function($scope, $http, UserFactory) {
+app.controller('RegisterController', ['$scope', '$http', 'UserFactory', '$location', 
+    function($scope, $http, UserFactory, $location) {
 
         $scope.user = {};
 
         $scope.register = function(){
-            console.log($scope.user);
             UserFactory.register($scope.user).then(function(response){
-                $location('/login')
+                $location.url('/login')
                 //console.log(response.data)
             },function(error){
                 console.log(error)
