@@ -12,7 +12,7 @@ use Slim\Middleware\JwtAuthentication;
 
 $app->add(new JwtAuthentication([
     "secret"=>"papo",
-    "path"=>['/places','/destination'],
+    "path"=>['/destination'],
     "secure" => false,
     "passthrough" => ['/user/login'],
     "error" => function ($request, $response, $arguments) {

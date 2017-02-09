@@ -69,6 +69,7 @@ class ManagementController extends AbstractController
 
         public function addPlace($req, $resp, $args){
             //variable pour stocker l'url de l'image si le user utilise une image
+            print_r($_FILES['indication']['type']);die();
             $newPlaceImg = "";
             $data = $req->getParsedBody();
             if(!isset($data['name'])) return $this->json_error($resp, 400, "Missing Param name");
@@ -96,7 +97,8 @@ class ManagementController extends AbstractController
                 $newPlace->type_indication = "text";
             }
             else{
-                $newPlace->indication = $newPlaceImg;
+                $ext = ($_FILES['indication']['type'] === "image/png") ? 'png' : 'jpg' ;
+                $newPlace->indication = 'img/'.$newPlace->name.'.'.$ext;
                 $newPlace->type_indication = "url";
             }
             if($newPlace->save()) return $this->json_success($resp, 201, $newPlace->toJson());
