@@ -4,8 +4,8 @@ angular.module('app').controller('GameController', ['$scope', '$http', 'Game','G
     $scope.newGame ={};
     $scope.levels = [];
     $scope.position = 0;
-    $scope.markers = new Array();
-    $scope.paths = new Array();
+    $scope.markers = [];
+    $scope.paths = [];
     $scope.ranking = [];
     $rootScope.position = $scope.position;
     
@@ -90,7 +90,7 @@ angular.module('app').controller('GameController', ['$scope', '$http', 'Game','G
                     lng2 = $scope.game.places[$scope.position].lng;
 
                     //Calculer la distance entre les deux lieux
-                    d = distance(clicked_lat,parseInt(lat2),clicked_lng,parseInt(lng2))
+                    d = distance(clicked_lat,parseInt(lat2),clicked_lng,parseInt(lng2));
 
                     if(d <= $scope.game.level.distance)
                     {

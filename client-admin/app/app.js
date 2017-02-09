@@ -1,20 +1,30 @@
-var app = angular.module("backoffice", ['ngRoute','ngAnimate','ui.bootstrap']);
-app.config(function ($routeProvider) {
-        $routeProvider
-            .when('/',{
-                controller : 'HomeController',
-                templateUrl : 'app/templates/home.html'
+var app = angular.module("backoffice", ['ngAnimate','ui.bootstrap', 'ui.router']);
+app.config(function ($stateProvider, $urlRouterProvider) {
+    $urlRouterProvider.otherwise('/home');
+    $stateProvider.state(
+        'home', {
+            url: '/home', templateUrl: 'app/templates/home.html'
+        })
+        .state('home.destination',{
+            url: '/destination', templateUrl: 'app/templates/destination.html', controller: 'DestinationController'
+        })
+        .state('home.places',{
+            url: '/places', templateUrl: 'app/templates/places.html', controller: 'PlaceController'
+        })
+        .state('home.levels',{
+            url: '/levels', templateUrl: 'app/templates/levels.html', controller: 'LevelController'
+        })
+        .state('home.settings',{
+            url: '/settings', templateUrl: 'app/templates/settings.html', controller: 'SettingsController'
+        })
+            .state('login',{
+                url: '/login', templateUrl: 'app/templates/login.html', controller: 'LoginController'
             })
-            .when('/login',{
-                controller : 'LoginController',
-                templateUrl : 'app/templates/login.html'
-            })
-            .when('/register',{
-                controller : 'RegisterController',
-                templateUrl : 'app/templates/register.html'
-            })
-            .otherwise({redirectTo : '/login'});
-    });
+        .state('register',{
+            url: '/register', templateUrl: 'app/templates/register.html', controller: 'RegisterController'
+        });
+
+});
 app.constant('API_URL', 'http://backend.findyourway.local/');
 
 
