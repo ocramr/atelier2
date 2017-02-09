@@ -1,4 +1,4 @@
-var app = angular.module("backoffice", ['ngAnimate','ui.bootstrap', 'ui.router', 'ngTable']);
+var app = angular.module("backoffice", ['ngAnimate','ui.bootstrap', 'ui.router', 'ngTable', 'ngStorage']);
 app.config(function ($stateProvider, $urlRouterProvider) {
     //Default route
     $urlRouterProvider.otherwise('/home');
@@ -6,7 +6,7 @@ app.config(function ($stateProvider, $urlRouterProvider) {
     //Routeur à partir de /home#{view}
     $stateProvider.state(
         'home', {
-            url: '/home', templateUrl: 'app/templates/home.html'
+            url: '/home', templateUrl: 'app/templates/home.html', controller: 'HomeController'
         })
         .state('home.destination',{
             url: '/destination', templateUrl: 'app/templates/destination.html', controller: 'DestinationController'
@@ -28,21 +28,23 @@ app.config(function ($stateProvider, $urlRouterProvider) {
         });
 
 });
+app.run(run);
 app.constant('API_URL', 'http://backend.findyourway.local/');
 
 
-/*
+
 function run($rootScope, $http, $location, $localStorage) {
     // keep user logged in after page refresh
-    /*if ($localStorage.currentUser) {
+    if ($localStorage.currentUser) {
         $http.defaults.headers.common.Authorization = 'Bearer ' + $localStorage.currentUser.token;
-    }*/
+    }
 
     // redirect to login page if not logged in and trying to access a restricted page
-    /*$rootScope.$on('$locationChangeStart', function (event, next, current) {
+    $rootScope.$on('$locationChangeStart', function (event, next, current) {
         var publicPages = ['/login'];
         var restrictedPage = publicPages.indexOf($location.path()) === -1;
         if (restrictedPage && !$localStorage.currentUser) {
             $location.path('/login');
         }
-    });*/
+    });
+}
