@@ -30,7 +30,7 @@
                     <button type="button" class="btn btn-success btn-block" data-toggle="modal" data-target="#myModal">New Game</button>
                     <div class="bordered box Chrono">
                         <div ng-if="game.isPlaying">
-                            <h2 class="text-center"><timer interval="1000" countdown="countdownVal">{{countdown}}</timer></h2>
+                            <h2 class="text-center"><timer interval="1000" countdown="countdownVal">{{minutes}}  : {{seconds}} </timer></h2>
                         </div>
                     </div>
                 </ng-controller>

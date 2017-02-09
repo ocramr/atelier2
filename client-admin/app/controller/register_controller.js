@@ -6,7 +6,6 @@ app.controller('RegisterController', ['$scope', '$http', 'UserFactory', '$locati
         $scope.register = function(){
             UserFactory.register($scope.user).then(function(response){
                 $location.url('/login')
-                //console.log(response.data)
             },function(error){
                 console.log(error)
             })
