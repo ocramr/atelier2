@@ -1,0 +1,18 @@
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Joueur</th>
+        <th>score</th>
+        <th>temps</th>
+        <th>destination</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="score in ranking">
+        <td>{{score.pseudo}}</td>
+        <td>{{score.score}}</td>
+        <td>{{score.duration}}</td>
+        <td>{{score.destination.name}}</td>
+      </tr>
+    </tbody>
+  </table>
