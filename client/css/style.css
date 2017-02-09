@@ -5874,6 +5874,19 @@ body {
   text-align: center;
   vertical-align: middle; }
 
+.bubble {
+  background-image: url(https://img.clipartfest.com/c262308c7611a58b15919207b29dab47_speech-bubbles-thought-bubble-clip-art-speech-bubble_1350-1368.png);
+  background-size: 93% 95%;
+  height: 100%;
+  background-repeat: no-repeat;
+  background-position: 16px 9px;
+  padding: 27px; }
+  .bubble .bubble-text {
+    text-align: center;
+    margin-top: 15%;
+    font-size: 15px;
+    font-weight: bold; }
+
 #item-flex-animation.ng-enter {
   -webkit-transition: 0.2s all linear;
   transition: 0.2s all linear; }

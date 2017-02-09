@@ -7,6 +7,7 @@
         <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.1/leaflet.css">
         <script src="bower_components/jquery/dist/jquery.js"></script>
         <script src="bower_components/bootstrap-sass/assets/javascripts/bootstrap.js"></script>
+      
     </head>
 <body>
     <div class="blue_background">
@@ -35,8 +36,8 @@
                     </div>
                 </ng-controller>
                     <div class="bordered box Destinations" ng-controller="PlacesController">
-                        <div class="padding">
-                            <div class="text-center Place" ng-if="places">
+                        <div class="bubble">
+                            <div class="text-center" ng-if="places">
                                 <places></places>
                             </div>
                         </div>

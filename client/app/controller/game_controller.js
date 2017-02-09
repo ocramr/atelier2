@@ -181,8 +181,9 @@ angular.module('app').controller('GameController', ['$scope', '$http', 'Game','G
                         duration = $scope.game.level.time - data.timerElement.innerHTML;
                         $scope.$broadcast('timer-stop'); 
                     });
-                    $scope.finishGame(score,duration);
-
+                    if(score != "" && duration != ""){
+                         $scope.finishGame(score,duration);
+                    }
                 }        
             }
             }); 
