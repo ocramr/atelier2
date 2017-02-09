@@ -1,4 +1,4 @@
-var app = angular.module("backoffice", ['ngAnimate','ui.bootstrap', 'ui.router']);
+var app = angular.module("backoffice", ['ngAnimate','ui.bootstrap', 'ui.router', 'ngTable']);
 app.config(function ($stateProvider, $urlRouterProvider) {
     $urlRouterProvider.otherwise('/home');
     $stateProvider.state(

@@ -1,1 +1,17 @@
-<p>LEVELS</p>
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th>Nom</th>
+        <th>Distance</th>
+        <th>Time</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="level in levels">
+        <td>{{level.name}}</td>
+        <td>{{level.distance}}</td>
+        <td>{{level.time}}</td>
+        <td><button class="btn btn-default" ng-click="edit(level)">Modifier</button></td>
+    </tr>
+    </tbody>
+</table>

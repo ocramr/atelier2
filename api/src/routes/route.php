@@ -30,7 +30,7 @@ $app->group('/places', function (){
 
     $this->post('[/]', ManagementController::class. ':addPlace');
     
-});
+})->add('CORS');
 
 
 $app->group('/destinations', function (){
@@ -39,15 +39,15 @@ $app->group('/destinations', function (){
     $this->post('', ManagementController::class. ':createDestination')->setName('createDestination');
     $this->put('/{id}', ManagementController::class. ':updateDestination')->setName('updateDestination');
 
-});
+})->add('CORS');
 
 $app->group('/levels', function (){
 
     $this->post('', ManagementController::class. ':createLevel')->setName('createLevel')->add('checkTOKEN');
 
-    $this->get('', UserController::class. ':getLevels')->setName('levels')->add('CORS');
+    $this->get('', UserController::class. ':getLevels')->setName('levels');
 
-});
+})->add('CORS');
 
 $app->group('/game', function () {
 

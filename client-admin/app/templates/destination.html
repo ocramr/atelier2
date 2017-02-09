@@ -1,1 +1,17 @@
-<p>DESTIONATION</p>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Nom</th>
+            <th>Latitude</th>
+            <th>Longitude</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="destination in destinations">
+            <td>{{destination.name}}</td>
+            <td>{{destination.lat}}</td>
+            <td>{{destination.lng}}</td>
+            <td><button class="btn btn-default" ng-click="edit(destination)">Modifier</button></td>
+        </tr>
+    </tbody>
+</table>

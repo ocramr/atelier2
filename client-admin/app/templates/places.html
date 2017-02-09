@@ -1,1 +1,21 @@
-<p>PLACES</p>
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th>Nom</th>
+        <th>Latitude</th>
+        <th>Longitude</th>
+        <th>Type d'indication</th>
+        <th>Indication</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="place in places">
+        <td>{{place.name}}</td>
+        <td>{{place.lat}}</td>
+        <td>{{place.lng}}</td>
+        <td>{{place.type_indication}}</td>
+        <td>{{place.indication}}</td>
+        <td><button class="btn btn-default" ng-click="edit(place)">Modifier</button></td>
+    </tr>
+    </tbody>
+</table>
