@@ -21,7 +21,6 @@ $app->group('/user', function (){
 
 });
 
-
 $app->group('/places', function (){
 
     $this->get('[/]', ManagementController::class. ':getListePlaces')->setName('listPlaces');
