@@ -17,10 +17,9 @@ $app->group('/user', function (){
 
     $this->post('/register', UserController::class. ':register')->setName('register');
 
-    $this->get('/login', UserController::class. ':login')->setName('login');
+    $this->post('/login', UserController::class. ':login')->setName('login');
 
-});
-
+})->add('CORS');
 
 $app->group('/places', function (){
 

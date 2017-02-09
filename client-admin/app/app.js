@@ -1,6 +1,9 @@
 var app = angular.module("backoffice", ['ngAnimate','ui.bootstrap', 'ui.router', 'ngTable']);
 app.config(function ($stateProvider, $urlRouterProvider) {
+    //Default route
     $urlRouterProvider.otherwise('/home');
+
+    //Routeur à partir de /home#{view}
     $stateProvider.state(
         'home', {
             url: '/home', templateUrl: 'app/templates/home.html'
