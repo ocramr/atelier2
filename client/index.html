@@ -8,39 +8,49 @@
         <script src="bower_components/jquery/dist/jquery.js"></script>
         <script src="bower_components/bootstrap-sass/assets/javascripts/bootstrap.js"></script>
     </head>
-<body class="container">
-            <h1 class="text-center">Find your way!</h1>
+<body>
+    <div class="blue_background">
+             <h2 class="text-center">Find your way !</h2>
+    </div> 
+    <div class="container">   
             <ng-controller ng-controller="GameController">
-                <h2 class="text-center"><timer interval="1000"><b>{{hours}} hour{{hoursS}}, {{minutes}} minute{{minutesS}}, {{seconds}} second{{secondsS}}.</b></timer></h2>
                 <div ng-include="'rankingModal.html'"></div>
                 <div ng-include="'modal.html'"></div>
-                <section class="row">
-                    <button type="button" class="btn btn-primary pull-right"  data-toggle="modal" data-target="#rankingModal" ng-click="ranking()">High Scores</button>
-                    <button ng-if="game" type="button" class="btn {{game.isPlaying? 'btn-success' : 'btn-danger'}} pull-right" ng-click="pauseOrResume()">
-                        {{game.isPlaying ? 'Pause' : 'Play'}}
-                    </button>
-                    <button type="button" class="btn btn-success pull-left" data-toggle="modal" data-target="#myModal">New Game</button>
-                </section>
+                <div ng-include="'modal_results.html'"></div>
                 <section class="col-md-8" >
                     <div class="bordered map">
-                        <leaflet width="730px" height="510px" center="cen" event-broadcast="events" paths="paths" markers="markers">
+                        <leaflet width="730px" height="439px" center="cen" event-broadcast="events" paths="paths" markers="markers">
                     </div>
                 </section>
-            </ng-controller>
-            <section class="col-md-4">
-                <div class="bordered box" ng-controller="PlacesController">
-                    <div ng-if="places">
-                        <places></places>
+                <section class="col-md-4">
+                    <button type="button" class="btn btn-primary btn-block"  data-toggle="modal" data-target="#rankingModal" ng-click="ranking()">High Scores</button>
+                    <button ng-if="game" type="button" class="btn {{game.isPlaying? 'btn-danger' : 'btn-success'}} btn-block" ng-click="pauseOrResume()">
+                                {{game.isPlaying ? 'Pause' : 'Play'}}
+                    </button>
+                    <button type="button" class="btn btn-success btn-block" data-toggle="modal" data-target="#myModal">New Game</button>
+                    <div class="bordered box Chrono">
+                        <div ng-if="game.isPlaying">
+                            <h2 class="text-center"><timer interval="1000" countdown="countdownVal">{{countdown}}</timer></h2>
+                        </div>
                     </div>
-                </div>
-                <div class="bordered box" ng-controller="DestinationController">
-                    <div ng-if="destination">
+                </ng-controller>
+                    <div class="bordered box Destinations" ng-controller="PlacesController">
+                        <div class="padding">
+                            <div class="text-center Place" ng-if="places">
+                                <places></places>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <div class="flex-container" ng-controller="DestinationController">
+                    <div ng-repeat="hint in destination.hints | limitTo:position" ng-if="destination" class=" flex-item" id="item-flex-animation" >
                         <destination></destination>
-                    </div>
+                    </div>  
                 </div>
-            </section>
+        </div>
     </body>
         <script src="bower_components/angular/angular.js"></script>
+        <script src="bower_components/angular-animate/angular-animate.min.js"></script>
         <script src="bower_components/leaflet/dist/leaflet.js"></script>
         <script src="lib/angular-leaflet-directive.min.js"></script>
         <script src="app/app.js"></script>
