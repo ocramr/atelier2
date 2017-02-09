@@ -1,9 +1,10 @@
-app.controller('RegisterController', ['$scope', '$http', 'API_URL', 'UserFactory',
-    function($scope, $http, API_URL, UserFactory) {
+app.controller('RegisterController', ['$scope', '$http', 'UserFactory',
+    function($scope, $http, UserFactory) {
 
-        $scope.apiUrl = API_URL;
+        $scope.user = {};
 
         $scope.register = function(){
+            console.log($scope.user);
             UserFactory.register($scope.user).then(function(response){
                 console.log(response.data)
             },function(error){

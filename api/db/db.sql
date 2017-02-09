@@ -27,7 +27,6 @@ CREATE TABLE IF NOT EXISTS `fyw`.`user` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `last_name` VARCHAR(255) NULL,
   `first_name` VARCHAR(255) NULL,
-  `email` VARCHAR(255) NULL,
   `username` VARCHAR(255) NULL,
   `password` VARCHAR(255) NULL,
   PRIMARY KEY (`id`))

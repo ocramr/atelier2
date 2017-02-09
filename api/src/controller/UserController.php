@@ -34,7 +34,6 @@ class UserController extends AbstractController
             $user = new User();
             $user->last_name = filter_var($data['last_name'], FILTER_SANITIZE_STRING);
             $user->first_name = filter_var($data['first_name'], FILTER_SANITIZE_STRING);
-            $user->email = filter_var($data['email'], FILTER_SANITIZE_EMAIL);
             $user->username = filter_var($data['username'], FILTER_SANITIZE_STRING);
             $pass = filter_var($data['password'], FILTER_SANITIZE_STRING);
             $user->password = password_hash($pass, PASSWORD_DEFAULT);
