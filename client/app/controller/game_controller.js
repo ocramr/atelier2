@@ -2,6 +2,9 @@ angular.module('app').controller('GameController', ['$scope', '$http', 'Game','G
     function($scope, $http, Game, GameFactory, LevelFactory, DataService, $rootScope){
 
     $scope.levels = [];
+    $scope.position = 0;
+    $scope.markers = [];
+    $scope.paths = [];
     $scope.ranking = [];
     initValues();
 
@@ -14,6 +17,7 @@ angular.module('app').controller('GameController', ['$scope', '$http', 'Game','G
         DataService.reset();
     }
     
+
     $scope.start = function () {
         if($scope.newGame.pseudo && $scope.newGame.level){
             GameFactory.play({"pseudo" : $scope.newGame.pseudo, "level": $scope.newGame.level}).then(function (response) {
@@ -22,6 +26,8 @@ angular.module('app').controller('GameController', ['$scope', '$http', 'Game','G
                 $scope.game = new Game(response.data);
                 DataService.listPlaces($scope.game.places);
                 DataService.listDestination($scope.game.destination);
+                $scope.countdownVal = parseInt($scope.game.level.time);
+                $scope.$broadcast('timer-start');
             }, function (error) {
                 console.log(error);
             });
@@ -91,6 +97,7 @@ angular.module('app').controller('GameController', ['$scope', '$http', 'Game','G
 
                 if($scope.position < 5)
                 {
+                    
                 //Get lat and lng du lieu récupérer de la bd
                 lat2 = $scope.game.places[$scope.position].lat;
                 lng2 = $scope.game.places[$scope.position].lng;
@@ -124,6 +131,7 @@ angular.module('app').controller('GameController', ['$scope', '$http', 'Game','G
                 }
                if($scope.position == 5)
                 {
+                    angular.element('#Modal_results').modal('show');
                     lat2 = $scope.game.destination.lat;
                     lng2 = $scope.game.destination.lng;
 
@@ -164,7 +172,11 @@ angular.module('app').controller('GameController', ['$scope', '$http', 'Game','G
                     {
                         score = 1;
                     }
-                    $scope.finishGame(score,200);
+                    $scope.$on('timer-tick', function (event, data) {
+                        duration = data.timerElement.innerHTML; 
+                    });
+                    $scope.finishGame(score,duration);
+
                 }        
             }
             }); 
