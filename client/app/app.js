@@ -1,1 +1,1 @@
-angular.module("app", ['leaflet-directive','timer']).constant('API_URL', '/atelier2/api/rest/');
+angular.module("app", ['leaflet-directive','timer']).constant('API_URL', 'http://backend.findyourway.local/');
