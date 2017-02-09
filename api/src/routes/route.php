@@ -9,10 +9,10 @@ use app\controller\GameController;
 use app\controller\UserController;
 use app\controller\ManagementController;
 use Slim\Middleware\JwtAuthentication;
-
+\Firebase\JWT\JWT::$leeway = 5;
 $app->add(new JwtAuthentication([
     "secret"=>"papo",
-    "path"=>['/places','/destination'],
+    "path"=>['/places','/destinations'],
     "secure" => false,
     "passthrough" => ['/user/login'],
     "error" => function ($request, $response, $arguments) {
@@ -38,7 +38,7 @@ $app->group('/user', function (){
 
 $app->group('/places', function (){
 
-    $this->get('[/]', ManagementController::class. ':getListePlaces')->setName('listPlaces');
+    $this->get('', ManagementController::class. ':getListePlaces')->setName('listPlaces');
 
     $this->put('/{id}', ManagementController::class. ':editPlace');
 
