@@ -8,6 +8,21 @@
 use app\controller\GameController;
 use app\controller\UserController;
 use app\controller\ManagementController;
+use Slim\Middleware\JwtAuthentication;
+
+$app->add(new JwtAuthentication([
+    "secret"=>"papo",
+    "path"=>['/places','/destination'],
+    "secure" => false,
+    "passthrough" => ['/user/login'],
+    "error" => function ($request, $response, $arguments) {
+        $data["status"] = "error";
+        $data["message"] = $arguments["message"];
+        return $response
+            ->withHeader("Content-Type", "application/json")
+            ->write(json_encode($data, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));
+    }
+]));
 
 $app->options('/{routes:.+}', function ($request, $response, $args) {
     return $response;

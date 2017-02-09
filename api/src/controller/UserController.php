@@ -10,6 +10,8 @@ namespace app\controller;
 
 use app\model\User;
 use app\model\Level;
+use DateTime;
+use Firebase\JWT\JWT;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Interop\Container\ContainerInterface;
 use \Psr\Http\Message\ServerRequestInterface as Request;
@@ -60,9 +62,21 @@ class UserController extends AbstractController
             try{
                 $user = User::where('username','=', filter_var($data['username']))->firstOrFail();
                 if(password_verify(filter_var($data['password'], FILTER_SANITIZE_STRING), $user->password)){
-                    return $this->json_success($response, 200, $user->toJson());
+                   $now = new DateTime();
+                    $future = $now->add(new \DateInterval('PT1H'));
+                    $server = $request->getServerParams();
+                    $payload = [
+                        "iat" => $now->getTimeStamp(),
+                        "exp" => $future->getTimeStamp(),
+                        "sub" => $server["PHP_AUTH_USER"]
+                    ];
+                    $secret = "papo";
+                    $token = JWT::encode($payload, $secret, "HS256");
+                    $data["username"] = $user->username;
+                    $data["token"] = $token;
+                    return $this->json_success($response, 200, json_encode($data));
                 }else{
-                    return $this->json_error($response, 400, "Nom d'utilisateur ou mot de passe incorrecte");
+                    return $this->json_error($response, 401, "Nom d'utilisateur ou mot de passe incorrecte");
                 }
             }catch (ModelNotFoundException $mne){
                 return $this->json_error($response, 400, "Nom d'utilisateur inexistent");
