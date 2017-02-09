@@ -88,6 +88,12 @@ angular.module('app').controller('GameController', ['$scope', '$http', 'Game','G
                 });
                 }
             }
+            $scope.$on('timer-tick', function (event, data) {
+            if(data.timerElement.innerHTML == "0") 
+            {
+                angular.element('#gameover').modal('show');
+            }
+            });
 
             $scope.$on("leafletDirectiveMap.click", function(event, args){
             if ($scope.game && $scope.game.isPlaying) {
@@ -172,7 +178,8 @@ angular.module('app').controller('GameController', ['$scope', '$http', 'Game','G
                         score = 1;
                     }
                     $scope.$on('timer-tick', function (event, data) {
-                        duration = data.timerElement.innerHTML; 
+                        duration = $scope.game.level.time - data.timerElement.innerHTML;
+                        $scope.$broadcast('timer-stop'); 
                     });
                     $scope.finishGame(score,duration);
 

@@ -16,7 +16,7 @@
             <ng-controller ng-controller="GameController">
                 <div ng-include="'rankingModal.html'"></div>
                 <div ng-include="'modal.html'"></div>
-                <div ng-include="'modal_results.html'"></div>
+                <div ng-include="'GameOverModal.html'"></div>
                 <section class="col-md-8" >
                     <div class="bordered map">
                         <leaflet width="730px" height="439px" center="cen" event-broadcast="events" paths="paths" markers="markers">
@@ -64,7 +64,6 @@
         <script src="app/controller/game_controller.js"></script>
         <script src="app/controller/places_controller.js"></script>
         <script src="app/controller/destination_controller.js"></script>
-        
         <script src="bower_components/moment/min/moment.min.js"></script>
         <script src="bower_components/moment/min/locales.min.js"></script>
         <script src="bower_components/humanize-duration/humanize-duration.js"></script>
