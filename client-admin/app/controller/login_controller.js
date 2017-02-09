@@ -1,11 +1,15 @@
-app.controller('LoginController', ['$scope', '$http', '$location', 'API_URL',
-    function($scope, $http, $location, API_URL) {
+app.controller('LoginController', ['$scope', '$http', '$location', 'UserFactory',
+    function($scope, $http, $location, UserFactory) {
 
-        $scope.apiUrl = API_URL;
-
-        $scope.user = {};
+      $scope.user = {};
 
         $scope.login = function () {
-          $location.path('/home');
+            console.log($scope.user);
+            UserFactory.login($scope.user).then(function (response) {
+                console.log(response.data);
+                //$location.path('/home');
+            }, function (error) {
+                console.log(error);
+            });
         };
     }]);

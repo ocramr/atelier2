@@ -58,9 +58,9 @@ class UserController extends AbstractController
         else if(!isset($data['password']) ) return $this->json_error($response, 400, "Paramètre manquant: Password");
         else{
             try{
-                $user = User::where('username','=', filter_var($data['username']))->findOrFail();
+                $user = User::where('username','=', filter_var($data['username']))->firstOrFail();
                 if(password_verify(filter_var($data['password'], FILTER_SANITIZE_STRING), $user->password)){
-                    return $this->json_success($response, 200, "OK");
+                    return $this->json_success($response, 200, $user->toJson());
                 }else{
                     return $this->json_error($response, 400, "Nom d'utilisateur ou mot de passe incorrecte");
                 }
