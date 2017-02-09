@@ -5874,6 +5874,12 @@ body {
   text-align: center;
   vertical-align: middle; }
 
+.text-indice {
+  font-weight: bold;
+  word-wrap: break-word;
+  font-family: initial;
+  padding: 4px; }
+
 .bubble {
   background-image: url(https://img.clipartfest.com/c262308c7611a58b15919207b29dab47_speech-bubbles-thought-bubble-clip-art-speech-bubble_1350-1368.png);
   background-size: 93% 95%;

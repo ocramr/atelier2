@@ -20,7 +20,7 @@
                             Niveau
                             <select ng-model="newGame.level" >
                                 <option selected value="">-- Select --</option>
-                                <option ng-repeat="level in levels track by level.id" ng-value="level.id">
+                                <option ng-repeat="level in levels track by $index" ng-value="level.id">
                                     Distance : {{level.distance}} - Time : {{level.time}}
                                 </option>
                             </select>

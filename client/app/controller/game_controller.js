@@ -135,6 +135,7 @@ angular.module('app').controller('GameController', ['$scope', '$http', 'Game','G
                         console.log('Réessayez')
                     } 
                 }
+                console.log($scope.position)
                if($scope.position == 5)
                 {
                     lat2 = $scope.game.destination.lat;
@@ -187,6 +188,9 @@ angular.module('app').controller('GameController', ['$scope', '$http', 'Game','G
                 }        
             }
             }); 
-
+    $scope.hide_gameover_modal = function()
+    {
+        angular.element('#gameover').modal('hide');
+    }
     $scope.init();  
 }]);
