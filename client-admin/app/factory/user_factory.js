@@ -4,10 +4,10 @@ angular.module('backoffice').factory('UserFactory', ['$http',function ($http) {
 
     return {
         register:function (json) {
-            return $http.post('http://play.finyourway.local/user/register', json);
+            return $http.post('http://backend.finyourway.local/user/register', json);
         },
         login:function (json) {
-            return $http.post('http://play.finyourway.local/user/login', json);
+            return $http.post('http://backend.finyourway.local/user/login', json);
         }
     }
 
