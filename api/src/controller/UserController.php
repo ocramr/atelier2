@@ -28,7 +28,6 @@ class UserController extends AbstractController
         $data = $request->getParsedBody();
         if(!isset($data['last_name']))  return $this->json_error($response, 400, "Missing param: Last name");
         else if(!isset($data['first_name']))  return $this->json_error($response, 400, "Missing param: First name");
-        else if(!isset($data['email']))  return $this->json_error($response, 400, "Missing param: Email");
         else if(!isset($data['username']))  return $this->json_error($response, 400, "Missing param: Username");
         else if(!isset($data['password']))  return $this->json_error($response, 400, "Missing param: Password");
         else{
