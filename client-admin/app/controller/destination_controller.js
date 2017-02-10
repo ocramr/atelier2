@@ -2,24 +2,27 @@ app.controller('DestinationController', ['$scope', '$http', 'DestinationFactory'
     function($scope, $http, DestinationFactory, API_URL, ModalService) {
         $scope.API_URL = API_URL;
         $scope.destinations = [];
-        $scope.destination = {};
+        //$scope.destination = {};
         $scope.selectedDestination={};
         $scope.hints = [];
         $scope.selectedHint={};
 
         $scope.showHints = function(id) {
+            console.log($scope.selectedDestination);
+            console.log($scope.destinations);
             DestinationFactory.allHints(id).then(function (response) {
+                $scope.hints = response.data;
                 ModalService.showModal({
                     templateUrl: "hintModal.html",
-                    controller: "HintController",
+                    size: 'md',
+                    controller: 'HintController',
                     inputs:{
                         hints: response.data
                     }
                 }).then(function(modal) {
                     modal.element.modal();
                     modal.close.then(function(result) {
-                        $scope.yesNoResult = result ? "You said Yes" : "You said No";
-                        console.log($scope.yesNoResult);
+                        console.log("exit");
                     });
                 });
             }, function (error) {
@@ -37,6 +40,8 @@ app.controller('DestinationController', ['$scope', '$http', 'DestinationFactory'
         };
 
         $scope.edit = function (destination) {
+            console.log($scope.selectedDestination);
+            console.log($scope.destinations);
             $scope.selectedDestination = angular.copy(destination);
         };
 

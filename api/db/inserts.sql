@@ -22,7 +22,7 @@ INSERT INTO `hint` (`id`, `value`, `type`, `id_destination`) VALUES (NULL, 'Situ
 INSERT INTO `hint` (`id`, `value`, `type`, `id_destination`) VALUES (NULL, 'Son port est le deuxième de France pour le trafic total, et le premier port français pour les conteneurs.', 'text', '2');
 INSERT INTO `hint` (`id`, `value`, `type`, `id_destination`) VALUES (NULL, 'Musée d''art moderne André-Malraux', 'text', '2');
 INSERT INTO `hint` (`id`, `value`, `type`, `id_destination`) VALUES (NULL, 'Saint Thomas Basket', 'text', '2');
-INSERT INTO `hint` (`id`, `value`, `type`, `id_destination`) VALUES (NULL, '../api/img/blason_le_havre.png', 'url', '2');
+INSERT INTO `hint` (`id`, `value`, `type`, `id_destination`) VALUES (NULL, 'img/blason_le_havre.png', 'url', '2');
 
 INSERT INTO `hint` (`id`, `value`, `type`, `id_destination`) VALUES (NULL, 'apparaît comme une montagne circulaire qui semble s’affaisser sous la pyramide monumentale qui la couronne', 'text', '3');
 INSERT INTO `hint` (`id`, `value`, `type`, `id_destination`) VALUES (NULL, 'le site touristique le plus fréquenté de Normandie', 'text', '3');
@@ -31,8 +31,8 @@ INSERT INTO `hint` (`id`, `value`, `type`, `id_destination`) VALUES (NULL, 'Norm
 INSERT INTO `hint` (`id`, `value`, `type`, `id_destination`) VALUES (NULL, 'Le Mont était rattaché depuis l\'époque de Charlemagne au diocèse d\'Avranches', 'text', '3');
 
 INSERT INTO `hint` (`id`, `value`, `type`, `id_destination`) VALUES (NULL, 'complexe touristique et urbain ', 'text', '4');
-INSERT INTO `hint` (`id`, `value`, `type`, `id_destination`) VALUES (NULL, '../api/img/Mickey_Mouse.png', 'url', '4');
-INSERT INTO `hint` (`id`, `value`, `type`, `id_destination`) VALUES (NULL, '../api/img/Walt_Disney.JPG', 'url', '4');
+INSERT INTO `hint` (`id`, `value`, `type`, `id_destination`) VALUES (NULL, 'img/Mickey_Mouse.png', 'url', '4');
+INSERT INTO `hint` (`id`, `value`, `type`, `id_destination`) VALUES (NULL, 'img/Walt_Disney.JPG', 'url', '4');
 INSERT INTO `hint` (`id`, `value`, `type`, `id_destination`) VALUES (NULL, 'attraction', 'text', '4');
 INSERT INTO `hint` (`id`, `value`, `type`, `id_destination`) VALUES (NULL, 'Le Château de la Belle au bois dormant,', 'text', '4');
 

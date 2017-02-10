@@ -16,7 +16,7 @@
         <td>{{place.lng}}</td>
         <td>{{place.type_indication | uppercase}}</td>
         <td ng-if="place.type_indication=='text'">{{place.indication}}</td>
-        <td ng-if="place.type_indication=='url'"><img ng-src="{{API_URL+place.indication}}" width="80px" height="50px"/></td>
+        <td ng-if="place.type_indication=='url'"><img ng-src="{{API_URL+place.indication}}" alt="image" width="80px" height="50px"/></td>
         <td><button class="btn btn-primary" ng-click="edit(place)">Modifier</button></td>
     </script>
 
