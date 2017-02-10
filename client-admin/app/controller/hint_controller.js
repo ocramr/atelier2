@@ -1,9 +1,9 @@
 app.controller('HintController', ['$scope', '$http', 'close','hints','API_URL',
     function($scope, $http, close, hints, API_URL) {
-
         $scope.API_URL = API_URL;
 
         $scope.hints = hints;
+
         $scope.selected = {};
 
         $scope.getTemplate = function (hint) {

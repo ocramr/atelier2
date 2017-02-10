@@ -51,7 +51,7 @@ $app->group('/destinations', function (){
 
     $this->get('', ManagementController::class. ':getDestinations')->setName('destinations');
     $this->get('/{id}/hints', ManagementController::class. ':getHints')->setName('hints');
-    $this->post('/{id_Dest}/hints/{id}', ManagementController::class. ':addHint');
+    $this->post('/{id_Dest}/hints', ManagementController::class. ':addHint');
     $this->put('/{id_Dest}/hints/{id}', ManagementController::class. ':editHint');
     $this->post('', ManagementController::class. ':createDestination')->setName('createDestination');
     $this->put('/{id}', ManagementController::class. ':updateDestination')->setName('updateDestination');
