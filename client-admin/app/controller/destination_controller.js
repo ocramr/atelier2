@@ -1,10 +1,11 @@
-app.controller('DestinationController', ['$scope', '$http', 'DestinationFactory','API_URL', 'ModalService',
-    function($scope, $http, DestinationFactory, API_URL, ModalService) {
+app.controller('DestinationController', ['$scope','$sce', '$http', 'DestinationFactory','API_URL', 'ModalService',
+    function($scope, $sce, $http, DestinationFactory, API_URL, ModalService) {
         $scope.API_URL = API_URL;
         $scope.destinations = [];
         $scope.selectedDestination={};
         $scope.hints = [];
         $scope.selectedHint={};
+        $scope.help = "Need Locations?";
 
         $scope.showHints = function(id) {
             $scope.closeEdit();
@@ -81,6 +82,48 @@ app.controller('DestinationController', ['$scope', '$http', 'DestinationFactory'
             });
         };
 
+        $scope.getLocationOfDestination = function(){
+            $scope.help = "Plase waite ...";
+            if($scope.destination.name != "")
+            {
+                //je n'ai trouvé aucun moyen pour faire appele a l'API google Geocoding avec Angular
+                    $.getJSON( {
+                        url  : 'https://maps.googleapis.com/maps/api/geocode/json',
+                        data : {
+                            sensor  : false,
+                            address : $scope.destination.name
+                        },
+                        success : function( data ) {
+                            $scope.destination.lat = data.results[0].geometry.location.lat;
+                            $scope.destination.lng = data.results[0].geometry.location.lng;
+                            $scope.help = "Need Locations?";
+                        }
+                    } );
+            }
+        }
+
 
         $scope.listAll();
     }]);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
