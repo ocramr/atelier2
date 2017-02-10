@@ -161,7 +161,7 @@ angular.module('app').controller('GameController', ['$scope', '$http', 'Game','G
                         console.log('Réessayez')
                     }
                 }
-                if($scope.position == 5)
+                else
                 {
                     lat2 = $scope.game.destination.lat;
                     lng2 = $scope.game.destination.lng;

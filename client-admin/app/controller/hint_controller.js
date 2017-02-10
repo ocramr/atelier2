@@ -6,15 +6,12 @@ app.controller('HintController', ['$scope', '$http', 'close','hints','API_URL',
 
         $scope.selected = {};
 
-        $scope.getTemplate = function (hint) {
-            if (hint.id === $scope.selected.id){
-                return 'edit';
-            }
-            else return 'display';
+        $scope.isEditing = function (hint) {
+            return $scope.selected.id == hint.id;
         };
 
         $scope.edit = function (hint) {
-            $scope.selected = angular.copy(hint);
+            $scope.selected.id = hint.id;
         };
 
         $scope.reset = function () {
