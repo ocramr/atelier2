@@ -12,4 +12,8 @@ class Hint extends \Illuminate\Database\Eloquent\Model
 {
     protected $table = 'hint';
     public $timestamps = false;
+
+    public function destination(){
+        return $this->belongsTo('app\model\Destination','id_destination');
+    }
 }

@@ -12,7 +12,7 @@ use Slim\Middleware\JwtAuthentication;
 \Firebase\JWT\JWT::$leeway = 5;
 $app->add(new JwtAuthentication([
     "secret"=>"papo",
-    "path"=>['/destinations'],
+    "path"=>[/*'/places','/destinations'*/],
     "secure" => false,
     "passthrough" => ['/user/login'],
     "error" => function ($request, $response, $arguments) {
@@ -51,6 +51,8 @@ $app->group('/destinations', function (){
 
     $this->get('', ManagementController::class. ':getDestinations')->setName('destinations');
     $this->get('/{id}/hints', ManagementController::class. ':getHints')->setName('hints');
+    $this->post('/{id_Dest}/hints/{id}', ManagementController::class. ':addHint');
+    $this->put('/{id_Dest}/hints/{id}', ManagementController::class. ':editHint');
     $this->post('', ManagementController::class. ':createDestination')->setName('createDestination');
     $this->put('/{id}', ManagementController::class. ':updateDestination')->setName('updateDestination');
 
@@ -73,6 +75,10 @@ $app->group('/game', function () {
 })->add('CORS');
 
 $app->post('/game/play', GameController::class. ':playGame')->setName('playgame')->add('CORS');
+
+$app->group('/hints', function(){
+    $this->put('/{id}', ManagementController::class. ':editHint');
+});
 
 
 

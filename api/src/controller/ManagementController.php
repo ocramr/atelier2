@@ -147,11 +147,10 @@ class ManagementController extends AbstractController
             $data = $req->getParsedBody();
 
             if(!isset($data['value'])) return $this->json_error($resp, 400, "Missing Param value");
-            if(!isset($data['destination'])) return $this->json_error($resp, 400, "Missing Param destination");
 
             $newHint = new Hint();
             $newHint->value = $data['value'];
-            $newHint->id_destination = $data['destination'];
+            $newHint->id_destination = $args['id_Dest'];
 
             $value = Util::uploadFromData($data['value'], $data['name']);
 
@@ -171,7 +170,7 @@ class ManagementController extends AbstractController
 
 
         public function editHint($req, $resp, $args)
-        {
+        {     
             $data = $req->getParsedBody(); 
 
             try{       
@@ -183,18 +182,19 @@ class ManagementController extends AbstractController
 
             if(isset($data['value']))
             {
-                $value = Util::uploadFromData($data['value'], /*$place->name*/);  
-                if($indication != false){
-                    $place->value = 'img/'.$value;
-                    $place->type_indication = 'url';
+                $imageName = $hint->destination->name.'_'.time();
+                $value = Util::uploadFromData($data['value'], $imageName);  
+                if($value != false){
+                    $hint->value = 'img/'.$value;
+                    $hint->type = 'url';
                 } 
                 else{
-                    $place->value = $data['indication'];
-                    $place->type_indication = 'txt';
+                    $hint->value = $data['value'];
+                    $hint->type = 'text';
                 }
             }
             
-            if($place->save()) return $this->json_success($resp, 200, $place->toJson());
+            if($hint->save()) return $this->json_success($resp, 200, $hint->toJson());
 
             return $this->json_error($res, 500, "Erreur d'ajout");
         }

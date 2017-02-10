@@ -45,7 +45,15 @@ app.controller('PlaceController', ['$scope', '$http', 'PlaceFactory', 'API_URL',
          $scope.addPlace = function()
         {
             console.log($scope.place)
-            PlaceFactory.add($scope.place).then(function (response) {
+            var indication = ($scope.place.indication.base64 !== undefined ) ? $scope.place.filetype+';base64,'+$scope.place.indication.base64 : $scope.place.indication;
+            var newPlace = {
+                name : $scope.place.name,
+                lng : $scope.place.lng,
+                lat : $scope.place.lat,
+                indication : indication
+            }
+            console.log(newPlace);
+            PlaceFactory.add(newPlace).then(function (response) {
                 angular.element('#addPlaceModal').modal('hide');
                 $scope.reset();
             }, function (error) {
