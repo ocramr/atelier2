@@ -70,9 +70,12 @@ angular.module('app').controller('GameController', ['$scope', '$http', 'Game','G
         $scope.finishGame = function (score, duration) {
             GameFactory.finish($scope.game.id, {"score": score, "duration": duration}, $scope.game.token)
                 .then(function (data) {
-                    angular.element('#scores').modal('show');
-                    $scope.game = undefined;
+                    $scope.game = {};                    
                     DataService.reset();
+                    $scope.position = 0;
+                     $scope.$broadcast('timer-clear');
+                     localStorage.clear();
+                     angular.element('#scores').modal('show');
                 }, function (error) {
                     console.log("error")
                 });
@@ -103,7 +106,6 @@ angular.module('app').controller('GameController', ['$scope', '$http', 'Game','G
             if(localStorage.getItem("findYourWay") != null)
             {
                 var game = JSON.parse(localStorage.getItem("findYourWay"));
-                console.log(game)
                     initValues();
                     $scope.game = new Game(game);
                     DataService.listPlaces(game.places);
@@ -168,7 +170,6 @@ angular.module('app').controller('GameController', ['$scope', '$http', 'Game','G
 
                     //Calculer la distance entre les deux lieux
                     d = distance(clicked_lat,parseFloat(lat2),clicked_lng,parseFloat(lng2))
-                    console.log(d)
                     if(d < $scope.game.level.distance)
                     {
                         score = 10;
@@ -205,14 +206,13 @@ angular.module('app').controller('GameController', ['$scope', '$http', 'Game','G
                                 latlngs: $scope.markers,
                             }
                         }
-                    $scope.$on('timer-tick', function (event, data) {
-                        var duration = $scope.game.level.time - data.millis/1000;
+                        $scope.current= angular.element("#mytimer")[0]['innerHTML'];
+                        var duration = $scope.game.level.time - $scope.current/1000;
                         if(score != "" && duration != ""){
-                            $scope.score = score;          
-                            $scope.finishGame(score,duration);
-                        }
-                        $scope.$broadcast('timer-stop');
-                    });
+                                $scope.score = score;          
+                                $scope.finishGame(score, duration);
+                            }
+                            $scope.$broadcast('timer-stop');
                     }
 
                 }

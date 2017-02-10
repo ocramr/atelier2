@@ -1,6 +1,9 @@
 var app = angular.module("backoffice", ['ngAnimate', 'ui.router','angularModalService', 'ngStorage', 'naif.base64']);
 app.constant('API_URL', 'http://backend.findyourway.local/');
+<<<<<<< HEAD
+=======
 
+>>>>>>> cb788d2c93c661f5fd332c148f12297daa83ef01
 app.config(function ($stateProvider, $urlRouterProvider, $httpProvider) {
     //Default route
     $urlRouterProvider.otherwise('/home');
