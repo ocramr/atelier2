@@ -66,7 +66,7 @@ class ManagementController extends AbstractController
             $destination->lng = filter_var($arguments["lng"], FILTER_SANITIZE_STRING);
             $destination->lat = filter_var($arguments["lat"], FILTER_SANITIZE_STRING);
             if ($destination->save())
-                return $this->json_success($res, 201, "Ajoutée avec succes");
+                return $this->json_success($res, 200, json_encode($destination));
             else
                 return $this->json_error($res, 500, "Erreur d'ajout");
         }

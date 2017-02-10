@@ -5878,4 +5878,17 @@ body {
   font-weight: bold;
   text-decoration: underline; }
 
+a.dropdown-toggle.ng-binding {
+  text-transform: capitalize;
+  font-weight: bold; }
+
+.ng-scope.table {
+  top: 24px;
+  margin-left: 16px; }
+
+.add-button {
+  float: right;
+  width: 25%;
+  margin-bottom: 18px; }
+
 /*# sourceMappingURL=style.css.map */
