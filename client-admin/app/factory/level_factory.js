@@ -4,9 +4,9 @@ angular.module('backoffice').factory('LevelFactory', ['$http', 'API_URL',functio
         all:function () {
             return $http.get(url);
         },
-        update:function () {
-            return $http.post(url);
-        }
+        update: function (id, json) {
+            return $http.put(url+'/'+id, json);
+        },
     }
 
 }]);

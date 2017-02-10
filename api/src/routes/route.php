@@ -58,7 +58,6 @@ $app->group('/destinations', function (){
 
 $app->group('/levels', function (){
 
-    $this->post('', ManagementController::class. ':createLevel')->setName('createLevel')->add('checkTOKEN');
 
     $this->get('', UserController::class. ':getLevels')->setName('levels');
 
