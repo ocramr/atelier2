@@ -29,8 +29,5 @@
     "ngstorage": "^0.3.11",
     "angular-base64-upload": "^0.1.19",
     "angular-modal-service": "^0.10.1"
-  },
-  "resolutions": {
-    "angular": "1.6.2"
   }
 }

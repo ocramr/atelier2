@@ -1,3 +1,4 @@
+
 var app = angular.module("backoffice", ['ngAnimate', 'ui.router','angularModalService', 'ngStorage', 'naif.base64']);
 app.constant('API_URL', 'http://backend.findyourway.local/');
 app.config(function ($stateProvider, $urlRouterProvider, $httpProvider) {
