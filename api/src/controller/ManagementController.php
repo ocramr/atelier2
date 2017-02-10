@@ -146,12 +146,10 @@ class ManagementController extends AbstractController
         public function addHint($req, $resp, $args){
             $data = $req->getParsedBody();
 
-            if(!isset($data['name'])) return $this->json_error($resp, 400, "Missing Param name");
             if(!isset($data['value'])) return $this->json_error($resp, 400, "Missing Param value");
             if(!isset($data['destination'])) return $this->json_error($resp, 400, "Missing Param destination");
 
             $newHint = new Hint();
-            $newHint->name = $data['name'];
             $newHint->value = $data['value'];
             $newHint->id_destination = $data['destination'];
 
@@ -162,11 +160,41 @@ class ManagementController extends AbstractController
                 $newHint->type_indication = 'url';
             } 
             else{
-                $newHint->value = $data['indication'];
+                $newHint->value = $data['value'];
                 $newHint->type_indication = 'txt';
             }
 
             if($newHint->save()) return $this->json_success($resp, 201, $newHint->toJson());
+
+            return $this->json_error($res, 500, "Erreur d'ajout");
+        }
+
+
+        public function editHint($req, $resp, $args)
+        {
+            $data = $req->getParsedBody(); 
+
+            try{       
+                $hint = Hint::findOrfail($args['id']);                  
+            }
+            catch(\Illuminate\Database\Eloquent\ModelNotFoundException $e){
+                return $this->json_error($resp, 404, "Not Found");
+            }
+
+            if(isset($data['value']))
+            {
+                $value = Util::uploadFromData($data['value'], /*$place->name*/);  
+                if($indication != false){
+                    $place->value = 'img/'.$value;
+                    $place->type_indication = 'url';
+                } 
+                else{
+                    $place->value = $data['indication'];
+                    $place->type_indication = 'txt';
+                }
+            }
+            
+            if($place->save()) return $this->json_success($resp, 200, $place->toJson());
 
             return $this->json_error($res, 500, "Erreur d'ajout");
         }
