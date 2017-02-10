@@ -10,6 +10,3 @@ RewriteRule "^img/(.*)" img/$1 [L]
 
 RewriteCond %{REQUEST_URI} !^/img.*
 RewriteRule . rest/api.php [QSA,L]
-
-
-

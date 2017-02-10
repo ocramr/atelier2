@@ -23,12 +23,26 @@ class ManagementController extends AbstractController
         }
 
         public function editPlace($req, $resp, $args){
-            try{
-                $data = $req->getParsedBody();
-                if(!isset($data['indication'])) return $this->json_error($resp, 400, "Missing Param");
-                $place = Place::firstOrfail($args['id']);
-                $place->indication = filter_var($data['indication'], FILTER_SANITIZE_STRING);
-                $place->save();
+
+            $data = $req->getParsedBody(); 
+            /*
+            if(!isset($_FILES['indication']) && !isset($data['indication'])){
+                return $this->json_error($resp, 400, "Missing Param indication");
+            }*/
+            print_r($_FILES) ; die();  
+            try{       
+                $place = Place::findOrfail($args['id']);
+
+                if(!isset($_FILES['indication'])){
+                    $place->indication = $data['indication'];
+                    $place->type_indication = "text";
+                }
+                else{
+                    $ext = ($_FILES['indication']['type'] === "image/png") ? 'png' : 'jpg' ;
+                    $place->indication = 'img/'.$place->name.'.'.$ext;
+                    $place->type_indication = "url";
+                }               
+                
                 return $this->json_success($resp, 200, $place);
             }
             catch(\Illuminate\Database\Eloquent\ModelNotFoundException $e){
@@ -47,7 +61,7 @@ class ManagementController extends AbstractController
             $destination->lng = filter_var($arguments["lng"], FILTER_SANITIZE_STRING);
             $destination->lat = filter_var($arguments["lat"], FILTER_SANITIZE_STRING);
             if ($destination->save())
-                return $this->json_success($res, 200, "Ajoutée avec succes");
+                return $this->json_success($res, 201, "Ajoutée avec succes");
             else
                 return $this->json_error($res, 500, "Erreur d'ajout");
         }
@@ -70,7 +84,6 @@ class ManagementController extends AbstractController
 
         public function addPlace($req, $resp, $args){
             //variable pour stocker l'url de l'image si le user utilise une image
-            print_r($_FILES['indication']['type']);die();
             $newPlaceImg = "";
             $data = $req->getParsedBody();
             if(!isset($data['name'])) return $this->json_error($resp, 400, "Missing Param name");
@@ -85,7 +98,8 @@ class ManagementController extends AbstractController
             //si le user upload une image
             if(isset($_FILES['indication'])){
                 move_uploaded_file($_FILES['indication']['tmp_name'], '../img/'.$_FILES['indication']['name']);
-                $newPlaceImg = 'img/'.$_FILES['indication']['name'];
+                // /img a revoir
+                $newPlaceImg = $_FILES['indication']['name'];
             }
 
             $newPlace = new Place();
