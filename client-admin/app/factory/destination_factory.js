@@ -13,6 +13,9 @@ angular.module('backoffice').factory('DestinationFactory', ['$http','API_URL',fu
         add: function (json) {
             return $http.post(url, json);
         },
+        addHint : function (id, json) {
+            return $http.post(url+'/'+id+'/hints', json);
+        }
     }
 
 }]);

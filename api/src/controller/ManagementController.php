@@ -152,15 +152,15 @@ class ManagementController extends AbstractController
             $newHint->value = $data['value'];
             $newHint->id_destination = $args['id_Dest'];
 
-            $value = Util::uploadFromData($data['value'], $data['name']);
+            $value = Util::uploadFromData($data['value'], $newHint->destination->name);
 
             if($value != false){
                 $newHint->value = 'img/'.$value;
-                $newHint->type_indication = 'url';
+                $newHint->type = 'url';
             } 
             else{
                 $newHint->value = $data['value'];
-                $newHint->type_indication = 'text';
+                $newHint->type = 'text';
             }
 
             if($newHint->save()) return $this->json_success($resp, 201, $newHint->toJson());

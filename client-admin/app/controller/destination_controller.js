@@ -25,9 +25,21 @@ app.controller('DestinationController', ['$scope', '$http', 'DestinationFactory'
             }, function (error) {
                 console.log(error);
             });
-
-
         };
+
+        $scope.addHint = function(){     
+            var destination_id = angular.element("#idDestination")[0].value;    
+            var value = ($scope.hint.value.base64 !== undefined ) ? 'data:'+$scope.hint.value.filetype+';base64,'+$scope.hint.value.base64 : $scope.hint.value;
+            var newHint = {
+                value : value
+            }
+            DestinationFactory.addHint(destination_id, newHint).then(function (response) {
+                angular.element('#newHint').modal('hide');
+                $scope.reset();
+            }, function (error) {
+                console.log(error);
+            });
+        }; 
 
         $scope.getTemplate = function (destination) {
             if (destination.id === $scope.selectedDestination.id){
