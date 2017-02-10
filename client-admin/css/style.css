@@ -5846,14 +5846,15 @@ body {
 .dropdown-menu > li > a {
   color: #428bca; }
 
-.dropdown ul.dropdown-menu {
-  display: block;
+ul.dropdown-menu {
+  display: inline-block;
+  position: relative;
   border-radius: 4px;
   box-shadow: none;
   margin-top: 20px;
-  width: 300px; }
+  width: 100%; }
 
-.dropdown ul.dropdown-menu:before {
+ul.dropdown-menu:before {
   content: "";
   border-bottom: 10px solid #fff;
   border-right: 10px solid transparent;
@@ -5863,7 +5864,7 @@ body {
   right: 16px;
   z-index: 10; }
 
-.dropdown ul.dropdown-menu:after {
+ul.dropdown-menu:after {
   content: "";
   border-bottom: 12px solid #ccc;
   border-right: 12px solid transparent;

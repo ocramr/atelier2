@@ -16,15 +16,25 @@ angular.module('app').controller('GameController', ['$scope', '$http', 'Game','G
             $rootScope.position = $scope.position;
             DataService.reset();
         }
-
+         //$scope.current_time = 0;
+        $scope.getTime = function(event,data){
+            console.log(data)
+            //$scope.current_time = data.millis;
+        }
+        
         $scope.pauseOrResume = function () {
             if ($scope.game.isPlaying) {
+                $scope.current= angular.element("#mytimer")[0]['innerHTML'];
+                localStorage.setItem("findYourWay",JSON.stringify($scope.game.current_duration=$scope.current))
                 $scope.game.isPlaying = false;
                 localStorage.setItem("findYourWay", JSON.stringify($scope.game));
                 angular.element('#pauseModal').modal('show');
             } else {
                 var game = JSON.parse(localStorage.getItem("findYourWay"));
                 if (game) {
+                    $scope.$broadcast('timer-reset');
+                    $scope.countdownVal = parseInt(game.current_duration);
+                    $scope.$broadcast('timer-start');
                     $scope.game = game;
                     $scope.game.isPlaying = true;
                     localStorage.removeItem("findYourWay");
@@ -32,7 +42,7 @@ angular.module('app').controller('GameController', ['$scope', '$http', 'Game','G
                 }
             }
         }
-        $scope.start = function () {
+        $scope.start = function () { 
             if($scope.newGame.pseudo && $scope.newGame.level){
                 GameFactory.play({"pseudo" : $scope.newGame.pseudo, "level": $scope.newGame.level}).then(function (response) {
                     angular.element('#myModal').modal('hide');
@@ -49,6 +59,7 @@ angular.module('app').controller('GameController', ['$scope', '$http', 'Game','G
             }
 
         };
+
         $scope.ranking = function () {
             GameFactory.ranking().then(function(response){
                 $scope.ranking = response.data;
@@ -88,9 +99,22 @@ angular.module('app').controller('GameController', ['$scope', '$http', 'Game','G
                     console.log(error);
                 });
             }
+            if(localStorage.getItem("findYourWay") != null)
+            {
+                var game = JSON.parse(localStorage.getItem("findYourWay"));
+                console.log(game)
+                    initValues();
+                    $scope.game = new Game(game);
+                    DataService.listPlaces(game.places);
+                    DataService.listDestination(game.destination);
+                    $scope.$broadcast('timer-reset');
+                    $scope.countdownVal = parseInt(game.current_duration);
+                    $scope.$broadcast('timer-start');
+            }
+                            
         };
         $scope.$on('timer-tick', function (event, data) {
-            if(data.timerElement.innerHTML == "0")
+            if(data.millis === 0 )
             {
                 angular.element('#gameover').modal('show');
             }
@@ -136,7 +160,6 @@ angular.module('app').controller('GameController', ['$scope', '$http', 'Game','G
                         console.log('Réessayez')
                     }
                 }
-                console.log($scope.position)
                 if($scope.position == 5)
                 {
                     lat2 = $scope.game.destination.lat;
@@ -144,24 +167,10 @@ angular.module('app').controller('GameController', ['$scope', '$http', 'Game','G
 
                     //Calculer la distance entre les deux lieux
                     d = distance(clicked_lat,parseFloat(lat2),clicked_lng,parseFloat(lng2))
+                    console.log(d)
                     if(d < $scope.game.level.distance)
                     {
                         score = 10;
-                        $scope.markers.push({
-                            lat: parseFloat(lat2),
-                            lng: parseFloat(lng2),
-                            icon : {
-                                iconUrl: 'https://cdn2.iconfinder.com/data/icons/flat-seo-web-ikooni/128/flat_seo2-19-512.png',
-                                iconSize:     [60, 60],
-                            }
-                        });
-                        $scope.paths = {
-                            p1: {
-                                color: 'green',
-                                weight: 4,
-                                latlngs: $scope.markers,
-                            }
-                        }
                     }
                     if(d < 2 * $scope.game.level.distance)
                     {
@@ -179,6 +188,22 @@ angular.module('app').controller('GameController', ['$scope', '$http', 'Game','G
                     {
                         score = 1;
                     }
+                    if(score){
+                    $scope.markers.push({
+                            lat: parseFloat(lat2),
+                            lng: parseFloat(lng2),
+                            icon : {
+                                iconUrl: 'https://cdn2.iconfinder.com/data/icons/flat-seo-web-ikooni/128/flat_seo2-19-512.png',
+                                iconSize:     [60, 60],
+                            }
+                        });
+                        $scope.paths = {
+                            p1: {
+                                color: 'green',
+                                weight: 4,
+                                latlngs: $scope.markers,
+                            }
+                        }
                     $scope.$on('timer-tick', function (event, data) {
                         var duration = $scope.game.level.time - data.timerElement.innerHTML;
                         if(score != "" && duration != ""){
@@ -186,6 +211,7 @@ angular.module('app').controller('GameController', ['$scope', '$http', 'Game','G
                         }
                         $scope.$broadcast('timer-stop');
                     });
+                    }
 
                 }
             }
