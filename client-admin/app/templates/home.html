@@ -1,16 +1,22 @@
 <div class="row">
     <div class="col-sm-3">
-        <nav class="nav-sidebar">
-            <ul class="nav">
-                <li class="active"><a ui-sref=".destination">Gestion des destinations</a></li>
-                <li ><a ui-sref=".places">Gestion des lieux</a></li>
-                <li ><a ui-sref=".levels">Gestion des niveaux</a></li>
-                <li class="nav-divider"></li>
-                <li><a ui-sref=".settings">Param&egrave;tres</a></li>
-                <li><button class="btn btn-primary" ng-click="logout()">Se d&eacute;connecter</button></li>
-
-            </ul>
-        </nav>
+         <ul class="nav navbar-nav">
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Ikram</span></a>
+          <ul class="dropdown-menu">
+            <nav class="nav-sidebar">
+                <li class="active menu-list"><a ui-sref=".destination">Gestion des destinations<span class="pull-right"></span></a></li>
+                <li class="divider"></li>
+                <li class="menu-list"><a ui-sref=".places">Gestion des lieux</a></li>
+                <li class="divider"></li>
+                <li class="menu-list"><a ui-sref=".levels">Gestion des niveaux</a></li>
+                <li class="divider"></li>
+                <li class="menu-list"><a ui-sref=".settings">Param&egrave;tres</a></li>
+                <li class="divider"></li>
+                <li class="menu-list"><button class="btn btn-primary" ng-click="logout()">Se d&eacute;connecter</button></li>
+          </ul>
+        </li>
+      </ul>
     </div>
     <div class="col-sm-9">
         <div ui-view></div>

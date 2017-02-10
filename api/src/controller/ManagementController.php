@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
 use \app\model\Place;
-
+use \app\util\Util;
 use Interop\Container\ContainerInterface;
 use app\model\Destination;
 use app\model\Level;
@@ -25,29 +25,34 @@ class ManagementController extends AbstractController
         public function editPlace($req, $resp, $args){
 
             $data = $req->getParsedBody(); 
-            /*
-            if(!isset($_FILES['indication']) && !isset($data['indication'])){
-                return $this->json_error($resp, 400, "Missing Param indication");
-            }*/
-            print_r($_FILES) ; die();  
-            try{       
-                $place = Place::findOrfail($args['id']);
 
-                if(!isset($_FILES['indication'])){
-                    $place->indication = $data['indication'];
-                    $place->type_indication = "text";
-                }
-                else{
-                    $ext = ($_FILES['indication']['type'] === "image/png") ? 'png' : 'jpg' ;
-                    $place->indication = 'img/'.$place->name.'.'.$ext;
-                    $place->type_indication = "url";
-                }               
-                
-                return $this->json_success($resp, 200, $place);
+            try{       
+                $place = Place::findOrfail($args['id']);                  
             }
             catch(\Illuminate\Database\Eloquent\ModelNotFoundException $e){
                 return $this->json_error($resp, 404, "Not Found");
             }
+
+            if(isset($data['name'])) $place->name = $data['name'];
+            if(isset($data['lng'])) $place->lng = $data['lng'];
+            if(isset($data['lat'])) $place->lat = $data['lat'];
+            if($data['indication'] !== "")
+            {
+                $indication = Util::uploadFromData($data['indication'], $place->name);  
+                if($indication != false){
+                    $place->indication = 'img/'.$indication;
+                    $place->type_indication = 'url';
+                } 
+                else{
+                    $place->indication = $data['indication'];
+                    $place->type_indication = 'txt';
+                }
+            }
+            
+            if($place->save()) return $this->json_success($resp, 200, $place->toJson());
+
+            return $this->json_error($res, 500, "Erreur d'ajout");
+
         }
 
         public function createDestination($req, $res, $args)
@@ -83,51 +88,42 @@ class ManagementController extends AbstractController
         }
 
         public function addPlace($req, $resp, $args){
-            //variable pour stocker l'url de l'image si le user utilise une image
-            $newPlaceImg = "";
+
             $data = $req->getParsedBody();
             if(!isset($data['name'])) return $this->json_error($resp, 400, "Missing Param name");
             if(!isset($data['lng'])) return $this->json_error($resp, 400, "Missing Param lng");
             if(!isset($data['lat'])) return $this->json_error($resp, 400, "Missing Param lat");
-
-            //Si le champ indication n'existe pas
-            if(!isset($_FILES['indication']) && !isset($data['indication'])){
-                return $this->json_error($resp, 400, "Missing Param indication");
-            }
-
-            //si le user upload une image
-            if(isset($_FILES['indication'])){
-                move_uploaded_file($_FILES['indication']['tmp_name'], '../img/'.$_FILES['indication']['name']);
-                // /img a revoir
-                $newPlaceImg = $_FILES['indication']['name'];
-            }
-
+            if(!isset($data['indication'])) return $this->json_error($resp, 400, "Missing Param indication");
+            
             $newPlace = new Place();
             $newPlace->name = $data['name'];
             $newPlace->lng = $data['lng'];
             $newPlace->lat = $data['lat'];
-            //si l'image existe en l'enregistre sinon on prend la chaine de caractéres
-            if($newPlaceImg === ""){
-                $newPlace->indication = $data['indication'];
-                $newPlace->type_indication = "text";
-            }
+
+            $indication = Util::uploadFromData($data['indication'], $data['name']);
+
+            if($indication != false){
+                $newPlace->indication = 'img/'.$indication;
+                $newPlace->type_indication = 'url';
+            } 
             else{
-                $ext = ($_FILES['indication']['type'] === "image/png") ? 'png' : 'jpg' ;
-                $newPlace->indication = 'img/'.$newPlace->name.'.'.$ext;
-                $newPlace->type_indication = "url";
+                $newPlace->indication = $data['indication'];
+                $newPlace->type_indication = 'txt';
             }
+
             if($newPlace->save()) return $this->json_success($resp, 201, $newPlace->toJson());
-            return $this->json_error($resp, 500, "Erreur lors de l'ajout");
-  
+
+            return $this->json_error($res, 500, "Erreur d'ajout");
         }
 
-        public function createLevel($req, $res, $args)
+        public function updateLevel($req, $res, $args)
         {
             $arguments = $req->getParsedBody();
             if (!isset($arguments["max_attempts"]) || !isset($arguments["distance"]) || !isset($arguments["time"]))
                 return $this->json_error($res, 400, "Missing Parameters");
 
-            $level = new Level();
+            $level = Level::where("id", "=", $args["id"])->firstOrFail();
+            $level->name = filter_var($arguments["name"], FILTER_SANITIZE_STRING);
             $level->max_attempts = filter_var($arguments["max_attempts"], FILTER_SANITIZE_STRING);
             $level->distance = filter_var($arguments["distance"], FILTER_SANITIZE_STRING);
             $level->time = filter_var($arguments["time"], FILTER_SANITIZE_STRING);
@@ -144,7 +140,7 @@ class ManagementController extends AbstractController
             }catch (ModelNotFoundException $mne){
                 return $this->json_error($resp, 404, "Ressource non trouvée");
             }
-    }
+        }
 
 
         //TODO service updateLevel, updatePlace, updateDestination (FILE), Settings, hints

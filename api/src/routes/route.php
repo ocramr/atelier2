@@ -40,7 +40,7 @@ $app->group('/places', function (){
 
     $this->get('', ManagementController::class. ':getListePlaces')->setName('listPlaces');
 
-    $this->put('/{id}', ManagementController::class. ':editPlace');
+    $this->patch('/{id}', ManagementController::class. ':editPlace');
 
     $this->post('[/]', ManagementController::class. ':addPlace');
     
@@ -58,7 +58,7 @@ $app->group('/destinations', function (){
 
 $app->group('/levels', function (){
 
-    $this->post('', ManagementController::class. ':createLevel')->setName('createLevel')->add('checkTOKEN');
+    $this->put('/{id}', ManagementController::class. ':updateLevel')->setName('updateLevel');
 
     $this->get('', UserController::class. ':getLevels')->setName('levels');
 

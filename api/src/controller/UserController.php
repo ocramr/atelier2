@@ -73,7 +73,8 @@ class UserController extends AbstractController
                     $token = JWT::encode($payload, $secret, "HS256");
                     $data["username"] = $user->username;
                     $data["token"] = $token;
-                    $data["time"] = $future->format('Y-m-d H:i:s');
+                    $data["last_name"] = $user->last_name;
+                    $data["first_name"] = $user->first_name;
                     return $this->json_success($response, 200, json_encode($data));
                 }else{
                     return $this->json_error($response, 401, "Nom d'utilisateur ou mot de passe incorrecte");

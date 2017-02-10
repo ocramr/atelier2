@@ -14,7 +14,9 @@ angular.module('backoffice').factory('UserFactory', ['$http', 'API_URL', '$local
             $http.post(API_URL+'/user/login', json).then(function (response) {
                 if (response.data.token) {
                     // store username and token in local storage to keep user logged in between page refreshes
-                    $localStorage.currentUser = { username: response.data.username, token: response.data.token };
+                    $localStorage.currentUser = {
+                        username: response.data.username, token: response.data.token, last_name: response.data.last_name, first_name: response.data.first_name
+                    };
 
                     // add jwt token to auth header for all requests made by the $http service
                     $http.defaults.headers.common.Authorization = 'Bearer ' + response.token;
