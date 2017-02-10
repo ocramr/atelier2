@@ -52,7 +52,7 @@ class ManagementController extends AbstractController
             
             if($place->save()) return $this->json_success($resp, 200, $place->toJson());
 
-            return $this->json_error($res, 500, "Erreur d'ajout");
+            return $this->json_error($resp, 500, "Erreur d'ajout");
 
         }
 
@@ -114,7 +114,7 @@ class ManagementController extends AbstractController
 
             if($newPlace->save()) return $this->json_success($resp, 201, $newPlace->toJson());
 
-            return $this->json_error($res, 500, "Erreur d'ajout");
+            return $this->json_error($resp, 500, "Erreur d'ajout");
         }
 
         public function updateLevel($req, $res, $args)
@@ -165,12 +165,12 @@ class ManagementController extends AbstractController
 
             if($newHint->save()) return $this->json_success($resp, 201, $newHint->toJson());
 
-            return $this->json_error($res, 500, "Erreur d'ajout");
+            return $this->json_error($resp, 500, "Erreur d'ajout");
         }
 
 
         public function editHint($req, $resp, $args)
-        {     
+        {
             $data = $req->getParsedBody(); 
 
             try{       
@@ -183,7 +183,7 @@ class ManagementController extends AbstractController
             if(isset($data['value']))
             {
                 $imageName = $hint->destination->name.'_'.time();
-                $value = Util::uploadFromData($data['value'], $imageName);  
+                $value = Util::uploadFromData($data['value'], $imageName);
                 if($value != false){
                     $hint->value = 'img/'.$value;
                     $hint->type = 'url';
@@ -196,7 +196,7 @@ class ManagementController extends AbstractController
             
             if($hint->save()) return $this->json_success($resp, 200, $hint->toJson());
 
-            return $this->json_error($res, 500, "Erreur d'ajout");
+            return $this->json_error($resp, 500, "Erreur d'ajout");
         }
 
 
