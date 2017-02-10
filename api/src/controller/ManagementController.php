@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
 use \app\model\Place;
+use \app\model\Hint;
 use \app\util\Util;
 use Interop\Container\ContainerInterface;
 use app\model\Destination;
@@ -140,6 +141,34 @@ class ManagementController extends AbstractController
             }catch (ModelNotFoundException $mne){
                 return $this->json_error($resp, 404, "Ressource non trouvée");
             }
+        }
+
+        public function addHint($req, $resp, $args){
+            $data = $req->getParsedBody();
+
+            if(!isset($data['name'])) return $this->json_error($resp, 400, "Missing Param name");
+            if(!isset($data['value'])) return $this->json_error($resp, 400, "Missing Param value");
+            if(!isset($data['destination'])) return $this->json_error($resp, 400, "Missing Param destination");
+
+            $newHint = new Hint();
+            $newHint->name = $data['name'];
+            $newHint->value = $data['value'];
+            $newHint->id_destination = $data['destination'];
+
+            $value = Util::uploadFromData($data['value'], $data['name']);
+
+            if($value != false){
+                $newHint->value = 'img/'.$value;
+                $newHint->type_indication = 'url';
+            } 
+            else{
+                $newHint->value = $data['indication'];
+                $newHint->type_indication = 'txt';
+            }
+
+            if($newHint->save()) return $this->json_success($resp, 201, $newHint->toJson());
+
+            return $this->json_error($res, 500, "Erreur d'ajout");
         }
 
 
