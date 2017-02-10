@@ -109,7 +109,7 @@ class ManagementController extends AbstractController
             } 
             else{
                 $newPlace->indication = $data['indication'];
-                $newPlace->type_indication = 'txt';
+                $newPlace->type_indication = 'text';
             }
 
             if($newPlace->save()) return $this->json_success($resp, 201, $newPlace->toJson());
@@ -160,7 +160,7 @@ class ManagementController extends AbstractController
             } 
             else{
                 $newHint->value = $data['value'];
-                $newHint->type_indication = 'txt';
+                $newHint->type_indication = 'text';
             }
 
             if($newHint->save()) return $this->json_success($resp, 201, $newHint->toJson());
