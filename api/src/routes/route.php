@@ -12,7 +12,7 @@ use Slim\Middleware\JwtAuthentication;
 \Firebase\JWT\JWT::$leeway = 5;
 $app->add(new JwtAuthentication([
     "secret"=>"papo",
-    "path"=>[/*'/places','/destinations'*/],
+    "path"=>['/places','/destinations'],
     "secure" => false,
     "passthrough" => ['/user/login'],
     "error" => function ($request, $response, $arguments) {
