@@ -1,4 +1,4 @@
-var app = angular.module("backoffice", ['ngAnimate','ui.bootstrap', 'ui.router', 'ngTable', 'ngStorage']);
+var app = angular.module("backoffice", ['ngAnimate','ui.bootstrap', 'ui.router', 'ngTable', 'ngStorage', 'naif.base64']);
 app.constant('API_URL', 'http://backend.findyourway.local/');
 app.config(function ($stateProvider, $urlRouterProvider, $httpProvider) {
     //Default route

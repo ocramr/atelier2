@@ -40,6 +40,18 @@ app.controller('PlaceController', ['$scope', '$http', 'PlaceFactory', 'API_URL',
                 console.log(error);
             });
         };
+       
+     
+         $scope.addPlace = function()
+        {
+            console.log($scope.place)
+            PlaceFactory.add($scope.place).then(function (response) {
+                angular.element('#addPlaceModal').modal('hide');
+                $scope.reset();
+            }, function (error) {
+                console.log(error);
+            });
+        }
 
 
         $scope.listAll();
