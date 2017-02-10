@@ -2,16 +2,26 @@
     <thead>
     <tr>
         <th>Nom</th>
-        <th>Distance</th>
-        <th>Time</th>
+        <th>Distance (metres)</th>
+        <th>Temps (seconds)</th>
     </tr>
     </thead>
     <tbody>
-    <tr ng-repeat="level in levels">
+    <script type="text/ng-template" id="display">
         <td>{{level.name}}</td>
         <td>{{level.distance}}</td>
         <td>{{level.time}}</td>
-        <td><button class="btn btn-default" ng-click="edit(level)">Modifier</button></td>
-    </tr>
+        <td><button class="btn btn-primary" ng-click="edit(level)">Modifier</button></td>
+    </script>
+    <script type="text/ng-template" id="edit">
+        <td><input type="text" ng-model=level.name class="form-control input-sm"/></td>
+        <td><input type="text" ng-model=level.distance class="form-control input-sm"/></td>
+        <td><input type="text" ng-model=level.time class="form-control input-sm"/></td>
+        <td>
+            <button type="button" class="btn btn-primary" ng-click="update(level)">Confirmer</button>
+            <button type="button" class="btn btn-danger" ng-click="reset()">Cancel</button>
+        </td>
+    </script>
+    <tr ng-repeat="level in levels" ng-include="getTemplate(level)"></tr>
     </tbody>
 </table>

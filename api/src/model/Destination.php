@@ -18,6 +18,6 @@ class Destination extends \Illuminate\Database\Eloquent\Model
     }
 
     public function hints(){
-        return $this->hasMany('app\model\Hint','id_destionation');
+        return $this->hasMany('app\model\Hint','id_destination');
     }
 }

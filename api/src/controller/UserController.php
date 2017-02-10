@@ -63,7 +63,7 @@ class UserController extends AbstractController
                 $user = User::where('username','=', filter_var($data['username']))->firstOrFail();
                 if(password_verify(filter_var($data['password'], FILTER_SANITIZE_STRING), $user->password)){
                    $now = new DateTime();
-                    $future = $now->add(new \DateInterval('PT1H'));
+                    $future = new DateTime("now +2 hours");
                     $server = $request->getServerParams();
                     $payload = [
                         "iat" => $now->getTimeStamp(),
@@ -74,6 +74,8 @@ class UserController extends AbstractController
                     $token = JWT::encode($payload, $secret, "HS256");
                     $data["username"] = $user->username;
                     $data["token"] = $token;
+                    $data["last_name"] = $user->last_name;
+                    $data["first_name"] = $user->first_name;
                     return $this->json_success($response, 200, json_encode($data));
                 }else{
                     return $this->json_error($response, 401, "Nom d'utilisateur ou mot de passe incorrecte");

@@ -1,5 +1,6 @@
 var app = angular.module("backoffice", ['ngAnimate','ui.bootstrap', 'ui.router', 'ngTable', 'ngStorage']);
-app.config(function ($stateProvider, $urlRouterProvider) {
+app.constant('API_URL', 'http://backend.findyourway.local/');
+app.config(function ($stateProvider, $urlRouterProvider, $httpProvider) {
     //Default route
     $urlRouterProvider.otherwise('/home');
 
@@ -27,22 +28,36 @@ app.config(function ($stateProvider, $urlRouterProvider) {
             url: '/register', templateUrl: 'app/templates/register.html', controller: 'RegisterController'
         });
 
+    $httpProvider.interceptors.push('httpRequestInterceptor');
+
 });
 app.run(run);
-app.constant('API_URL', 'http://backend.findyourway.local/');
+
+
+app.factory('httpRequestInterceptor', ['$rootScope', '$localStorage', function ($rootScope, $localStorage) {
+
+    return {
+        request: function ($config) {
+                if($localStorage.currentUser){
+                    $config.headers['Authorization'] = 'Bearer ' + $localStorage.currentUser.token;
+                }
+            return $config;
+        }
+    };
+}]);
 
 
 
 function run($rootScope, $http, $location, $localStorage) {
     // keep user logged in after page refresh
     if ($localStorage.currentUser) {
-        console.log("user token");
-        console.log($localStorage.currentUser.token);
+
         $http.defaults.headers.common.Authorization = 'Bearer ' + $localStorage.currentUser.token;
     }
 
     // redirect to login page if not logged in and trying to access a restricted page
     $rootScope.$on('$locationChangeStart', function (event, next, current) {
+        console.log('change');
         var publicPages = ['/login','/register'];
         var restrictedPage = publicPages.indexOf($location.path()) === -1;
         if (restrictedPage && !$localStorage.currentUser) {

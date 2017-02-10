@@ -2,6 +2,7 @@
 
 namespace app\controller;
 
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
 use \app\model\Place;
@@ -25,7 +26,7 @@ class ManagementController extends AbstractController
             try{
                 $data = $req->getParsedBody();
                 if(!isset($data['indication'])) return $this->json_error($resp, 400, "Missing Param");
-                $place = Place::findOrfail($args['id']);
+                $place = Place::firstOrfail($args['id']);
                 $place->indication = filter_var($data['indication'], FILTER_SANITIZE_STRING);
                 $place->save();
                 return $this->json_success($resp, 200, $place);
@@ -62,7 +63,7 @@ class ManagementController extends AbstractController
             $destination->lng = filter_var($arguments["lng"], FILTER_SANITIZE_STRING);
             $destination->lat = filter_var($arguments["lat"], FILTER_SANITIZE_STRING);
             if ($destination->save())
-                return $this->json_success($res, 200, $destination);
+                return $this->json_success($res, 200, json_encode($destination));
             else
                 return $this->json_error($res, 500, "Erreur de modification");
         }
@@ -119,5 +120,17 @@ class ManagementController extends AbstractController
             else
                 return $this->json_error($res, 500, "Erreur d'ajout");
         }
+
+        public function getHints($req, $resp, $args){
+            try {
+                $destination = Destination::where('id', '=', $args['id'])->firstOrFail();
+                return $this->json_success($resp, 200, json_encode($destination->hints));
+            }catch (ModelNotFoundException $mne){
+                return $this->json_error($resp, 404, "Ressource non trouvée");
+            }
+    }
+
+
+        //TODO service updateLevel, updatePlace, updateDestination (FILE), Settings, hints
 
 }
