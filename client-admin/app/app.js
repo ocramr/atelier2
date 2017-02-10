@@ -1,5 +1,6 @@
 var app = angular.module("backoffice", ['ngAnimate','ui.bootstrap', 'ui.router', 'ngTable', 'ngStorage']);
-app.config(function ($stateProvider, $urlRouterProvider) {
+app.constant('API_URL', 'http://backend.findyourway.local/');
+app.config(function ($stateProvider, $urlRouterProvider, $httpProvider) {
     //Default route
     $urlRouterProvider.otherwise('/home');
 
@@ -27,22 +28,41 @@ app.config(function ($stateProvider, $urlRouterProvider) {
             url: '/register', templateUrl: 'app/templates/register.html', controller: 'RegisterController'
         });
 
+    $httpProvider.interceptors.push('httpRequestInterceptor');
+
 });
 app.run(run);
-app.constant('API_URL', 'http://backend.findyourway.local/');
+
+
+app.factory('httpRequestInterceptor', ['$rootScope', 'API_URL', '$localStorage', function ($rootScope, API_URL, $localStorage) {
+
+    return {
+        request: function ($config) {
+                console.log($config);
+                if($localStorage.currentUser){
+                    console.log("token "+$localStorage.currentUser.token);
+                    $config.headers['Authorization'] = 'Bearer ' + $localStorage.currentUser.token;
+                }else{
+                    console.log("no hay");
+                }
+
+            return $config;
+        }
+    };
+}]);
 
 
 
 function run($rootScope, $http, $location, $localStorage) {
     // keep user logged in after page refresh
     if ($localStorage.currentUser) {
-        console.log("user token");
-        console.log($localStorage.currentUser.token);
+
         $http.defaults.headers.common.Authorization = 'Bearer ' + $localStorage.currentUser.token;
     }
 
     // redirect to login page if not logged in and trying to access a restricted page
     $rootScope.$on('$locationChangeStart', function (event, next, current) {
+        console.log('change');
         var publicPages = ['/login','/register'];
         var restrictedPage = publicPages.indexOf($location.path()) === -1;
         if (restrictedPage && !$localStorage.currentUser) {
