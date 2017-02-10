@@ -45,10 +45,10 @@ app.controller('DestinationController', ['$scope', '$http', 'DestinationFactory'
         }; 
 
         $scope.getTemplate = function (destination) {
-            if (destination.id === $scope.selectedDestination.id){
+           if (destination.id === $scope.selectedDestination.id){
                 return 'edit';
             }
-            else return 'display';
+            else return 'display';  
         };
 
         $scope.edit = function (destination) {
