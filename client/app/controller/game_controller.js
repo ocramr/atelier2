@@ -55,13 +55,11 @@ angular.module('app').controller('GameController', ['$scope', '$http', 'Game','G
            console.log(error)
        })
     };
-
     $scope.finishGame = function (score, duration) {
-        alert(score)
         GameFactory.finish($scope.game.id, {"score": score, "duration": duration}, $scope.game.token)
             .then(function (data) {
                 $scope.game = undefined;
-                DataService.reset();                
+                DataService.reset();
             }, function (error) {
                 console.log("error")
             });
@@ -105,7 +103,7 @@ angular.module('app').controller('GameController', ['$scope', '$http', 'Game','G
 
                 if($scope.position < 5)
                 {
-                    console.log($scope.position)
+                    
                 //Get lat and lng du lieu récupérer de la bd
                 lat2 = $scope.game.places[$scope.position].lat;
                 lng2 = $scope.game.places[$scope.position].lng;
@@ -137,7 +135,8 @@ angular.module('app').controller('GameController', ['$scope', '$http', 'Game','G
                         console.log('Réessayez')
                     } 
                 }
-               if($scope.position >= 5)
+                console.log($scope.position)
+               if($scope.position == 5)
                 {
                     lat2 = $scope.game.destination.lat;
                     lng2 = $scope.game.destination.lng;
@@ -179,14 +178,14 @@ angular.module('app').controller('GameController', ['$scope', '$http', 'Game','G
                     {
                         score = 1;
                     }
-
                     $scope.$on('timer-tick', function (event, data) {
-                        var duration = $scope.game.level.time - data.millis/1000;
-                        $scope.$broadcast('timer-stop'); 
+                        var duration = $scope.game.level.time - data.timerElement.innerHTML;
                         if(score != "" && duration != ""){
                             $scope.finishGame(score,duration);
                         }
+                        $scope.$broadcast('timer-stop'); 
                     });
+
                 }        
             }
             }); 
