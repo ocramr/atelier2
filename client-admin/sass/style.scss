@@ -8,3 +8,19 @@ body{
     border-radius: 4px;
     background-color: white;
 }
+
+.blue_background{
+    background-color: #3a4f75;
+    width: 100%;
+    height: 56px;
+    position: relative;
+    margin-bottom: 15px;
+    box-shadow: 0px 2px 10px 0px #3F51B5;
+    clear: both;
+
+    h2 {
+        color: #fff;
+        margin: 0;
+        padding-top: 10px;
+    }
+}

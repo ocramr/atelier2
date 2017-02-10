@@ -34,18 +34,13 @@ app.config(function ($stateProvider, $urlRouterProvider, $httpProvider) {
 app.run(run);
 
 
-app.factory('httpRequestInterceptor', ['$rootScope', 'API_URL', '$localStorage', function ($rootScope, API_URL, $localStorage) {
+app.factory('httpRequestInterceptor', ['$rootScope', '$localStorage', function ($rootScope, $localStorage) {
 
     return {
         request: function ($config) {
-                console.log($config);
                 if($localStorage.currentUser){
-                    console.log("token "+$localStorage.currentUser.token);
                     $config.headers['Authorization'] = 'Bearer ' + $localStorage.currentUser.token;
-                }else{
-                    console.log("no hay");
                 }
-
             return $config;
         }
     };

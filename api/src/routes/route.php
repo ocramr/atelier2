@@ -50,6 +50,7 @@ $app->group('/places', function (){
 $app->group('/destinations', function (){
 
     $this->get('', ManagementController::class. ':getDestinations')->setName('destinations');
+    $this->get('/{id}/hints', ManagementController::class. ':getHints')->setName('hints');
     $this->post('', ManagementController::class. ':createDestination')->setName('createDestination');
     $this->put('/{id}', ManagementController::class. ':updateDestination')->setName('updateDestination');
 
