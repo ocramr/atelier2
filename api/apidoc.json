@@ -1,0 +1,10 @@
+{
+  "name": "Find Your Way",
+  "version": "0.1.0",
+  "description": "Find your way API Documentation",
+  "title": "Documentation",
+  "template": {
+  	"withCompare": true,
+  	"withGenerator": true
+  }
+}

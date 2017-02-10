@@ -10,27 +10,21 @@
         </tr>
     </thead>
     <tbody>
-    <script type="text/ng-template" id="display">
-        <td>{{destination.name}}</td>
-        <td>{{destination.lat}}</td>
-        <td>{{destination.lng}}</td>
-        <td>
-            <button class="btn btn-primary" ng-click="edit(destination)">Modifier</button>
-            <button class="btn btn-success" ng-click="showHints(destination.id)">Consulter les Indices</button>
-            <input id ="idDestination" type="hidden" name="desttId" value="{{destination.id}}">
-            <button type="button" class="btn btn-info add-button" data-toggle="modal" data-target="#newHint">Ajouter</button>
-        </td>
-    </script>
-
-    <script type="text/ng-template" id="edit">
-        <td><input type="text" ng-model=destination.name class="form-control input-sm"/></td>
-        <td><input type="text" ng-model=destination.lat class="form-control input-sm"/></td>
-        <td><input type="text" ng-model=destination.lng class="form-control input-sm"/></td>
-        <td>
-            <button type="button" class="btn btn-primary" ng-click="update(destination)">Confirmer</button>
-            <button type="button" class="btn btn-danger" ng-click="reset()">Cancel</button>
-        </td>
-    </script>
-        <tr ng-repeat="destination in destinations" ng-include="getTemplate(destination)"></tr>
+        <tr ng-repeat="destination in destinations">
+            <td  ng-if="!isEditing(destination)">{{destination.name}}</td>
+            <td  ng-if="isEditing(destination)"><input type="text" ng-model=destination.name class="form-control input-sm"/></td>
+            <td  ng-if="!isEditing(destination)">{{destination.lat}}</td>
+            <td  ng-if="isEditing(destination)"><input type="text" ng-model=destination.lat class="form-control input-sm"/></td>
+            <td ng-if="!isEditing(destination)">{{destination.lng}}</td>
+            <td ng-if="isEditing(destination)"><input type="text" ng-model=destination.lng class="form-control input-sm"/></td>
+            <td ng-if="!isEditing(destination)">
+                <button class="btn btn-primary" ng-click="edit(destination)">Modifier</button>
+                <button class="btn btn-success" ng-click="showHints(destination.id)">Consulter Indices</button>
+            </td>
+            <td ng-if="isEditing(destination)">
+                <button type="button" class="btn btn-primary" ng-click="update(destination)">Confirmer</button>
+                <button type="button" class="btn btn-danger" ng-click="closeEdit()">Cancel</button>
+            </td>
+        </tr>
     </tbody>
 </table >
