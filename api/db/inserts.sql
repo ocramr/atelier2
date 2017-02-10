@@ -51,4 +51,4 @@ INSERT INTO `place`(`name`, `lng`, `lat`, `indication`) VALUES
 
 
 
-INSERT INTO `level` (`id`, `max_attempts`, `distance`, `time`) VALUES (NULL, '20', '500', '1000');
+INSERT INTO `level` (`id`,`name`, `max_attempts`, `distance`, `time`) VALUES (NULL,'easy', '20', '500', '1000');
