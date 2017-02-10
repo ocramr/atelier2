@@ -9,7 +9,7 @@
       <div class="modal-body">
         <div class="row">
         <div class="col-lg-push-2 col-sm-push-2 col-lg-8 col-sm-8">
-            <form role="form" ng-submit="addPlace()" ng-controller="PlaceController"class="form-horizontal">
+            <form role="form" ng-submit="addPlace()" ng-controller="PlaceController"class="form-horizontal" enctype="multipart/form-data">
                 <fieldset>
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="pName">Nom</label>  
@@ -30,22 +30,21 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-md-4 control-label" for="pType">Longitude</label>  
+                    <label class="col-md-4 control-label" for="pType">Type d'indication</label>  
                     <div class="col-md-8">
-                        <input type="radio" ng-model="place.type_indication" value="text">
+                        <input type="radio" ng-model="place.type_indication" value="text" >
                         Text
-                         <input type="radio" ng-model="place.type_indication" value="url" >
-                        URL
+                         <input type="radio" ng-model="place.type_indication" value="url">
+                        Image
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-md-4 control-label" for="pLng">Longitude</label>  
+                    <label class="col-md-4 control-label" for="pLng">Indication</label>  
                     <div class="col-md-8">
-                        <input type="number" required step="any" class="form-control" ng-model="place.lng" id="pLng" placeholder="Longitude">
-                        <input ng-if="selected.type_indication=='url'" type="file" accept=".png, .jpg, .jpeg" ng-model=place.indication class="form-control input-sm"/>
+                        <input ng-if="place.type_indication=='text'" type="text" ng-model=place.indication class="form-control input-sm"/>
+                        <input base-sixty-four-input ng-if="place.type_indication=='url'" type="file" accept=".png, .jpg, .jpeg" ng-model=place.indication class="form-control input-sm"  />
                     </div>
                 </div>
-            <td>
                 <div class="col-md-push-4 col-md-6 ">
                     <button class="form-control btn btn-primary">Valider</button>
                 </div>

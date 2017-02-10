@@ -6,6 +6,9 @@ angular.module('backoffice').factory('PlaceFactory', ['$http', 'API_URL',functio
         },
         update: function (id, json) {
             return $http.put(url+'/'+id, json);
+        },
+        add: function (json) {
+            return $http.post(url, json);
         }
     }
 
