@@ -45,7 +45,7 @@ app.controller('PlaceController', ['$scope', '$http', 'PlaceFactory', 'API_URL',
          $scope.addPlace = function()
         {
             console.log($scope.place)
-            var indication = ($scope.place.indication.base64 !== undefined ) ? $scope.place.filetype+';base64,'+$scope.place.indication.base64 : $scope.place.indication;
+            var indication = ($scope.place.indication.base64 !== undefined ) ? 'data:'+$scope.place.indication.filetype+';base64,'+$scope.place.indication.base64 : $scope.place.indication;
             var newPlace = {
                 name : $scope.place.name,
                 lng : $scope.place.lng,
