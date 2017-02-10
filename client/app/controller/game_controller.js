@@ -39,12 +39,14 @@ angular.module('app').controller('GameController', ['$scope', '$http', 'Game','G
         if ($scope.game.isPlaying) {
             $scope.game.isPlaying = false;
             localStorage.setItem("findYourWay", JSON.stringify($scope.game));
+            angular.element('#pauseModal').modal('show');
         } else {
             var game = JSON.parse(localStorage.getItem("findYourWay"));
             if (game) {
                 $scope.game = game;
                 $scope.game.isPlaying = true;
                 localStorage.removeItem("findYourWay");
+                angular.element('#pauseModal').modal('hide');
             }
         }
     };
