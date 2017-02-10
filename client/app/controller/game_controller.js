@@ -17,7 +17,21 @@ angular.module('app').controller('GameController', ['$scope', '$http', 'Game','G
             DataService.reset();
         }
 
-
+        $scope.pauseOrResume = function () {
+            if ($scope.game.isPlaying) {
+                $scope.game.isPlaying = false;
+                localStorage.setItem("findYourWay", JSON.stringify($scope.game));
+                angular.element('#pauseModal').modal('show');
+            } else {
+                var game = JSON.parse(localStorage.getItem("findYourWay"));
+                if (game) {
+                    $scope.game = game;
+                    $scope.game.isPlaying = true;
+                    localStorage.removeItem("findYourWay");
+                    angular.element('#pauseModal').modal('hide');
+                }
+            }
+        }
         $scope.start = function () {
             if($scope.newGame.pseudo && $scope.newGame.level){
                 GameFactory.play({"pseudo" : $scope.newGame.pseudo, "level": $scope.newGame.level}).then(function (response) {
@@ -34,20 +48,6 @@ angular.module('app').controller('GameController', ['$scope', '$http', 'Game','G
                 });
             }
 
-        };
-
-        $scope.pauseOrResume = function () {
-            if ($scope.game.isPlaying) {
-                $scope.game.isPlaying = false;
-                localStorage.setItem("findYourWay", JSON.stringify($scope.game));
-            } else {
-                var game = JSON.parse(localStorage.getItem("findYourWay"));
-                if (game) {
-                    $scope.game = game;
-                    $scope.game.isPlaying = true;
-                    localStorage.removeItem("findYourWay");
-                }
-            }
         };
         $scope.ranking = function () {
             GameFactory.ranking().then(function(response){
