@@ -1,5 +1,5 @@
-app.controller('HomeController', ['$scope', '$http', '$location', 'UserFactory',
-    function($scope, $http, $location, UserFactory) {
+app.controller('HomeController', ['$scope', '$http', '$location', 'UserFactory','$localStorage',
+    function($scope, $http, $location, UserFactory, $localStorage) {
 
         $scope.logout = function () {
             UserFactory.logout(function () {
@@ -7,4 +7,8 @@ app.controller('HomeController', ['$scope', '$http', '$location', 'UserFactory',
             });
 
         };
+        if($localStorage.currentUser)
+        {
+            $scope.currentUser = $localStorage.currentUser; 
+        }
     }]);

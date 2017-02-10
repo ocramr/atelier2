@@ -1,8 +1,8 @@
 <div class="row">
-    <div class="col-sm-3">
+    <div class="col-sm-3" ng-controller="HomeController">
          <ul class="nav navbar-nav">
         <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Ikram</span></a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{currentUser.last_name}}</span></a>
           <ul class="dropdown-menu">
             <nav class="nav-sidebar">
                 <li class="active menu-list"><a ui-sref=".destination">Gestion des destinations<span class="pull-right"></span></a></li>
@@ -19,6 +19,6 @@
       </ul>
     </div>
     <div class="col-sm-9">
-        <div ui-view></div>
+        <div ui-view class="table"></div>
     </div>
 </div>

@@ -2,6 +2,7 @@ app.controller('DestinationController', ['$scope', '$http',  'DestinationFactory
     function($scope, $http, DestinationFactory) {
 
         $scope.destinations = [];
+        $scope.destination = {};
         $scope.selected={};
         $scope.getTemplate = function (destination) {
             if (destination.id === $scope.selected.id){
@@ -43,6 +44,17 @@ app.controller('DestinationController', ['$scope', '$http',  'DestinationFactory
                console.log(error);
             });
         };
+
+        $scope.addDestination = function()
+        {
+            console.log($scope.destination)
+             DestinationFactory.add($scope.destination).then(function (response) {
+                angular.element('#addDestinationModal').modal('hide');
+                $scope.reset();
+            }, function (error) {
+                console.log(error);
+            });
+        }
 
         $scope.listAll();
     }]);

@@ -9,7 +9,10 @@ angular.module('backoffice').factory('DestinationFactory', ['$http','API_URL',fu
         },
         allHints: function (id) {
             return $http.get(url+'/'+id+'/hints');
-        }
+        },
+        add: function (json) {
+            return $http.post(url, json);
+        },
     }
 
 }]);
