@@ -1,6 +1,3 @@
-/**
- * Created by marco on 8/02/17.
- */
 angular.module('app').service('DataService', function () {
 
     this.listPlaces = function (places) {

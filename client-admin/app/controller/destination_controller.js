@@ -1,22 +1,48 @@
-app.controller('DestinationController', ['$scope', '$http',  'DestinationFactory',
-    function($scope, $http, DestinationFactory) {
-
+app.controller('DestinationController', ['$scope', '$http', 'DestinationFactory','API_URL', 'ModalService',
+    function($scope, $http, DestinationFactory, API_URL, ModalService) {
+        $scope.API_URL = API_URL;
         $scope.destinations = [];
         $scope.destination = {};
-        $scope.selected={};
+        $scope.selectedDestination={};
+        $scope.hints = [];
+        $scope.selectedHint={};
+
+        $scope.showHints = function(id) {
+            DestinationFactory.allHints(id).then(function (response) {
+                ModalService.showModal({
+                    templateUrl: "hintModal.html",
+                    controller: "HintController",
+                    inputs:{
+                        hints: response.data
+                    }
+                }).then(function(modal) {
+                    modal.element.modal();
+                    modal.close.then(function(result) {
+                        $scope.yesNoResult = result ? "You said Yes" : "You said No";
+                        console.log($scope.yesNoResult);
+                    });
+                });
+            }, function (error) {
+                console.log(error);
+            });
+
+
+        };
+
         $scope.getTemplate = function (destination) {
-            if (destination.id === $scope.selected.id){
+            if (destination.id === $scope.selectedDestination.id){
                 return 'edit';
             }
             else return 'display';
         };
 
         $scope.edit = function (destination) {
-            $scope.selected = angular.copy(destination);
+            $scope.selectedDestination = angular.copy(destination);
         };
 
         $scope.reset = function () {
-            $scope.selected = {};
+            $scope.selectedDestination = {};
+            console.log($scope.destinations);
         };
 
         $scope.listAll = function () {
@@ -37,23 +63,18 @@ app.controller('DestinationController', ['$scope', '$http',  'DestinationFactory
             });
         };
 
-        $scope.openHints = function (id) {
-            DestinationFactory.allHints(id).then(function (response) {
-                console.log(response.data);
-            }, function (error) {
-               console.log(error);
-            });
-        };
 
         $scope.addDestination = function()
         {
+            console.log($scope.destination);
              DestinationFactory.add($scope.destination).then(function (response) {
                 angular.element('#addDestinationModal').modal('hide');
                 $scope.reset();
             }, function (error) {
                 console.log(error);
             });
-        }
+        };
+
 
         $scope.listAll();
     }]);

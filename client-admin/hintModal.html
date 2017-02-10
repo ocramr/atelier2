@@ -1,0 +1,53 @@
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title text-center">Indicationsdfdf</h4>
+      </div>
+      <div class="modal-body">
+          <table class="table table-bordered table-striped table-condensed" >
+              <thead>
+              <tr>
+                  <th>Type d'indication</th>
+                  <th>Indication</th>
+              </tr>
+              </thead>
+              <tbody>
+              <script type="text/ng-template" id="display">
+                  <td>{{hint.type | uppercase}}</td>
+                  <td ng-if="hint.type=='text'">{{hint.value}}</td>
+                  <td ng-if="hint.type=='url'"><img ng-src="{{API_URL+hint.value}}" width="80px" height="50px"/></td>
+                  <td>
+                      <button class="btn btn-primary" ng-click="edit(hint)">Modifier</button>
+                  </td>
+              </script>
+
+              <script type="text/ng-template" id="edit">
+                  <td>
+                      <label>
+                          <input type="radio" ng-model="selected.type" value="text">
+                          Text
+                      </label>
+                      <label>
+                          <input type="radio" ng-model="selected.type" value="url" >
+                          URL
+                      </label>
+                  </td>
+                  <td>
+                      <input ng-if="selected.type=='text'" type="text" ng-model=selected.indication class="form-control input-sm"/>
+                      <input ng-if="selected.type=='url'" type="file" accept=".png, .jpg, .jpeg" ng-model=selected.indication class="form-control input-sm"/>
+                  </td>
+                  <td>
+                      <button type="button" class="btn btn-primary" ng-click="update(hint)">Confirmer</button>
+                      <button type="button" class="btn btn-danger" ng-click="reset()">Cancel</button>
+                  </td>
+              </script>
+              <tr ng-repeat="hint in hints" ng-include="getTemplate(hint)"></tr>
+              </tbody>
+          </table >
+      </div>
+    </div>
+  </div>
+</div>
