@@ -57,7 +57,6 @@ function run($rootScope, $http, $location, $localStorage) {
 
     // redirect to login page if not logged in and trying to access a restricted page
     $rootScope.$on('$locationChangeStart', function (event, next, current) {
-        console.log('change');
         var publicPages = ['/login','/register'];
         var restrictedPage = publicPages.indexOf($location.path()) === -1;
         if (restrictedPage && !$localStorage.currentUser) {

@@ -18,7 +18,6 @@ app.controller('LevelController', ['$scope', 'LevelFactory',
         };
 
         $scope.update = function (level) {
-            console.log(LevelFactory.update(level.id, level));
             LevelFactory.update(level.id, level).then(function (response) {
                 console.log(response.data);
                 $scope.reset();
