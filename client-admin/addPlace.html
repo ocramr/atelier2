@@ -1,0 +1,59 @@
+<div id="addPlaceModal" class="modal fade" role="dialog" >
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title text-center">Ajouter un lieu</h4>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+        <div class="col-lg-push-2 col-sm-push-2 col-lg-8 col-sm-8">
+            <form role="form" ng-submit="addPlace()" ng-controller="PlaceController"class="form-horizontal">
+                <fieldset>
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="pName">Nom</label>  
+                    <div class="col-md-8">
+                        <input type="text" required class="form-control input-md" ng-model="place.name" id="pName" placeholder="Name">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="pLat">latitude</label>  
+                    <div class="col-md-8">
+                        <input type="number" required step="any" class="form-control" ng-model="place.lat" id="pLat" placeholder="latitude">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="pLng">Longitude</label>  
+                    <div class="col-md-8">
+                        <input type="number" required step="any" class="form-control" ng-model="place.lng" id="pLng" placeholder="Longitude">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="pType">Longitude</label>  
+                    <div class="col-md-8">
+                        <input type="radio" ng-model="place.type_indication" value="text">
+                        Text
+                         <input type="radio" ng-model="place.type_indication" value="url" >
+                        URL
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="pLng">Longitude</label>  
+                    <div class="col-md-8">
+                        <input type="number" required step="any" class="form-control" ng-model="place.lng" id="pLng" placeholder="Longitude">
+                        <input ng-if="selected.type_indication=='url'" type="file" accept=".png, .jpg, .jpeg" ng-model=place.indication class="form-control input-sm"/>
+                    </div>
+                </div>
+            <td>
+                <div class="col-md-push-4 col-md-6 ">
+                    <button class="form-control btn btn-primary">Valider</button>
+                </div>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+      </div>
+    </div>
+  </div>
+</div>
