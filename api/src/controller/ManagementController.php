@@ -105,13 +105,14 @@ class ManagementController extends AbstractController
   
         }
 
-        public function createLevel($req, $res, $args)
+        public function updateLevel($req, $res, $args)
         {
             $arguments = $req->getParsedBody();
             if (!isset($arguments["max_attempts"]) || !isset($arguments["distance"]) || !isset($arguments["time"]))
                 return $this->json_error($res, 400, "Missing Parameters");
 
-            $level = new Level();
+            $level = Level::where("id", "=", $args["id"])->firstOrFail();
+            $level->name = filter_var($arguments["name"], FILTER_SANITIZE_STRING);
             $level->max_attempts = filter_var($arguments["max_attempts"], FILTER_SANITIZE_STRING);
             $level->distance = filter_var($arguments["distance"], FILTER_SANITIZE_STRING);
             $level->time = filter_var($arguments["time"], FILTER_SANITIZE_STRING);
@@ -128,7 +129,7 @@ class ManagementController extends AbstractController
             }catch (ModelNotFoundException $mne){
                 return $this->json_error($resp, 404, "Ressource non trouvée");
             }
-    }
+        }
 
 
         //TODO service updateLevel, updatePlace, updateDestination (FILE), Settings, hints
