@@ -53,7 +53,7 @@ define({ "api": [
       "examples": [
         {
           "title": "exemple de réponse en cas de succès",
-          "content": "HTTP/1.1 200 OK\n\n{\n     \"0\" => {\n         game : {\n             \"id\"  : 1 ,\n             \"pseudo\"    : \"Player 1\",\n             \"token\"     : \"y3vt39hpa8n69ocu5wpmspqm4lpu6gmk\",\n             \"score\"     : NULL,\n             \"state\"     : 0,\n             \"duration\"  : NULL,\n             \"id_level\"  : 1,\n             \"id_destination\" : 2\n         }   \n     },\n     \"1\" => {\n         game : {\n             \"id\"  : 2 ,\n             \"pseudo\"    : \"Player 1\",\n             \"token\"     : \"y3vt39hpa8n69ocu5wpmspqm4lpu6gmk\",\n             \"score\"     : NULL,\n             \"state\"     : 0,\n             \"duration\"  : NULL,\n             \"id_level\"  : 1,\n             \"id_destination\" : 2\n         }   \n     },\n   \n}",
+          "content": "HTTP/1.1 200 OK\n\n{\n     \"0\" => {\n         game : {\n             \"id\"  : 1 ,\n             \"pseudo\"    : \"Player 1\",\n             \"token\"     : \"y3vt39hpa8n69ocu5wpmspqm4lpu6gmk\",\n             \"score\"     : \"8\",\n             \"state\"     : 0,\n             \"duration\"  : \"60\",\n             \"id_level\"  : 1,\n             \"id_destination\" : 2\n         }   \n     },\n     \"1\" => {\n         game : {\n             \"id\"  : 2 ,\n             \"pseudo\"    : \"Player 1\",\n             \"token\"     : \"y3vt39hpa8n69ocu5wpmspqm4lpu6gmk\",\n             \"score\"     : \"6\",\n             \"state\"     : 0,\n             \"duration\"  : \"103\",\n             \"id_level\"  : 1,\n             \"id_destination\" : 2\n         }   \n     },\n   \n}",
           "type": "json"
         }
       ]
@@ -84,7 +84,7 @@ define({ "api": [
       "examples": [
         {
           "title": "exemple de réponse en cas de succès",
-          "content": "HTTP/1.1 200 OK\n\n {\n     game : {\n         \"id\"  : 1 ,\n         \"pseudo\"    : \"Player 1\",\n         \"token\"     : \"y3vt39hpa8n69ocu5wpmspqm4lpu6gmk\",\n         \"score\"     : NULL,\n         \"state\"     : 0,\n         \"duration\"  : NULL,\n         \"id_level\"  : 1,\n         \"id_destination\" : 2\n     }   \n}",
+          "content": "HTTP/1.1 200 OK\n\n {\n     game : {\n         \"id\"  : 1 ,\n         \"pseudo\"    : \"Player 1\",\n         \"token\"     : \"y3vt39hpa8n69ocu5wpmspqm4lpu6gmk\",\n         \"score\"     : \"9\",\n         \"state\"     : 0,\n         \"duration\"  : \"120\",\n         \"id_level\"  : 1,\n         \"id_destination\" : 2\n     }   \n}",
           "type": "json"
         }
       ]

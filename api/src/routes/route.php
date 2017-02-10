@@ -324,9 +324,9 @@ $app->group('/levels', function (){
  *                  "id"  : 1 ,
  *                  "pseudo"    : "Player 1",
  *                  "token"     : "y3vt39hpa8n69ocu5wpmspqm4lpu6gmk",
- *                  "score"     : NULL,
+ *                  "score"     : "8",
  *                  "state"     : 0,
- *                  "duration"  : NULL,
+ *                  "duration"  : "60",
  *                  "id_level"  : 1,
  *                  "id_destination" : 2
  *              }   
@@ -336,9 +336,9 @@ $app->group('/levels', function (){
  *                  "id"  : 2 ,
  *                  "pseudo"    : "Player 1",
  *                  "token"     : "y3vt39hpa8n69ocu5wpmspqm4lpu6gmk",
- *                  "score"     : NULL,
+ *                  "score"     : "6",
  *                  "state"     : 0,
- *                  "duration"  : NULL,
+ *                  "duration"  : "103",
  *                  "id_level"  : 1,
  *                  "id_destination" : 2
  *              }   
@@ -368,9 +368,9 @@ $app->group('/levels', function (){
  *              "id"  : 1 ,
  *              "pseudo"    : "Player 1",
  *              "token"     : "y3vt39hpa8n69ocu5wpmspqm4lpu6gmk",
- *              "score"     : NULL,
+ *              "score"     : "9",
  *              "state"     : 0,
- *              "duration"  : NULL,
+ *              "duration"  : "120",
  *              "id_level"  : 1,
  *              "id_destination" : 2
  *          }   
