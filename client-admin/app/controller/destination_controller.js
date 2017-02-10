@@ -42,11 +42,11 @@ app.controller('DestinationController', ['$scope', '$http', 'DestinationFactory'
 
         $scope.reset = function () {
             $scope.selectedDestination = {};
-            console.log($scope.destinations);
         };
 
         $scope.listAll = function () {
             DestinationFactory.all().then(function (response) {
+                console.log($scope.destinations)
                 $scope.destinations = response.data;
                 console.log($scope.destinations);
             }, function (error) {
@@ -55,6 +55,7 @@ app.controller('DestinationController', ['$scope', '$http', 'DestinationFactory'
         };
 
         $scope.update = function (destination) {
+            console.log(destination)
             DestinationFactory.update(destination.id, destination).then(function (response) {
                 console.log(response.data);
                 $scope.reset();
