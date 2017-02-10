@@ -15,7 +15,7 @@
         <td>{{destination.lng}}</td>
         <td>
             <button class="btn btn-primary" ng-click="edit(destination)">Modifier</button>
-            <button class="btn btn-success" ng-click="openHints(destination.id)">Consulter Indices</button>
+            <button class="btn btn-success" ng-click="showHints(destination.id)">Consulter Indices</button>
         </td>
     </script>
 
@@ -28,8 +28,6 @@
             <button type="button" class="btn btn-danger" ng-click="reset()">Cancel</button>
         </td>
     </script>
-        <tr ng-repeat="destination in destinations" ng-include="getTemplate(destination)">
-
-        </tr>
+        <tr ng-repeat="destination in destinations" ng-include="getTemplate(destination)"></tr>
     </tbody>
 </table >

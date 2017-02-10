@@ -20,13 +20,21 @@
   ],
   "dependencies": {
     "jquery": "^3.1.1",
-    "angular": "^1.6.1",
+    "angular": "^1.6.2",
     "bootstrap-sass": "^3.3.7",
     "angular-route": "^1.6.2",
     "angular-bootstrap": "^2.5.0",
-    "angular-animate": "^1.6.2",
+    "angular-animate": "^1.6.1",
     "angular-ui-router": "^0.4.2",
     "ngstorage": "^0.3.11",
+<<<<<<< HEAD
     "angular-base64-upload": "^0.1.19"
+=======
+    "angular-base64-upload": "^0.1.19",
+    "angular-modal-service": "^0.10.1"
+  },
+  "resolutions": {
+    "angular": "1.6.2"
+>>>>>>> abc8fc969440106a974ddcfa0b766d2eb31d7654
   }
 }

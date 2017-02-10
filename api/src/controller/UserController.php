@@ -67,8 +67,7 @@ class UserController extends AbstractController
                     $server = $request->getServerParams();
                     $payload = [
                         "iat" => $now->getTimeStamp(),
-                        "exp" => $future->getTimeStamp(),
-                        //"sub" => $server["PHP_AUTH_USER"]
+                        "exp" => $future->getTimeStamp()
                     ];
                     $secret = "papo";
                     $token = JWT::encode($payload, $secret, "HS256");
