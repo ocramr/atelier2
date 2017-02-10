@@ -58,6 +58,7 @@ $app->group('/destinations', function (){
 
 $app->group('/levels', function (){
 
+    $this->put('/{id}', ManagementController::class. ':updateLevel')->setName('updateLevel');
 
     $this->get('', UserController::class. ':getLevels')->setName('levels');
 
