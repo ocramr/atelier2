@@ -20,11 +20,11 @@
       Options FollowSymLinks  
       AllowOverride All  
       Require all granted  
-      `</Directory>`<
+      `</Directory>`
      
    - Game Client
     
-      > ServerName play.findyourway.local  
+    > ServerName play.findyourway.local  
        DocumentRoot {racine}/atelier2/client  
        DirectoryIndex index.html  
        `<Directory {racine}/atelier2/client>`
@@ -35,7 +35,7 @@
       
    - Backoffice
      
-      > ServerName admin.findyourway.local  
+    > ServerName admin.findyourway.local  
        DocumentRoot {racine}/atelier2/client-admin  
        DirectoryIndex index.html  
       `<Directory {racine}/atelier2/client-admin>`
