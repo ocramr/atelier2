@@ -38,11 +38,13 @@ class ManagementController extends AbstractController
                 $place->lat = $data['lat'];
                 $place->type_indication = $data['type_indication'];
                 if($place->type_indication == 'text'){
-                    $place->indication = $data['indication'];
+                    $place->indication = str_replace(' ','',$data['indication']);
+                    $place->indication = $place->indication;
                 }else{
                     try{
                         $indication = Util::uploadFromData($data['indication'], $data['name']);
-                        $place->indication = 'img/'.$indication;
+                        $place->indication = 'img/'.str_replace(' ','',$indication);
+                        $place->indication = $place->indication;
                         $place->type_indication = 'url';
                     }catch (\Exception $e){
                         return $this->json_error($resp, 400, $e->getMessage());
@@ -106,11 +108,13 @@ class ManagementController extends AbstractController
             $newPlace->lat = $data['lat'];
             $newPlace->type_indication = $data['type_indication'];
             if($newPlace->type_indication == 'text'){
-                $newPlace->indication = $data['indication'];
+                $newPlace->indication = str_replace(' ', '', data['indication']);
+                $newPlace->indication = $newPlace->indication;
             }else{
                 try{
                     $indication = Util::uploadFromData($data['indication'], $data['name']);
-                    $newPlace->indication = 'img/'.$indication;
+                    $newPlace->indication = 'img/'.str_replace(' ', '',$indication);
+                    $newPlace->indication =  $newPlace->indication;
                     $newPlace->type_indication = 'url';
                 }catch (\Exception $e){
                     return $this->json_error($resp, 400, $e->getMessage());
@@ -162,11 +166,13 @@ class ManagementController extends AbstractController
             $value = Util::uploadFromData($data['value'], $newHint->destination->name);
 
             if($value != false){
-                $newHint->value = 'img/'.$value;
+                $newHint->value = 'img/'.str_replace(' ','',$value);
+                $newHint->value = $newHint->value;
                 $newHint->type = 'url';
             } 
             else{
-                $newHint->value = $data['value'];
+                $newHint->value = str_replace(' ','',$data['value']);
+                $newHint->value = $newHint->value;
                 $newHint->type = 'text';
             }
 
@@ -192,11 +198,12 @@ class ManagementController extends AbstractController
                 $imageName = $hint->destination->name.'_'.time();
                 $value = Util::uploadFromData($data['value'], $imageName);
                 if($value != false){
-                    $hint->value = 'img/'.$value;
+                    $hint->value = 'img/'.str_replace(' ','',$value);
                     $hint->type = 'url';
                 } 
                 else{
-                    $hint->value = $data['value'];
+                    $hint->value = str_replace(' ',''$data['value']);
+                    $hint->value = $hint->value;
                     $hint->type = 'text';
                 }
             }
