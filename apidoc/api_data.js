@@ -1,10 +1,113 @@
 define({ "api": [
   {
+    "group": "Destinations",
+    "name": "AddDestination",
+    "version": "0.1.0",
+    "type": "post",
+    "url": "/destinations",
+    "title": "Crée une ressource de type destination",
+    "permission": [
+      {
+        "name": "admin"
+      }
+    ],
+    "description": "<p>Crée une ressource de type destination.<br/> Retourne cette ressource incluant son id, name, lng, lat.</p>",
+    "success": {
+      "fields": {
+        "Succès : 200": [
+          {
+            "group": "Succès : 200",
+            "type": "Object",
+            "optional": false,
+            "field": "destination",
+            "description": "<p>Ressource de type destination</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "exemple de réponse en cas de succès",
+          "content": "HTTP/1.1 200 OK\n\n {\n     destination : {\n         \"id\"  : 1 ,\n         \"name\"  : \"Toulouse\",\n         \"lng\"   : \"1.450488\",\n         \"lat\"   : \"43.607489\"\n     }     \n}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "api/src/routes/route.php",
+    "groupTitle": "Destinations"
+  },
+  {
+    "group": "Destinations",
+    "name": "GetDestinations",
+    "version": "0.1.0",
+    "type": "get",
+    "url": "/destinations",
+    "title": "Accès à une table de ressources de type destination",
+    "description": "<p>Accès à une table de ressources de type destination.<br/> Retourne cette table, incluant un ensemble de ressources de type place avec leurs id, name, lng, lat.</p>",
+    "success": {
+      "fields": {
+        "Succès : 200": [
+          {
+            "group": "Succès : 200",
+            "type": "Object[]",
+            "optional": false,
+            "field": "table",
+            "description": "<p>Table de ressources de type destination</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "exemple de réponse en cas de succès",
+          "content": "HTTP/1.1 200 OK\n\n{\n     \"0\" => {\n         destination : {\n             \"id\"  : 1 ,\n             \"name\"  : \"Toulouse\",\n             \"lng\"   : \"1.450488\",\n             \"lat\"   : \"43.607489\"\n         }\n     },\n     \"1\" => {\n         destination : {\n             \"id\"  : 2 ,\n             \"name\"  : \"Le Havre\",\n             \"lng\"   :\"0.121646\",\n             \"lat\"   : \"49.527592\"\n         }\n     },\n   \n}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "api/src/routes/route.php",
+    "groupTitle": "Destinations"
+  },
+  {
+    "group": "Destinations",
+    "name": "UpdateDestination",
+    "version": "0.1.0",
+    "type": "put",
+    "url": "/destinations/:id",
+    "title": "Modifie une ressource de type destination",
+    "permission": [
+      {
+        "name": "admin"
+      }
+    ],
+    "description": "<p>Modifie une ressource de type destination.<br/> Retourne cette ressource, incluant son id, name, lng, lat.</p>",
+    "success": {
+      "fields": {
+        "Succès : 200": [
+          {
+            "group": "Succès : 200",
+            "type": "Object",
+            "optional": false,
+            "field": "destination",
+            "description": "<p>Ressource de type destination</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "exemple de réponse en cas de succès",
+          "content": "  HTTP/1.1 200 OK\n\n{\n       destination : {\n           \"id\"  : 1 ,\n           \"name\"  : \"Toulouse\",\n           \"lng\"   : \"1.4504880014\",\n           \"lat\"   : \"43.6074896589\"\n       }     \n  }",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "api/src/routes/route.php",
+    "groupTitle": "Destinations"
+  },
+  {
     "group": "Games",
     "name": "AddGame",
     "version": "0.1.0",
     "type": "post",
-    "url": "place/play",
+    "url": "/game/play",
     "title": "Crée une ressource de type game",
     "description": "<p>Crée une ressource de type game.<br/> Retourne cette ressource incluant son id, pseudo, token, score, state, duration, id_level, id_destination.</p>",
     "success": {
@@ -35,7 +138,7 @@ define({ "api": [
     "name": "GetGamesRankings",
     "version": "0.1.0",
     "type": "get",
-    "url": "Table",
+    "url": "/game/ranking",
     "title": "Accès à une collection de ressources de type game",
     "description": "<p>Accès à une collection de ressources de type game.<br/> Retourne cette collection, incluant un ensemble de ressources de type game avec leurs pseudo, duration, score, state, id_level, id_destination.</p>",
     "success": {
@@ -46,7 +149,7 @@ define({ "api": [
             "type": "Object[]",
             "optional": false,
             "field": "table",
-            "description": "<p>Table de ressources de type level</p>"
+            "description": "<p>Table de ressources de type game</p>"
           }
         ]
       },
@@ -66,7 +169,7 @@ define({ "api": [
     "name": "UpdateGame",
     "version": "0.1.0",
     "type": "put",
-    "url": "games/:id/save",
+    "url": "/games/:id/save",
     "title": "Modifie une ressources de type game",
     "description": "<p>Modifie une ressource de type game.<br/> Retourne cette ressource, incluant son son id, pseudo, token, score, state, duration, id_level, id_destination.</p>",
     "success": {
@@ -76,7 +179,7 @@ define({ "api": [
             "group": "Succès : 200",
             "type": "Object",
             "optional": false,
-            "field": "place",
+            "field": "game",
             "description": "<p>Ressource de type game</p>"
           }
         ]
@@ -97,7 +200,7 @@ define({ "api": [
     "name": "GetLevels",
     "version": "0.1.0",
     "type": "get",
-    "url": "Table",
+    "url": "/levels",
     "title": "Accès à une collection de ressources de type level",
     "description": "<p>Accès à une collection de ressources de type level.<br/> Retourne cette collection, incluant un ensemble de ressources de type level avec leurs id, max_attempts, time et name.</p>",
     "success": {
@@ -128,7 +231,7 @@ define({ "api": [
     "name": "UpdateLevel",
     "version": "0.1.0",
     "type": "put",
-    "url": "places/:id",
+    "url": "/levels/:id",
     "title": "Modifie une ressources de type level",
     "permission": [
       {
@@ -164,7 +267,7 @@ define({ "api": [
     "name": "AddPlaces",
     "version": "0.1.0",
     "type": "post",
-    "url": "places",
+    "url": "/places",
     "title": "Crée une ressource de type place",
     "permission": [
       {
@@ -200,7 +303,7 @@ define({ "api": [
     "name": "GetPlaces",
     "version": "0.1.0",
     "type": "get",
-    "url": "Table",
+    "url": "/places",
     "title": "Accès à une table de ressources de type place",
     "description": "<p>Accès à une table de ressources de type place.<br/> Retourne cette table, incluant un ensemble de ressources de type place avec leurs id, last_name, first_name, username et password.</p>",
     "success": {
@@ -231,7 +334,7 @@ define({ "api": [
     "name": "UpdatePlace",
     "version": "0.1.0",
     "type": "patch",
-    "url": "places/:id",
+    "url": "/places/:id",
     "title": "Modifie une ressource de type place",
     "permission": [
       {
@@ -267,7 +370,7 @@ define({ "api": [
     "name": "Register",
     "version": "0.1.0",
     "type": "post",
-    "url": "users/register",
+    "url": "/users/register",
     "title": "Crée une ressource de type utilisateur",
     "description": "<p>Crée d'une ressource de type user.<br/> Retourne cette ressource, incluant son id, last_name, first_name, username et password</p>",
     "success": {

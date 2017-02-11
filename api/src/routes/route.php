@@ -33,7 +33,7 @@ $app->options('/{routes:.+}', function ($request, $response, $args) {
  * @apiName Register
  * @apiVersion 0.1.0
  *
- * @api {post} users/register  Crée une ressource de type utilisateur
+ * @api {post} /users/register  Crée une ressource de type utilisateur
  *
  * @apiDescription Crée d'une ressource de type user.<br/>
  * Retourne cette ressource, incluant son id, last_name, first_name, username et password
@@ -76,7 +76,7 @@ $app->group('/user', function (){
  * @apiName GetPlaces
  * @apiVersion 0.1.0
  *
- * @api {get} Table Accès à une table de ressources de type place
+ * @api {get} /places Accès à une table de ressources de type place
  *
  * @apiDescription Accès à une table de ressources de type place.<br/>
  * Retourne cette table, incluant un ensemble de ressources de type place avec leurs id,
@@ -119,7 +119,7 @@ $app->group('/user', function (){
  * @apiName AddPlaces
  * @apiVersion 0.1.0
  *
- * @api {post} places Crée une ressource de type place
+ * @api {post} /places Crée une ressource de type place
  * @apiPermission admin
  *
  * @apiDescription Crée une ressource de type place.<br/>
@@ -148,7 +148,7 @@ $app->group('/user', function (){
  * @apiName UpdatePlace
  * @apiVersion 0.1.0
  *
- * @api {patch} places/:id Modifie une ressource de type place
+ * @api {patch} /places/:id Modifie une ressource de type place
  * @apiPermission admin
  *
  * @apiDescription Modifie une ressource de type place.<br/>
@@ -182,6 +182,99 @@ $app->group('/places', function (){
     
 })->add('CORS');
 
+/**
+ * @apiGroup Destinations
+ * @apiName GetDestinations
+ * @apiVersion 0.1.0
+ *
+ * @api {get} /destinations Accès à une table de ressources de type destination
+ *
+ * @apiDescription Accès à une table de ressources de type destination.<br/>
+ * Retourne cette table, incluant un ensemble de ressources de type place avec leurs id,
+ * name, lng, lat.
+ *
+ *
+ *
+ * @apiSuccess (Succès : 200) {Object[]} table Table de ressources de type destination
+ *
+ * @apiSuccessExample {json} exemple de réponse en cas de succès
+ *     HTTP/1.1 200 OK
+ *
+ *     {
+ *          "0" => {
+ *              destination : {
+ *                  "id"  : 1 ,
+ *                  "name"  : "Toulouse",
+ *                  "lng"   : "1.450488",
+ *                  "lat"   : "43.607489"
+ *              }
+ *          },
+ *          "1" => {
+ *              destination : {
+ *                  "id"  : 2 ,
+ *                  "name"  : "Le Havre",
+ *                  "lng"   :"0.121646",
+ *                  "lat"   : "49.527592"
+ *              }
+ *          },
+ *        
+ *     }
+ */
+
+ /**
+ * @apiGroup Destinations
+ * @apiName AddDestination
+ * @apiVersion 0.1.0
+ *
+ * @api {post} /destinations Crée une ressource de type destination
+ * @apiPermission admin
+ *
+ * @apiDescription Crée une ressource de type destination.<br/>
+ * Retourne cette ressource incluant son id, name, lng, lat.
+ *
+ *
+ * @apiSuccess (Succès : 200) {Object} destination Ressource de type destination
+ *
+ * @apiSuccessExample {json} exemple de réponse en cas de succès
+ *     HTTP/1.1 200 OK
+ *
+ *      {
+ *          destination : {
+ *              "id"  : 1 ,
+ *              "name"  : "Toulouse",
+ *              "lng"   : "1.450488",
+ *              "lat"   : "43.607489"
+ *          }     
+ *     }
+ */
+
+/**
+ * @apiGroup Destinations
+ * @apiName UpdateDestination
+ * @apiVersion 0.1.0
+ *
+ * @api {put} /destinations/:id Modifie une ressource de type destination
+ * @apiPermission admin
+ *
+ * @apiDescription Modifie une ressource de type destination.<br/>
+ * Retourne cette ressource, incluant son id, name, lng, lat.
+ *
+ *
+ * @apiSuccess (Succès : 200) {Object} destination Ressource de type destination
+ *
+ * @apiSuccessExample {json} exemple de réponse en cas de succès
+ *     HTTP/1.1 200 OK
+ *
+ *   {
+ *          destination : {
+ *              "id"  : 1 ,
+ *              "name"  : "Toulouse",
+ *              "lng"   : "1.4504880014",
+ *              "lat"   : "43.6074896589"
+ *          }     
+ *     }
+ */
+
 
 $app->group('/destinations', function (){
 
@@ -199,7 +292,7 @@ $app->group('/destinations', function (){
  * @apiName GetLevels
  * @apiVersion 0.1.0
  *
- * @api {get} Table Accès à une collection de ressources de type level
+ * @api {get} /levels Accès à une collection de ressources de type level
  *
  * @apiDescription Accès à une collection de ressources de type level.<br/>
  * Retourne cette collection, incluant un ensemble de ressources de type level avec leurs id, max_attempts, time et name.
@@ -239,7 +332,7 @@ $app->group('/destinations', function (){
  * @apiName UpdateLevel
  * @apiVersion 0.1.0
  *
- * @api {put} places/:id Modifie une ressources de type level
+ * @api {put} /levels/:id Modifie une ressources de type level
  * @apiPermission admin
  *
  * @apiDescription Modifie une ressources de type place.<br/>
@@ -275,7 +368,7 @@ $app->group('/levels', function (){
  * @apiName AddGame
  * @apiVersion 0.1.0
  *
- * @api {post} place/play Crée une ressource de type game
+ * @api {post} /game/play Crée une ressource de type game
  *
  * @apiDescription Crée une ressource de type game.<br/>
  * Retourne cette ressource incluant son id, pseudo, token, score, state, duration, id_level, id_destination.
@@ -305,7 +398,7 @@ $app->group('/levels', function (){
  * @apiName GetGamesRankings
  * @apiVersion 0.1.0
  *
- * @api {get} Table Accès à une collection de ressources de type game
+ * @api {get} /game/ranking Accès à une collection de ressources de type game
  *
  * @apiDescription Accès à une collection de ressources de type game.<br/>
  * Retourne cette collection, incluant un ensemble de ressources de type game avec leurs
@@ -313,7 +406,7 @@ $app->group('/levels', function (){
  *
  *
  *
- * @apiSuccess (Succès : 200) {Object[]} table Table de ressources de type level
+ * @apiSuccess (Succès : 200) {Object[]} table Table de ressources de type game
  *
  * @apiSuccessExample {json} exemple de réponse en cas de succès
  *     HTTP/1.1 200 OK
@@ -352,13 +445,13 @@ $app->group('/levels', function (){
  * @apiName UpdateGame
  * @apiVersion 0.1.0
  *
- * @api {put} games/:id/save Modifie une ressources de type game
+ * @api {put} /games/:id/save Modifie une ressources de type game
  *
  * @apiDescription Modifie une ressource de type game.<br/>
  * Retourne cette ressource, incluant son son id, pseudo, token, score, state, duration, id_level, id_destination.
  *
  *
- * @apiSuccess (Succès : 200) {Object} place Ressource de type game
+ * @apiSuccess (Succès : 200) {Object} game Ressource de type game
  *
  * @apiSuccessExample {json} exemple de réponse en cas de succès
  *     HTTP/1.1 200 OK
