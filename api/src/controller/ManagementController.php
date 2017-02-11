@@ -30,9 +30,38 @@ class ManagementController extends AbstractController
             try{       
                 $place = Place::findOrfail($args['id']);                  
             }
-            catch(\Illuminate\Database\Eloquent\ModelNotFoundException $e){
+            catch(ModelNotFoundException $e){
                 return $this->json_error($resp, 404, "Not Found");
             }
+
+            if(!isset($data['name'])) return $this->json_error($resp, 400, "Missing Param name");
+            if(!isset($data['lng'])) return $this->json_error($resp, 400, "Missing Param lng");
+            if(!isset($data['lat'])) return $this->json_error($resp, 400, "Missing Param lat");
+            if(!isset($data['type_indication'])) return $this->json_error($resp, 400, "Missing Param type indication");
+            if(!isset($data['indication'])) return $this->json_error($resp, 400, "Missing Param indication");
+
+            $newPlace = new Place();
+            $newPlace->name = $data['name'];
+            $newPlace->lng = $data['lng'];
+            $newPlace->lat = $data['lat'];
+            $newPlace->type_indication = $data['type_indication'];
+            if($newPlace->type_indication == 'text'){
+                $newPlace->indication = $data['indication'];
+            }else{
+                try{
+                    $indication = Util::uploadFromData($data['indication'], $data['name']);
+                    $newPlace->indication = 'img/'.$indication;
+                    $newPlace->type_indication = 'url';
+                }catch (\Exception $e){
+                    return $this->json_error($resp, 400, $e->getMessage());
+                }
+            }
+            if($newPlace->save()){
+                return $this->json_success($resp, 201, $newPlace->toJson());
+            }else{
+                return $this->json_error($resp, 500, "Erreur d'ajout");
+            }
+
 
             if(isset($data['name'])) $place->name = $data['name'];
             if(isset($data['lng'])) $place->lng = $data['lng'];
@@ -94,27 +123,31 @@ class ManagementController extends AbstractController
             if(!isset($data['name'])) return $this->json_error($resp, 400, "Missing Param name");
             if(!isset($data['lng'])) return $this->json_error($resp, 400, "Missing Param lng");
             if(!isset($data['lat'])) return $this->json_error($resp, 400, "Missing Param lat");
+            if(!isset($data['type_indication'])) return $this->json_error($resp, 400, "Missing Param type indication");
             if(!isset($data['indication'])) return $this->json_error($resp, 400, "Missing Param indication");
 
             $newPlace = new Place();
             $newPlace->name = $data['name'];
             $newPlace->lng = $data['lng'];
             $newPlace->lat = $data['lat'];
-
-            $indication = Util::uploadFromData($data['indication'], $data['name']);
-
-            if($indication != false){
-                $newPlace->indication = 'img/'.$indication;
-                $newPlace->type_indication = 'url';
-            } 
-            else{
+            $newPlace->type_indication = $data['type_indication'];
+            if($newPlace->type_indication == 'text'){
                 $newPlace->indication = $data['indication'];
-                $newPlace->type_indication = 'text';
+            }else{
+                try{
+                    $indication = Util::uploadFromData($data['indication'], $data['name']);
+                    $newPlace->indication = 'img/'.$indication;
+                    $newPlace->type_indication = 'url';
+                }catch (\Exception $e){
+                    return $this->json_error($resp, 400, $e->getMessage());
+                }
+              }
+            if($newPlace->save()){
+                return $this->json_success($resp, 201, $newPlace->toJson());
+            }else{
+                return $this->json_error($resp, 500, "Erreur d'ajout");
             }
 
-            if($newPlace->save()) return $this->json_success($resp, 201, $newPlace->toJson());
-
-            return $this->json_error($resp, 500, "Erreur d'ajout");
         }
 
         public function updateLevel($req, $res, $args)

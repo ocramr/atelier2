@@ -176,7 +176,7 @@ $app->group('/places', function (){
 
     $this->get('', ManagementController::class. ':getListePlaces')->setName('listPlaces');
 
-    $this->patch('/{id}', ManagementController::class. ':editPlace');
+    $this->put('/{id}', ManagementController::class. ':editPlace');
 
     $this->post('[/]', ManagementController::class. ':addPlace');
     

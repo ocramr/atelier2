@@ -5892,4 +5892,13 @@ a.dropdown-toggle.ng-binding {
   width: 25%;
   margin-bottom: 18px; }
 
+DIV.table {
+  display: table; }
+
+FORM.tr, DIV.tr {
+  display: table-row; }
+
+SPAN.td {
+  display: table-cell; }
+
 /*# sourceMappingURL=style.css.map */
