@@ -20,7 +20,7 @@
       Options FollowSymLinks  
       AllowOverride All  
       Require all granted  
-      `</Directory>`
+      `</Directory>`<
      
    - Game Client
     
