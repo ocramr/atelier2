@@ -11,7 +11,7 @@ angular.module('backoffice').factory('UserFactory', ['$http', 'API_URL', '$local
             return $http.post(API_URL+'/user/login', json);
         },*/
         login: function (json, callback) {
-            $http.post(API_URL+'/user/login', json).then(function (response) {
+            $http.post(API_URL+'user/login', json).then(function (response) {
                 if (response.data.token) {
                     // store username and token in local storage to keep user logged in between page refreshes
                     $localStorage.currentUser = {

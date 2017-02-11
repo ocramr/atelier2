@@ -84,22 +84,19 @@ app.controller('DestinationController', ['$scope','$sce', '$http', 'DestinationF
 
         $scope.getLocationOfDestination = function(){
             $scope.help = "Plase waite ...";
-            if($scope.destination.name != "")
-            {
-                //je n'ai trouvé aucun moyen pour faire appele a l'API google Geocoding avec Angular
-                    $.getJSON( {
-                        url  : 'https://maps.googleapis.com/maps/api/geocode/json',
-                        data : {
-                            sensor  : false,
-                            address : $scope.destination.name
-                        },
-                        success : function( data ) {
-                            $scope.destination.lat = data.results[0].geometry.location.lat;
-                            $scope.destination.lng = data.results[0].geometry.location.lng;
-                            $scope.help = "Need Locations?";
-                        }
-                    } );
-            }
+            //je n'ai trouvé aucun moyen pour faire appele a l'API google Geocoding avec angular
+            //Je l'ai fait directement en AJAX sans passé par JQuery pour ne pas avoir des conflit
+                //Mode synchrone
+                var request = new XMLHttpRequest();
+                request.open('GET', 'https://maps.googleapis.com/maps/api/geocode/json?address='+$scope.destination.name, false);  // `false` makes the request synchronous
+                request.send(null);
+
+                if (request.status === 200) {
+                    var data = JSON.parse(request.responseText);
+                    $scope.destination.lat = data.results[0].geometry.location.lat;
+                    $scope.destination.lng = data.results[0].geometry.location.lng;
+                    $scope.help = "Need Locations?";
+                }
         }
 
 
