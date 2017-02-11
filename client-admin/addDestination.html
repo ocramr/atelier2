@@ -17,7 +17,8 @@
                         <input type="text" required class="form-control input-md" ng-model="destination.name" id="dName" placeholder="Name">
                     </div>
                     <div class="col-md-5">
-                        <button type='button' ng-show="destination.name" id="Help" class="form-control btn btn-primary" ng-click="getLocationOfDestination()">{{help}}</button>
+                        <a ng-shref="{{a}}" ng-show="destination.name" id="Help" class="form-control btn btn-primary" ng-click="getLocationOfDestination()">{{help}}</a>
+                        <!--<button type='button' ng-show="destination.name" id="Help" class="form-control btn btn-primary" ng-click="getLocationOfDestination()">{{help}}</button>-->
                     </div>
                 </div>
                 <div class="form-group">

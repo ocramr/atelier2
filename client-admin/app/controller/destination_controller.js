@@ -76,7 +76,7 @@ app.controller('DestinationController', ['$scope','$sce', '$http', 'DestinationF
         {
              DestinationFactory.add($scope.destination).then(function (response) {
                 angular.element('#addDestinationModal').modal('hide');
-                $scope.reset();
+                //$scope.reset();
             }, function (error) {
                 console.log(error);
             });
@@ -88,7 +88,7 @@ app.controller('DestinationController', ['$scope','$sce', '$http', 'DestinationF
             //Je l'ai fait directement en AJAX sans passé par JQuery pour ne pas avoir des conflit
                 //Mode synchrone
                 var request = new XMLHttpRequest();
-                request.open('GET', 'https://maps.googleapis.com/maps/api/geocode/json?address='+$scope.destination.name, false);  // `false` makes the request synchronous
+                request.open('GET', 'https://maps.googleapis.com/maps/api/geocode/json?address='+$scope.destination.name+'&key=AIzaSyBiXeft81K4msC0Lsdk9taeW8fUwLZ-UdQ', false);  // `false` makes the request synchronous
                 request.send(null);
 
                 if (request.status === 200) {
@@ -96,6 +96,7 @@ app.controller('DestinationController', ['$scope','$sce', '$http', 'DestinationF
                     $scope.destination.lat = data.results[0].geometry.location.lat;
                     $scope.destination.lng = data.results[0].geometry.location.lng;
                     $scope.help = "Need Locations?";
+                    $scope.a = window.location.href;
                 }
         }
 

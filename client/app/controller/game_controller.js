@@ -142,6 +142,7 @@ angular.module('app').controller('GameController', ['$scope', '$http', 'Game','G
 
                     if(d <= $scope.game.level.distance)
                     {
+                        angular.element("error").remove();
                         $scope.position++;
                         $rootScope.position = $scope.position;
                         $scope.markers.push({
@@ -160,7 +161,7 @@ angular.module('app').controller('GameController', ['$scope', '$http', 'Game','G
                         }
                     }else
                     {
-                        console.log('Réessayez')
+                        angular.element('#map').before('<p id="error" style="color: red;font-weight: bold;text-align: center;">Réssayer !!</p>')
                     }
                 }
                 else
@@ -170,6 +171,7 @@ angular.module('app').controller('GameController', ['$scope', '$http', 'Game','G
 
                     //Calculer la distance entre les deux lieux
                     d = distance(clicked_lat,parseFloat(lat2),clicked_lng,parseFloat(lng2))
+                    angular.element("error").remove();
                     if(d < $scope.game.level.distance)
                     {
                         score = 10;
