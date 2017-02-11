@@ -161,7 +161,7 @@ angular.module('app').controller('GameController', ['$scope', '$http', 'Game','G
                         }
                     }else
                     {
-                        angular.element('#map').before('<p id="error" style="color: red;font-weight: bold;text-align: center;">Réssayer !!</p>')
+                        console.log("Réssayer !!");
                     }
                 }
                 else
