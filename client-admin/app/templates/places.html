@@ -12,38 +12,6 @@
     </tr>
     </thead>
     <tbody>
-    <!--<script type="text/ng-template" id="display">
-
-    </script>-->
-<!--
-    <script type="text/ng-template" id="edit">
-
-            <td><input type="text" ng-model=place.name class="form-control input-sm"/></td>
-            <td><input type="text" ng-model=place.lat class="form-control input-sm"/></td>
-            <td><input type="text" ng-model=place.lng class="form-control input-sm"/></td>
-            <td>
-                <label>
-                    <input type="radio" ng-model="selected.type_indication" value="text">
-                    Text
-                </label>
-                <label>
-                    <input type="radio" ng-model="selected.type_indication" value="url" >
-                    URL
-                </label>
-            </td>
-            <td>
-                <input ng-if="selected.type_indication=='text'" form="editPlaceForm" type="text" ng-model=place.indication class="form-control input-sm"/>
-                <input ng-if="selected.type_indication=='url'" type="file" accept=".png, .jpg, .jpeg" ng-model=place.indication class="form-control input-sm"/>
-            </td>
-            <td>
-
-                <button type="submit" class="btn btn-primary" form="editPlaceForm">Confirmer</button>
-                <button type="button" class="btn btn-danger" ng-click="reset()">Cancel</button>
-
-            </td>
-
-    </script>
-    -->
     <tr ng-repeat="place in places">
         <td>{{place.name}}</td>
         <td>{{place.lat}}</td>

@@ -52,16 +52,10 @@ app.controller('PlaceController', ['$scope', '$http', 'PlaceFactory', 'API_URL',
                 indication = place.indication;
                 type = 'text';
             }
-            var newPlace = {
-                name : place.name,
-                lng : place.lng,
-                lat : place.lat,
-                indication : indication,
-                type_indication: type
-            };
-            console.log("newplace");
-            console.log(newPlace);
-           PlaceFactory.update(place.id, newPlace).then(function (response) {
+            place.indication = indication;
+            place.type_indication = type;
+            console.log(place);
+            PlaceFactory.update(place.id, place).then(function (response) {
                 console.log(response.data);
             }, function (error) {
                 console.log(error);
