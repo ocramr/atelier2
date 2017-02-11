@@ -74,6 +74,7 @@ app.controller('DestinationController', ['$scope','$sce', '$http', 'DestinationF
         $scope.addDestination = function()
         {
              DestinationFactory.add($scope.destination).then(function (response) {
+                 //$scope.destinations.push(response.data);
                 angular.element('#addDestinationModal').modal('hide');
             }, function (error) {
                 console.log(error);

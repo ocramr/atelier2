@@ -16,7 +16,6 @@ app.controller('PlaceController', ['$scope', '$http', 'PlaceFactory', 'API_URL',
         };
 
         $scope.edit = function (place) {
-            //$scope.place = angular.copy(place);
              ModalService.showModal({
              templateUrl: "addPlace.html",
              size: 'md',
@@ -28,7 +27,7 @@ app.controller('PlaceController', ['$scope', '$http', 'PlaceFactory', 'API_URL',
              }).then(function(modal) {
                  modal.element.modal();
                  modal.close.then(function(result) {
-                 console.log("exit");
+
                 });
              });
 
@@ -56,7 +55,9 @@ app.controller('PlaceController', ['$scope', '$http', 'PlaceFactory', 'API_URL',
             place.type_indication = type;
             console.log(place);
             PlaceFactory.update(place.id, place).then(function (response) {
-                console.log(response.data);
+                $scope.places.push(response.data);
+                console.log($scope.places);
+                $scope.listAll();
             }, function (error) {
                 console.log(error);
             });
