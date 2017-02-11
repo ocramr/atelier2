@@ -8,7 +8,9 @@ app.controller('LoginController', ['$scope', '$http', '$location', 'UserFactory'
             console.log($scope.user);
             UserFactory.login($scope.user, function (isSuccess) {
                 if(isSuccess){
+                    console.log($location);
                     $location.url('/home');
+                    console.log($location);
                 }else{
                     console.log("error");
                 }
