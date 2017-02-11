@@ -43,6 +43,39 @@
          AllowOverride None  
          Require all granted  
        `</Directory>`
+   
+   ### Ressources utilisées :
+   
+   - API:
+   
+      - Eloquent 
+      - Slim
+      - RandomLib
+      - Slim-jwt-auth
+      
+   - Game Client
+   
+      - Angular
+      - Angular animate
+      - Angular route
+      - Angular timer
+      - Bootstrap sass
+      - jQuery
+      - Leaflet
+      
+   - Backoffice
+    
+       - Angular
+       - Angular animate
+       - Angular base64 upload
+       - Bootstrap sass
+       - jQuery
+       - Angular modal service
+       - Angular route
+       - Angular iu router
+       - Ng storage
+      
+       
        
 
 ```

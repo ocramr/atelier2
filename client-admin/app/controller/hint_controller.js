@@ -1,5 +1,5 @@
-app.controller('HintController', ['$scope', '$http', 'close','hints','API_URL',
-    function($scope, $http, close, hints, API_URL) {
+app.controller('HintController', ['$scope', '$http', 'DestinationFactory', 'close','hints','API_URL',
+    function($scope, $http, DestinationFactory, close, hints, API_URL) {
         $scope.API_URL = API_URL;
 
         $scope.hints = hints;
@@ -10,8 +10,12 @@ app.controller('HintController', ['$scope', '$http', 'close','hints','API_URL',
             return $scope.selected.id == hint.id;
         };
 
-        $scope.edit = function (hint) {
-            $scope.selected.id = hint.id;
+        $scope.delete = function (hint) {
+            DestinationFactory.deleteHint(hint.id_destination, hint.id).then(function(response){
+                console.log(response)
+            },function(error){
+                console.log(error)
+            })
         };
 
         $scope.reset = function () {

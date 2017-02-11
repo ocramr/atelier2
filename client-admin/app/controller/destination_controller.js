@@ -37,7 +37,6 @@ app.controller('DestinationController', ['$scope','$sce', '$http', 'DestinationF
             };
             DestinationFactory.addHint(destination_id, newHint).then(function (response) {
                 angular.element('#newHint').modal('hide');
-                $scope.reset();
             }, function (error) {
                 console.log(error);
             });
@@ -82,8 +81,6 @@ app.controller('DestinationController', ['$scope','$sce', '$http', 'DestinationF
         };
 
         $scope.getLocationOfDestination = function(){
-            //je n'ai trouvé aucun moyen pour faire appele a l'API google Geocoding avec angular
-            //Je l'ai fait directement en AJAX sans passé par JQuery pour ne pas avoir des conflit
                 //Mode synchrone
                 var request = new XMLHttpRequest();
                 request.open('GET', 'https://maps.googleapis.com/maps/api/geocode/json?address='+$scope.destination.name+'&key=AIzaSyBiXeft81K4msC0Lsdk9taeW8fUwLZ-UdQ', false);  // `false` makes the request synchronous

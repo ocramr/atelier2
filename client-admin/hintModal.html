@@ -17,31 +17,13 @@
               <tbody>
               <tr ng-repeat="hint in hints">
                   {{hint}}
-                  <td ng-if="!isEditing(hint)">{{hint.type | uppercase}}</td>
-                  <td ng-if="isEditing(hint)">
-                      <label>
-                          <input type="radio" ng-model="hint.type" value="text">
-                          Text
-                      </label>
-                      <label>
-                          <input type="radio" ng-model="hint.type" value="url" >
-                          URL
-                      </label>
-                  </td>
-                  <td ng-if="!isEditing(hint)">
+                  <td>{{hint.type | uppercase}}</td>
+                  <td>
                       <p ng-if="hint.type=='text'">{{hint.value}}</p>
                       <img ng-if="hint.type=='url'" ng-src="{{API_URL+hint.value}}" width="80px" height="50px"/>
                   </td>
-                  <td ng-if="isEditing(hint)">
-                      <input ng-if="hint.type=='text'" type="text" ng-model=hint.value class="form-control input-sm"/>
-                      <input ng-if="hint.type=='url'" type="file" accept=".png, .jpg, .jpeg" ng-model=hint.value class="form-control input-sm"/>
-                  </td>
-                  <td ng-if="!isEditing(hint)">
-                      <button class="btn btn-primary" ng-click="edit(hint)">Modifier</button>
-                  </td>
-                  <td ng-if="isEditing(hint)">
-                      <button type="button" class="btn btn-primary" ng-click="update(hint)">Confirmer</button>
-                      <button type="button" class="btn btn-danger" ng-click="reset()">Cancel</button>
+                  <td>
+                      <button class="btn btn-danger" ng-click="delete(hint)">Supprimer</button>
                   </td>
               </tr>
               </tbody>

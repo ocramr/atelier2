@@ -15,6 +15,9 @@ angular.module('backoffice').factory('DestinationFactory', ['$http','API_URL',fu
         },
         addHint : function (id, json) {
             return $http.post(url+'/'+id+'/hints', json);
+        },
+        deleteHint : function(id_destination, id_hint){
+            return $http.delete(url+'/'+id_destination+'/hints/'+id_hint);
         }
     }
 
