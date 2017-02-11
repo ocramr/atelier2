@@ -90,7 +90,6 @@ app.controller('PlaceController', ['$scope', '$http', 'PlaceFactory', 'API_URL',
             };
             PlaceFactory.add(newPlace).then(function (response) {
                 angular.element('#addPlaceModal').modal('hide');
-                $scope.reset();
             }, function (error) {
                 console.log(error);
             });
