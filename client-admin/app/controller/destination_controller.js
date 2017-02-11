@@ -76,14 +76,12 @@ app.controller('DestinationController', ['$scope','$sce', '$http', 'DestinationF
         {
              DestinationFactory.add($scope.destination).then(function (response) {
                 angular.element('#addDestinationModal').modal('hide');
-                //$scope.reset();
             }, function (error) {
                 console.log(error);
             });
         };
 
         $scope.getLocationOfDestination = function(){
-            $scope.help = "Plase waite ...";
             //je n'ai trouvé aucun moyen pour faire appele a l'API google Geocoding avec angular
             //Je l'ai fait directement en AJAX sans passé par JQuery pour ne pas avoir des conflit
                 //Mode synchrone
@@ -98,7 +96,7 @@ app.controller('DestinationController', ['$scope','$sce', '$http', 'DestinationF
                     $scope.help = "Need Locations?";
                     $scope.a = window.location.href;
                 }
-        }
+        };
 
 
         $scope.listAll();

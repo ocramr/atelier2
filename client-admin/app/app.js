@@ -1,5 +1,10 @@
 var app = angular.module("backoffice", ['ngAnimate', 'ui.router','angularModalService', 'ngStorage', 'naif.base64']);
 app.constant('API_URL', 'http://backend.findyourway.local/');
+app.filter('num', function() {
+    return function(input) {
+        return parseInt(input, 10);
+    };
+});
 app.config(function ($stateProvider, $urlRouterProvider, $httpProvider) {
     //Default route
     $urlRouterProvider.otherwise('/home');
@@ -34,7 +39,7 @@ app.config(function ($stateProvider, $urlRouterProvider, $httpProvider) {
 app.run(run);
 
 
-app.factory('httpRequestInterceptor', ['$rootScope', '$localStorage', function ($rootScope, $localStorage) {
+app.factory('httpRequestInterceptor', ['$rootScope', '$localStorage','$location', function ($rootScope, $localStorage,$location) {
 
     return {
         request: function ($config) {
@@ -42,6 +47,14 @@ app.factory('httpRequestInterceptor', ['$rootScope', '$localStorage', function (
                     $config.headers['Authorization'] = 'Bearer ' + $localStorage.currentUser.token;
                 }
             return $config;
+        }, responseError: function (rejection) {
+            console.log(rejection.status);
+            if(rejection.status === 401) {
+                delete $localStorage.currentUser;
+                if(!$localStorage.currentUser)
+                    $location.url('/login');
+            }
+            return rejection;
         }
     };
 }]);
@@ -51,7 +64,6 @@ app.factory('httpRequestInterceptor', ['$rootScope', '$localStorage', function (
 function run($rootScope, $http, $location, $localStorage) {
     // keep user logged in after page refresh
     if ($localStorage.currentUser) {
-
         $http.defaults.headers.common.Authorization = 'Bearer ' + $localStorage.currentUser.token;
     }
 
@@ -59,8 +71,8 @@ function run($rootScope, $http, $location, $localStorage) {
     $rootScope.$on('$locationChangeStart', function (event, next, current) {
         var publicPages = ['/login','/register'];
         var restrictedPage = publicPages.indexOf($location.path()) === -1;
-        if (restrictedPage && !$localStorage.currentUser) {
-            $location.path('/login');
+        if (restrictedPage && (!$localStorage.currentUser)) {
+            $location.url('/login');
         }
     });
 }

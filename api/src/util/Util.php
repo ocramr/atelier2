@@ -14,31 +14,23 @@ class Util
     //Upload file to /img only!!
     public static function uploadFromData($data, $nameOfPic) {
         $ext = null;
-        
-        if(strpos($data, 'data:image/jpeg;base64,') === 0) {
-            $data = str_replace('data:image/jpeg;base64,', '', $data);
-            $ext = '.jpg';
-        } elseif (strpos($data, 'data:image/jpg;base64,') === 0) {
-            $data = str_replace('data:image/jpg;base64,', '', $data);
-            $ext = '.jpg';
-        } elseif (strpos($data, 'data:image/png;base64,') === 0) {
-            $data = str_replace('data:image/png;base64,', '', $data);
-            $ext = '.png';
-        } elseif (strpos($data, 'data:image/gif;base64,') === 0) {
-            $data = str_replace('data:image/gif;base64,', '', $data);
-            $ext = '.gif';
-        }
-
+        $pos  = strpos($data, ';');
+        $type = explode('/', substr($data, 0, $pos))[1];
+        $ext = ".$type";
+        $data = str_replace(substr($data,0, strpos($data,',')+1), '', $data);
         if($ext != null) {
-
             $image = base64_decode($data);
             $nameOfPic = $nameOfPic.$ext;
-            if(file_put_contents('../img/'.$nameOfPic, $image) !== FALSE) {
+            $result = file_put_contents('../img/'.$nameOfPic, $image);
+            if($result !== FALSE) {
                 return $nameOfPic;
+            }else{
+                throw new \Exception("Problem saving file: $nameOfPic");
             }
+        }else{
+            throw new \Exception("Extension not found: $data");
         }
-        
-        return false;
+
     }
 }
 
