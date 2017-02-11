@@ -81,7 +81,6 @@ app.controller('DestinationController', ['$scope','$sce', '$http', 'DestinationF
         };
 
         $scope.getLocationOfDestination = function(){
-            $scope.help = "Plase waite ...";
                 //Mode synchrone
                 var request = new XMLHttpRequest();
                 request.open('GET', 'https://maps.googleapis.com/maps/api/geocode/json?address='+$scope.destination.name+'&key=AIzaSyBiXeft81K4msC0Lsdk9taeW8fUwLZ-UdQ', false);  // `false` makes the request synchronous
@@ -94,7 +93,7 @@ app.controller('DestinationController', ['$scope','$sce', '$http', 'DestinationF
                     $scope.help = "Need Locations?";
                     $scope.a = window.location.href;
                 }
-        }
+        };
 
 
         $scope.listAll();

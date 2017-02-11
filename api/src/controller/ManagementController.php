@@ -53,7 +53,7 @@ class ManagementController extends AbstractController
                 if($place->save()){
                     return $this->json_success($resp, 201, $place->toJson());
                 }else{
-                    return $this->json_error($resp, 500, "Erreur d'ajout");
+                    return $this->json_error($resp, 500, "Erreur d'edition");
                 }
             }
             catch(ModelNotFoundException $e){

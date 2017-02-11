@@ -22,9 +22,9 @@
       Require all granted  
       `</Directory>`
      
-   - Game Client
+   - Game Client  
     
-      > ServerName play.findyourway.local  
+    > ServerName play.findyourway.local  
        DocumentRoot {racine}/atelier2/client  
        DirectoryIndex index.html  
        `<Directory {racine}/atelier2/client>`
@@ -33,9 +33,9 @@
        Require all granted
        `</Directory>`
       
-   - Backoffice
+   - Backoffice  
      
-      > ServerName admin.findyourway.local  
+    > ServerName admin.findyourway.local  
        DocumentRoot {racine}/atelier2/client-admin  
        DirectoryIndex index.html  
       `<Directory {racine}/atelier2/client-admin>`
