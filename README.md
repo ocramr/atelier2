@@ -22,7 +22,7 @@
       Require all granted  
       `</Directory>`
      
-   - Game Client
+   - Game Client  
     
     > ServerName play.findyourway.local  
        DocumentRoot {racine}/atelier2/client  
@@ -33,7 +33,7 @@
        Require all granted
        `</Directory>`
       
-   - Backoffice
+   - Backoffice  
      
     > ServerName admin.findyourway.local  
        DocumentRoot {racine}/atelier2/client-admin  
