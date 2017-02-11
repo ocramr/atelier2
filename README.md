@@ -13,7 +13,8 @@
    
    * API
    
-    ` ServerName backend.findyourway.local  DocumentRoot {racine}/atelier2/api <br />
+    > ServerName backend.findyourway.local  
+    `DocumentRoot {racine}/atelier2/api
       <Directory {racine}/atelier2/api>
       Options FollowSymLinks
       AllowOverride All
