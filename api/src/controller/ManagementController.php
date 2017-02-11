@@ -25,65 +25,39 @@ class ManagementController extends AbstractController
 
         public function editPlace($req, $resp, $args){
 
-            $data = $req->getParsedBody(); 
-
-            try{       
-                $place = Place::findOrfail($args['id']);                  
-            }
-            catch(ModelNotFoundException $e){
-                return $this->json_error($resp, 404, "Not Found");
-            }
-
+            $data = $req->getParsedBody();
             if(!isset($data['name'])) return $this->json_error($resp, 400, "Missing Param name");
             if(!isset($data['lng'])) return $this->json_error($resp, 400, "Missing Param lng");
             if(!isset($data['lat'])) return $this->json_error($resp, 400, "Missing Param lat");
             if(!isset($data['type_indication'])) return $this->json_error($resp, 400, "Missing Param type indication");
             if(!isset($data['indication'])) return $this->json_error($resp, 400, "Missing Param indication");
-
-            $newPlace = new Place();
-            $newPlace->name = $data['name'];
-            $newPlace->lng = $data['lng'];
-            $newPlace->lat = $data['lat'];
-            $newPlace->type_indication = $data['type_indication'];
-            if($newPlace->type_indication == 'text'){
-                $newPlace->indication = $data['indication'];
-            }else{
-                try{
-                    $indication = Util::uploadFromData($data['indication'], $data['name']);
-                    $newPlace->indication = 'img/'.$indication;
-                    $newPlace->type_indication = 'url';
-                }catch (\Exception $e){
-                    return $this->json_error($resp, 400, $e->getMessage());
-                }
-            }
-            if($newPlace->save()){
-                return $this->json_success($resp, 201, $newPlace->toJson());
-            }else{
-                return $this->json_error($resp, 500, "Erreur d'ajout");
-            }
-
-
-            if(isset($data['name'])) $place->name = $data['name'];
-            if(isset($data['lng'])) $place->lng = $data['lng'];
-            if(isset($data['lat'])) $place->lat = $data['lat'];
-            if($data['indication'] !== "")
-            {
-                $indication = Util::uploadFromData($data['indication'], $place->name);  
-                if($indication != false){
-                    $place->indication = 'img/'.$indication;
-                    $place->type_indication = 'url';
-                } 
-                else{
+            try{       
+                $place = Place::where('id', '=',$args['id'])->firstOrFail();
+                $place->name = $data['name'];
+                $place->lng = $data['lng'];
+                $place->lat = $data['lat'];
+                $place->type_indication = $data['type_indication'];
+                if($place->type_indication == 'text'){
                     $place->indication = $data['indication'];
-                    $place->type_indication = 'txt';
+                }else{
+                    try{
+                        $indication = Util::uploadFromData($data['indication'], $data['name']);
+                        $place->indication = 'img/'.$indication;
+                        $place->type_indication = 'url';
+                    }catch (\Exception $e){
+                        return $this->json_error($resp, 400, $e->getMessage());
+                    }
+                }
+                if($place->save()){
+                    return $this->json_success($resp, 201, $place->toJson());
+                }else{
+                    return $this->json_error($resp, 500, "Erreur d'ajout");
                 }
             }
-            
-            if($place->save()) return $this->json_success($resp, 200, $place->toJson());
-
-            return $this->json_error($resp, 500, "Erreur d'ajout");
-
-        }
+            catch(ModelNotFoundException $e){
+                return $this->json_error($resp, 404, "Not Found");
+            }
+                    }
 
         public function createDestination($req, $res, $args)
         {
