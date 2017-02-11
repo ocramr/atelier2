@@ -33,7 +33,7 @@ $app->options('/{routes:.+}', function ($request, $response, $args) {
  * @apiName Register
  * @apiVersion 0.1.0
  *
- * @api {post} /users/register  Crée une ressource de type utilisateur
+ * @api {post} /user/register  Crée une ressource de type utilisateur
  *
  * @apiDescription Crée d'une ressource de type user.<br/>
  * Retourne cette ressource, incluant son id, last_name, first_name, username et password
@@ -60,6 +60,39 @@ $app->options('/{routes:.+}', function ($request, $response, $args) {
  *
  * @apiErrorExample {json} exemple de réponse en cas d'erreur
  *     HTTP/1.1 400
+ *
+ */
+
+ /**
+ * @apiGroup Users
+ * @apiName Login
+ * @apiVersion 0.1.0
+ *
+ * @api {post} /user/login  Authentifie un utilisateur
+ *
+ * @apiDescription Authentifie un utilisateur.<br/>
+ * Retourne un objet data, incluant le username, first_name, last_name de l'utilisateur ainsi qu'un token
+ *
+ * @apiSuccess (Succès : 200) {first_name} Prénom de l'utilisateur
+ * @apiSuccess (Succès : 200) {last_name} Nom de l'utilisateur
+ * @apiSuccess (Succès : 200) {username} Username de l'utilisateur
+ * @apiSuccess (Succès : 200) {token} token d'authentification
+ *
+ * @apiSuccessExample {json} exemple de réponse en cas de succès
+ *     HTTP/1.1 200 OK
+ *
+ *     {
+ *        categorie : {
+ *            "last_name"  : "Nom" ,
+ *            "first_name" : "PRénom",
+ *            "username" : "user1",
+ *            "token" : "$2y$10$30Z9Pdft7rzJqHWlYhcA2Oaf92YCsdfhDFds455SDs2481Sd21361sDSsdsqAsq"
+ *        }
+ *     }
+ *
+ *
+ * @apiErrorExample {json} exemple de réponse en cas d'erreur
+ *     HTTP/1.1 401 Incorrect Username or Password
  *
  */
 
@@ -275,6 +308,117 @@ $app->group('/places', function (){
  *     }
  */
 
+ /**
+ * @apiGroup Hints
+ * @apiName GetHints
+ * @apiVersion 0.1.0
+ *
+ * @api {get} /destinations/:id/hints Accès à une table de ressources de type hint d'une destination désignée
+ *
+ * @apiDescription Accès à une table de ressources de type hint.<br/>
+ * Retourne cette table, incluant un ensemble de ressources de type hint avec leurs id, value, type et id_destination.
+ *
+ *
+ *
+ * @apiSuccess (Succès : 200) {Object[]} table Table de ressources de type hint
+ *
+ * @apiSuccessExample {json} exemple de réponse en cas de succès
+ *     HTTP/1.1 200 OK
+ *
+ *     {
+ *          "0" => {
+ *              hint : {
+ *                  "id"  : 1 ,
+ *                  "value"  : "Commune du du Sud-Ouest de France",
+ *                  "type"   : "text",
+ *                  "id_destination"   : 1
+ *              }
+ *          },
+ *          "1" => {
+ *              hint : {
+ *                  "id"  : 2 ,
+ *                  "value"  : "Basilique Saint-Sernin",
+ *                  "type"   :"text",
+ *                  "id_destination"   : 1
+ *              }
+ *          },
+ *        
+ *     }
+ */
+
+ /**
+ * @apiGroup Hints
+ * @apiName AddHint
+ * @apiVersion 0.1.0
+ *
+ * @api {post} /destinations/:id_dest/hints Crée une ressource de type hint d'une destination désignée
+ * @apiPermission admin
+ *
+ * @apiDescription Crée une ressource de type hint d'une destination désignée.<br/>
+ * Retourne cette ressource incluant son id, value, type et id_destination.
+ *
+ *
+ * @apiSuccess (Succès : 200) {Object} hint Ressource de type hint
+ *
+ * @apiSuccessExample {json} exemple de réponse en cas de succès
+ *     HTTP/1.1 200 OK
+ *
+ *      {
+ *          hint : {
+ *              "id"  : 3 ,
+ *              "value"  : "Université Paul Sabatier",
+ *              "type"   : "text",
+ *              "id_destination"   : 2
+ *          }     
+ *     }
+ */
+
+/**
+ * @apiGroup Hints
+ * @apiName UpdateHint
+ * @apiVersion 0.1.0
+ *
+ * @api {put} /destinations/:id_dest/hints/:id Modifie une ressource de type hint d'une destination désignée
+ * @apiPermission admin
+ *
+ * @apiDescription Modifie une ressource de type hint d'une destination désignée.<br/>
+ * Retourne cette ressource, incluant son id, value, type et id_destination.
+ *
+ *
+ * @apiSuccess (Succès : 200) {Object} hint Ressource de type hint
+ *
+ * @apiSuccessExample {json} exemple de réponse en cas de succès
+ *     HTTP/1.1 200 OK
+ *
+ *   {
+ *          hint : {
+ *              "id"  : 3 ,
+ *              "name"  : "L'Université Paul Sabatier",
+ *              "type"   : "text",
+ *              "id_destination"   : 2
+ *          }     
+ *     }
+ */
+
+ /**
+ * @apiGroup Hints
+ * @apiName DeleteHint
+ * @apiVersion 0.1.0
+ *
+ * @api {delete} /destinations/:id_dest/hints/:id Supprime une ressource de type hint d'une destination désignée
+ * @apiPermission admin
+ *
+ * @apiDescription Supprime une ressource de type hint d'une destination désignée.<br/>
+ *
+ *
+ * @apiSuccess (Succès : 200) {Object} hint Ressource de type hint
+ *
+ * @apiSuccessExample {json} exemple de réponse en cas de succès
+ *     HTTP/1.1 200 Ressource deleted
+ *
+ *  
+ */
+
 
 $app->group('/destinations', function (){
 
@@ -293,10 +437,10 @@ $app->group('/destinations', function (){
  * @apiName GetLevels
  * @apiVersion 0.1.0
  *
- * @api {get} /levels Accès à une collection de ressources de type level
+ * @api {get} /levels Accès à une table de ressources de type level
  *
- * @apiDescription Accès à une collection de ressources de type level.<br/>
- * Retourne cette collection, incluant un ensemble de ressources de type level avec leurs id, max_attempts, time et name.
+ * @apiDescription Accès à une table de ressources de type level.<br/>
+ * Retourne cette table, incluant un ensemble de ressources de type level avec leurs id, max_attempts, time et name.
  *
  *
  *
@@ -399,10 +543,10 @@ $app->group('/levels', function (){
  * @apiName GetGamesRankings
  * @apiVersion 0.1.0
  *
- * @api {get} /game/ranking Accès à une collection de ressources de type game
+ * @api {get} /game/ranking Accès à une table de ressources de type game
  *
- * @apiDescription Accès à une collection de ressources de type game.<br/>
- * Retourne cette collection, incluant un ensemble de ressources de type game avec leurs
+ * @apiDescription Accès à une table de ressources de type game.<br/>
+ * Retourne cette table, incluant un ensemble de ressources de type game avec leurs
  * pseudo, duration, score, state, id_level, id_destination.
  *
  *

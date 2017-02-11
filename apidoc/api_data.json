@@ -139,8 +139,8 @@
     "version": "0.1.0",
     "type": "get",
     "url": "/game/ranking",
-    "title": "Accès à une collection de ressources de type game",
-    "description": "<p>Accès à une collection de ressources de type game.<br/> Retourne cette collection, incluant un ensemble de ressources de type game avec leurs pseudo, duration, score, state, id_level, id_destination.</p>",
+    "title": "Accès à une table de ressources de type game",
+    "description": "<p>Accès à une table de ressources de type game.<br/> Retourne cette table, incluant un ensemble de ressources de type game avec leurs pseudo, duration, score, state, id_level, id_destination.</p>",
     "success": {
       "fields": {
         "Succès : 200": [
@@ -196,13 +196,152 @@
     "groupTitle": "Games"
   },
   {
+    "group": "Hints",
+    "name": "AddHint",
+    "version": "0.1.0",
+    "type": "post",
+    "url": "/destinations/:id_dest/hints",
+    "title": "Crée une ressource de type hint d'une destination désignée",
+    "permission": [
+      {
+        "name": "admin"
+      }
+    ],
+    "description": "<p>Crée une ressource de type hint d'une destination désignée.<br/> Retourne cette ressource incluant son id, value, type et id_destination.</p>",
+    "success": {
+      "fields": {
+        "Succès : 200": [
+          {
+            "group": "Succès : 200",
+            "type": "Object",
+            "optional": false,
+            "field": "hint",
+            "description": "<p>Ressource de type hint</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "exemple de réponse en cas de succès",
+          "content": "HTTP/1.1 200 OK\n\n {\n     hint : {\n         \"id\"  : 3 ,\n         \"value\"  : \"Université Paul Sabatier\",\n         \"type\"   : \"text\",\n         \"id_destination\"   : 2\n     }     \n}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "api/src/routes/route.php",
+    "groupTitle": "Hints"
+  },
+  {
+    "group": "Hints",
+    "name": "DeleteHint",
+    "version": "0.1.0",
+    "type": "delete",
+    "url": "/destinations/:id_dest/hints/:id",
+    "title": "Supprime une ressource de type hint d'une destination désignée",
+    "permission": [
+      {
+        "name": "admin"
+      }
+    ],
+    "description": "<p>Supprime une ressource de type hint d'une destination désignée.<br/></p>",
+    "success": {
+      "fields": {
+        "Succès : 200": [
+          {
+            "group": "Succès : 200",
+            "type": "Object",
+            "optional": false,
+            "field": "hint",
+            "description": "<p>Ressource de type hint</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "exemple de réponse en cas de succès",
+          "content": "HTTP/1.1 200 Ressource deleted",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "api/src/routes/route.php",
+    "groupTitle": "Hints"
+  },
+  {
+    "group": "Hints",
+    "name": "GetHints",
+    "version": "0.1.0",
+    "type": "get",
+    "url": "/destinations/:id/hints",
+    "title": "Accès à une table de ressources de type hint d'une destination désignée",
+    "description": "<p>Accès à une table de ressources de type hint.<br/> Retourne cette table, incluant un ensemble de ressources de type hint avec leurs id, value, type et id_destination.</p>",
+    "success": {
+      "fields": {
+        "Succès : 200": [
+          {
+            "group": "Succès : 200",
+            "type": "Object[]",
+            "optional": false,
+            "field": "table",
+            "description": "<p>Table de ressources de type hint</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "exemple de réponse en cas de succès",
+          "content": "HTTP/1.1 200 OK\n\n{\n     \"0\" => {\n         hint : {\n             \"id\"  : 1 ,\n             \"value\"  : \"Commune du du Sud-Ouest de France\",\n             \"type\"   : \"text\",\n             \"id_destination\"   : 1\n         }\n     },\n     \"1\" => {\n         hint : {\n             \"id\"  : 2 ,\n             \"value\"  : \"Basilique Saint-Sernin\",\n             \"type\"   :\"text\",\n             \"id_destination\"   : 1\n         }\n     },\n   \n}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "api/src/routes/route.php",
+    "groupTitle": "Hints"
+  },
+  {
+    "group": "Hints",
+    "name": "UpdateHint",
+    "version": "0.1.0",
+    "type": "put",
+    "url": "/destinations/:id_dest/hints/:id",
+    "title": "Modifie une ressource de type hint d'une destination désignée",
+    "permission": [
+      {
+        "name": "admin"
+      }
+    ],
+    "description": "<p>Modifie une ressource de type hint d'une destination désignée.<br/> Retourne cette ressource, incluant son id, value, type et id_destination.</p>",
+    "success": {
+      "fields": {
+        "Succès : 200": [
+          {
+            "group": "Succès : 200",
+            "type": "Object",
+            "optional": false,
+            "field": "hint",
+            "description": "<p>Ressource de type hint</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "exemple de réponse en cas de succès",
+          "content": "  HTTP/1.1 200 OK\n\n{\n       hint : {\n           \"id\"  : 3 ,\n           \"name\"  : \"L'Université Paul Sabatier\",\n           \"type\"   : \"text\",\n           \"id_destination\"   : 2\n       }     \n  }",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "api/src/routes/route.php",
+    "groupTitle": "Hints"
+  },
+  {
     "group": "Levels",
     "name": "GetLevels",
     "version": "0.1.0",
     "type": "get",
     "url": "/levels",
-    "title": "Accès à une collection de ressources de type level",
-    "description": "<p>Accès à une collection de ressources de type level.<br/> Retourne cette collection, incluant un ensemble de ressources de type level avec leurs id, max_attempts, time et name.</p>",
+    "title": "Accès à une table de ressources de type level",
+    "description": "<p>Accès à une table de ressources de type level.<br/> Retourne cette table, incluant un ensemble de ressources de type level avec leurs id, max_attempts, time et name.</p>",
     "success": {
       "fields": {
         "Succès : 200": [
@@ -367,10 +506,71 @@
   },
   {
     "group": "Users",
+    "name": "Login",
+    "version": "0.1.0",
+    "type": "post",
+    "url": "/user/login",
+    "title": "Authentifie un utilisateur",
+    "description": "<p>Authentifie un utilisateur.<br/> Retourne un objet data, incluant le username, first_name, last_name de l'utilisateur ainsi qu'un token</p>",
+    "success": {
+      "fields": {
+        "Succès : 200": [
+          {
+            "group": "Succès : 200",
+            "type": "first_name",
+            "optional": false,
+            "field": "Pr",
+            "description": "<p>énom de l'utilisateur</p>"
+          },
+          {
+            "group": "Succès : 200",
+            "type": "last_name",
+            "optional": false,
+            "field": "Nom",
+            "description": "<p>de l'utilisateur</p>"
+          },
+          {
+            "group": "Succès : 200",
+            "type": "username",
+            "optional": false,
+            "field": "Username",
+            "description": "<p>de l'utilisateur</p>"
+          },
+          {
+            "group": "Succès : 200",
+            "type": "token",
+            "optional": false,
+            "field": "token",
+            "description": "<p>d'authentification</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "exemple de réponse en cas de succès",
+          "content": "HTTP/1.1 200 OK\n\n{\n   categorie : {\n       \"last_name\"  : \"Nom\" ,\n       \"first_name\" : \"PRénom\",\n       \"username\" : \"user1\",\n       \"token\" : \"$2y$10$30Z9Pdft7rzJqHWlYhcA2Oaf92YCsdfhDFds455SDs2481Sd21361sDSsdsqAsq\"\n   }\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "exemple de réponse en cas d'erreur",
+          "content": "HTTP/1.1 401 Incorrect Username or Password",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "api/src/routes/route.php",
+    "groupTitle": "Users"
+  },
+  {
+    "group": "Users",
     "name": "Register",
     "version": "0.1.0",
     "type": "post",
-    "url": "/users/register",
+    "url": "/user/register",
     "title": "Crée une ressource de type utilisateur",
     "description": "<p>Crée d'une ressource de type user.<br/> Retourne cette ressource, incluant son id, last_name, first_name, username et password</p>",
     "success": {
