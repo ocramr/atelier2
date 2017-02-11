@@ -20,6 +20,8 @@
             <td ng-if="!isEditing(destination)">
                 <button class="btn btn-primary" ng-click="edit(destination)">Modifier</button>
                 <button class="btn btn-success" ng-click="showHints(destination.id)">Consulter Indices</button>
+                <input type="hidden" id=idDestination value="{{destination.id}}"/>
+                <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#newHint">Ajouter des indices</button>
             </td>
             <td ng-if="isEditing(destination)">
                 <button type="button" class="btn btn-primary" ng-click="update(destination)">Confirmer</button>

@@ -199,6 +199,22 @@ class ManagementController extends AbstractController
             return $this->json_error($resp, 500, "Erreur d'ajout");
         }
 
+        public function deleteHint($req, $resp, $args)
+        {
+            $data = $req->getParsedBody(); 
+
+            try{       
+                $hint = Hint::findOrfail($args['id'])->delete();    
+                return $this->json_success($resp, 200, ["message"=>"resource deleted"]);              
+            }
+            catch(\Illuminate\Database\Eloquent\ModelNotFoundException $e){
+                return $this->json_error($resp, 404, "Not Found");
+            }
+
+            return $this->json_error($resp, 500, "Erreur d'ajout");
+        }
+
+
 
         //TODO service updateLevel, updatePlace, updateDestination (FILE), Settings, hints
 

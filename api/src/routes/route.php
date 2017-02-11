@@ -189,6 +189,7 @@ $app->group('/destinations', function (){
     $this->get('/{id}/hints', ManagementController::class. ':getHints')->setName('hints');
     $this->post('/{id_Dest}/hints', ManagementController::class. ':addHint');
     $this->put('/{id_Dest}/hints/{id}', ManagementController::class. ':editHint');
+    $this->delete('/{id_Dest}/hints/{id}', ManagementController::class. ':deleteHint');
     $this->post('', ManagementController::class. ':createDestination')->setName('createDestination');
     $this->put('/{id}', ManagementController::class. ':updateDestination')->setName('updateDestination');
 
@@ -386,10 +387,4 @@ $app->group('/game', function () {
 })->add('CORS');
 
 $app->post('/game/play', GameController::class. ':playGame')->setName('playgame')->add('CORS');
-
-$app->group('/hints', function(){
-    $this->put('/{id}', ManagementController::class. ':editHint');
-});
-
-
 
