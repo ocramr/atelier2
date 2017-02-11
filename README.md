@@ -23,24 +23,24 @@
      
     * Game Client
     
-      `ServerName play.findyourway.local`
-      `DocumentRoot {racine}/atelier2/client
-       DirectoryIndex index.html`
-      `<Directory {racine}/atelier2/client>`
-         `Options FollowSymLinks`
-         ` AllowOverride None`
-         `Require all granted`
-       ` </Directory>`
+      > ServerName play.findyourway.local  
+       DocumentRoot {racine}/atelier2/client  
+       DirectoryIndex index.html  
+       `<Directory {racine}/atelier2/client>`
+       Options FollowSymLinks
+       llowOverride None
+       Require all granted
+       `</Directory>`
       
      * Backoffice
      
-      `ServerName admin.findyourway.local`
-      `DocumentRoot {racine}/atelier2/client-admin
-       DirectoryIndex index.html`
+      > ServerName admin.findyourway.local  
+       DocumentRoot {racine}/atelier2/client-admin  
+       DirectoryIndex index.html  
       `<Directory {racine}/atelier2/client-admin>`
-         `Options FollowSymLinks`
-         `AllowOverride None`
-         `Require all granted`
+         Options FollowSymLinks  
+         AllowOverride None  
+         Require all granted  
        `</Directory>`
        
 
