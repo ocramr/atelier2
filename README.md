@@ -15,11 +15,11 @@
    
     > ServerName backend.findyourway.local  
       DocumentRoot {racine}/atelier2/api  
-      <Directory {racine}/atelier2/api>  
+      `<Directory {racine}/atelier2/api>`  
       Options FollowSymLinks  
       AllowOverride All  
       Require all granted  
-      </Directory>  
+      `</Directory>`
      
     * Game Client
     
