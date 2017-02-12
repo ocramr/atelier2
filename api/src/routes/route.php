@@ -10,6 +10,7 @@ use app\controller\UserController;
 use app\controller\ManagementController;
 use Slim\Middleware\JwtAuthentication;
 \Firebase\JWT\JWT::$leeway = 5;
+//SECRET for testing purposes
 $app->add(new JwtAuthentication([
     "secret"=>"papo",
     "path"=>['/places','/destinations'],
@@ -22,7 +23,7 @@ $app->add(new JwtAuthentication([
             ->withHeader("Content-Type", "application/json")
             ->write(json_encode($data, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));
     }
-]));
+]))->add('CORS');
 
 $app->options('/{routes:.+}', function ($request, $response, $args) {
     return $response;

@@ -49,7 +49,7 @@ app.factory('httpRequestInterceptor', ['$rootScope', '$localStorage','$location'
             return $config;
         }, responseError: function (rejection) {
             console.log(rejection.status);
-            if(rejection.status === 401) {
+            if(rejection.status == 401) {
                 delete $localStorage.currentUser;
                 if(!$localStorage.currentUser)
                     $location.url('/login');
