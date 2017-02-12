@@ -29,17 +29,19 @@ app.controller('DestinationController', ['$scope','$sce', '$http', 'DestinationF
             });
         };
 
-        $scope.addHint = function(){
+        $scope.addHint = function(hint){
             var destination_id = angular.element("#idDestination")[0].value;
-            var value = ($scope.hint.value.base64 !== undefined ) ? 'data:'+$scope.hint.value.filetype+';base64,'+$scope.hint.value.base64 : $scope.hint.value;
-            var newHint = {
-                value : value
-            };
-            DestinationFactory.addHint(destination_id, newHint).then(function (response) {
-                angular.element('#newHint').modal('hide');
-            }, function (error) {
-                console.log(error);
-            });
+            if(hint) {
+                if (hint.value.base64 !== undefined) {
+                    hint.value = 'data:' + hint.value.filetype + ';base64,' + hint.value.base64;
+                }
+                console.log(hint);
+                DestinationFactory.addHint(destination_id, hint).then(function (response) {
+                    angular.element('#newHint').modal('hide');
+                }, function (error) {
+                    console.log(error);
+                });
+            }
         };
 
         $scope.isEditing = function (destination) {

@@ -108,14 +108,11 @@ class ManagementController extends AbstractController
             $newPlace->lat = $data['lat'];
             $newPlace->type_indication = $data['type_indication'];
             if($newPlace->type_indication == 'text'){
-                $newPlace->indication = str_replace(' ', '', data['indication']);
-                $newPlace->indication = $newPlace->indication;
+                $newPlace->indication = str_replace(' ', '', $data['indication']);
             }else{
                 try{
                     $indication = Util::uploadFromData($data['indication'], $data['name']);
-                    $newPlace->indication = 'img/'.str_replace(' ', '',$indication);
-                    $newPlace->indication =  $newPlace->indication;
-                    $newPlace->type_indication = 'url';
+                    $newPlace->indication = 'img/'.$indication;
                 }catch (\Exception $e){
                     return $this->json_error($resp, 400, $e->getMessage());
                 }
@@ -158,74 +155,38 @@ class ManagementController extends AbstractController
             $data = $req->getParsedBody();
 
             if(!isset($data['value'])) return $this->json_error($resp, 400, "Missing Param value");
+            if(!isset($data['type'])) return $this->json_error($resp, 400, "Missing Param type");
 
             $newHint = new Hint();
             $newHint->value = $data['value'];
-            $newHint->id_destination = $args['id_Dest'];
-
-            $value = Util::uploadFromData($data['value'], $newHint->destination->name);
-
-            if($value != false){
-                $newHint->value = 'img/'.str_replace(' ','',$value);
-                $newHint->value = $newHint->value;
-                $newHint->type = 'url';
-            } 
-            else{
-                $newHint->value = str_replace(' ','',$data['value']);
-                $newHint->value = $newHint->value;
-                $newHint->type = 'text';
+            $newHint->id_destination = $args['id_dest'];
+            try{
+                $destination = Destination::where('id','=',$args['id_dest'])->firstOrFail();
+                $newHint->type = $data['type'];
+                $newHint->value = ($newHint->type == 'url') ? 'img/'.Util::uploadFromData($data['value'], uniqid($destination->name)) : $data['value'] ;
+                if($newHint->save()) return $this->json_success($resp, 201, $newHint->toJson());
+                else                return $this->json_error($resp, 500, "Erreur d'ajout");
+            }catch (ModelNotFoundException $mne){
+                return $this->json_error($resp, 400, "Destination non trouvée");
+            }catch(\Exception $e){
+                return $this->json_error($resp, 400, $e->getMessage());
             }
-
-            if($newHint->save()) return $this->json_success($resp, 201, $newHint->toJson());
-
-            return $this->json_error($resp, 500, "Erreur d'ajout");
-        }
-
-
-        public function editHint($req, $resp, $args)
-        {
-            $data = $req->getParsedBody(); 
-
-            try{       
-                $hint = Hint::findOrfail($args['id']);                  
-            }
-            catch(\Illuminate\Database\Eloquent\ModelNotFoundException $e){
-                return $this->json_error($resp, 404, "Not Found");
-            }
-
-            if(isset($data['value']))
-            {
-                $imageName = $hint->destination->name.'_'.time();
-                $value = Util::uploadFromData($data['value'], $imageName);
-                if($value != false){
-                    $hint->value = 'img/'.str_replace(' ','',$value);
-                    $hint->type = 'url';
-                } 
-                else{
-                    $hint->value = str_replace(' ',''$data['value']);
-                    $hint->value = $hint->value;
-                    $hint->type = 'text';
-                }
-            }
-            
-            if($hint->save()) return $this->json_success($resp, 200, $hint->toJson());
-
-            return $this->json_error($resp, 500, "Erreur d'ajout");
         }
 
         public function deleteHint($req, $resp, $args)
         {
-            $data = $req->getParsedBody(); 
-
-            try{       
-                $hint = Hint::findOrfail($args['id'])->delete();    
-                return $this->json_success($resp, 200, ["message"=>"resource deleted"]);              
+            try{
+                $hint = Hint::where('id','=', $args['id'])->firstOrfail();
+                if ($hint->delete())
+                    return $this->json_success($resp, 200, json_encode(["message"=>"resource deleted"]));
+                else{
+                    return $this->json_error($resp, 404, "Hint non trouvé");
+                }
             }
-            catch(\Illuminate\Database\Eloquent\ModelNotFoundException $e){
+            catch(ModelNotFoundException $e){
                 return $this->json_error($resp, 404, "Not Found");
             }
 
-            return $this->json_error($resp, 500, "Erreur d'ajout");
         }
 
 

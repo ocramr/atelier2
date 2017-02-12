@@ -20,7 +20,7 @@ class Util
         $data = str_replace(substr($data,0, strpos($data,',')+1), '', $data);
         if($ext != null) {
             $image = base64_decode($data);
-            $nameOfPic = $nameOfPic.$ext;
+            $nameOfPic = str_replace(' ', '',$nameOfPic.$ext);
             $result = file_put_contents('../img/'.$nameOfPic, $image);
             if($result !== FALSE) {
                 return $nameOfPic;

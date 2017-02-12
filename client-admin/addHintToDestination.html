@@ -9,7 +9,7 @@
       <div class="modal-body">
         <div class="row">
         <div class="col-lg-push-2 col-sm-push-2 col-lg-8 col-sm-8">
-            <form role="form" ng-submit="addHint()" class="form-horizontal" enctype="multipart/form-data">
+            <form role="form" ng-submit="addHint(hint)" class="form-horizontal" enctype="multipart/form-data">
                 <fieldset>
                     
                     <div class="form-group">
@@ -25,8 +25,8 @@
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="pLng">Indication</label>  
                         <div class="col-md-8">
-                            <input ng-if="hint.type=='text'" type="text" ng-model=hint.value class="form-control input-sm"/>
-                            <input base-sixty-four-input ng-if="hint.type=='url'" type="file" accept=".png, .jpg, .jpeg" ng-model=hint.value class="form-control input-sm"  />
+                            <input ng-if="hint.type=='text'" type="text" ng-model=hint.value required class="form-control input-sm"/>
+                            <input base-sixty-four-input ng-if="hint.type=='url'" type="file" accept=".png, .jpg, .jpeg" required ng-model=hint.value class="form-control input-sm"  />
                         </div>
                     </div>
 

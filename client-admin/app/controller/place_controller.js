@@ -62,28 +62,35 @@ app.controller('PlaceController', ['$scope', '$http', 'PlaceFactory', 'API_URL',
                 console.log(error);
             });
         };
+
+        $scope.openAddModal = function () {
+                ModalService.showModal({
+                    templateUrl: "addPlace.html",
+                    size: 'md',
+                    controller: 'ModalController',
+                    inputs:{
+                        place : {},
+                        saveFunction: $scope.addPlace
+                    }
+                }).then(function(modal) {
+                    modal.element.modal();
+                    modal.close.then(function(result) {
+
+                    });
+                });
+        };
        
      
-         $scope.addPlace = function()
+         $scope.addPlace = function(place)
         {
-            var indication;
-            var type;
-            if($scope.place.indication.base64 !== undefined){
-                indication = 'data:'+$scope.place.indication.filetype+';base64,'+$scope.place.indication.base64;
-                type = 'url';
+            if(place.indication.base64 !== undefined){
+                place.indication = 'data:'+place.indication.filetype+';base64,'+place.indication.base64;
+                place.type = 'url';
             }else{
-                indication = $scope.place.indication;
-                type = 'text';
+                place.type = 'text';
             }
-            //var indication = ($scope.place.indication.base64 !== undefined ) ? 'data:'+$scope.place.indication.filetype+';base64,'+$scope.place.indication.base64 : $scope.place.indication;
-            var newPlace = {
-                name : $scope.place.name,
-                lng : $scope.place.lng,
-                lat : $scope.place.lat,
-                indication : indication,
-                type_indication: type
-            };
-            PlaceFactory.add(newPlace).then(function (response) {
+
+            PlaceFactory.add(place).then(function (response) {
                 angular.element('#addPlaceModal').modal('hide');
             }, function (error) {
                 console.log(error);
