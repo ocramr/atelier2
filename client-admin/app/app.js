@@ -1,4 +1,4 @@
-var app = angular.module("backoffice", ['ngAnimate', 'ui.router','angularModalService', 'ngStorage', 'naif.base64']);
+var app = angular.module("backoffice", ['ui.bootstrap','ngAnimate', 'ui.router','ngStorage', 'naif.base64']);
 app.constant('API_URL', 'http://backend.findyourway.local/');
 app.filter('num', function() {
     return function(input) {
@@ -48,8 +48,7 @@ app.factory('httpRequestInterceptor', ['$rootScope', '$localStorage','$location'
                 }
             return $config;
         }, responseError: function (rejection) {
-            console.log(rejection.status);
-            if(rejection.status === 401) {
+            if(rejection.status == 401) {
                 delete $localStorage.currentUser;
                 if(!$localStorage.currentUser)
                     $location.url('/login');

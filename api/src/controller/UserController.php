@@ -69,7 +69,7 @@ class UserController extends AbstractController
                         "iat" => $now->getTimeStamp(),
                         "exp" => $future->getTimeStamp()
                     ];
-                    $secret = "papo";
+                    $secret = "papo"; // testing purposes
                     $token = JWT::encode($payload, $secret, "HS256");
                     $data["username"] = $user->username;
                     $data["token"] = $token;

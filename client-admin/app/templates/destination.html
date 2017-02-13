@@ -1,5 +1,4 @@
-<button type="button" class="btn btn-info add-button" data-toggle="modal" data-target="#addDestinationModal">Ajouter</button>
-<div ng-include="'addHintToDestination.html'"></div>
+<button type="button" class="btn btn-info add-button" ng-click="openModal({})">Ajouter</button>
 <table class="table table-bordered table-striped table-condensed">
     <thead>
         <tr>
@@ -11,22 +10,126 @@
     </thead>
     <tbody>
         <tr ng-repeat="destination in destinations">
-            <td  ng-if="!isEditing(destination)">{{destination.name}}</td>
-            <td  ng-if="isEditing(destination)"><input type="text" ng-model=destination.name class="form-control input-sm"/></td>
-            <td  ng-if="!isEditing(destination)">{{destination.lat}}</td>
-            <td  ng-if="isEditing(destination)"><input type="text" ng-model=destination.lat class="form-control input-sm"/></td>
-            <td ng-if="!isEditing(destination)">{{destination.lng}}</td>
-            <td ng-if="isEditing(destination)"><input type="text" ng-model=destination.lng class="form-control input-sm"/></td>
-            <td ng-if="!isEditing(destination)">
-                <button class="btn btn-primary" ng-click="edit(destination)">Modifier</button>
+            <td>{{destination.name}}</td>
+            <td >{{destination.lat}}</td>
+            <td>{{destination.lng}}</td>
+            <td>
+                <button class="btn btn-primary" ng-click="openModal(destination)">Modifier</button>
                 <button class="btn btn-success" ng-click="showHints(destination.id)">Consulter Indices</button>
-                <input type="hidden" id=idDestination value="{{destination.id}}"/>
-                <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#newHint">Ajouter des indices</button>
-            </td>
-            <td ng-if="isEditing(destination)">
-                <button type="button" class="btn btn-primary" ng-click="update(destination)">Confirmer</button>
-                <button type="button" class="btn btn-danger" ng-click="closeEdit()">Cancel</button>
+                <button type="button" class="btn btn-warning" ng-click="openAddHint(destination.id)">Ajouter des indices</button>
             </td>
         </tr>
     </tbody>
 </table >
+
+<!-- Modal Destination -->
+<script type="text/ng-template" id="destinationModal.html">
+    <div class="modal-header">
+        <button type="button" class="close"  ng-click="cancel()">&times;</button>
+        <h4 class="modal-title text-center">{{item.id ? 'Modifier destination': 'Ajouter destination' }}</h4>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-lg-push-2 col-sm-push-2 col-lg-8 col-sm-8">
+                <form role="form" id="destForm" ng-submit="process()" class="form-horizontal">
+                    <fieldset>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label" for="dName">Nom</label>
+                            <div class="col-md-5">
+                                <input type="text" required class="form-control input-md" ng-model="item.name" id="dName" placeholder="Name">
+                            </div>
+                            <div class="col-md-5">
+                                <a ng-shref="{{a}}" ng-show="item.name" id="Help" class="form-control btn btn-primary" ng-click="getLocationOfDestination()">Need Locations?</a>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label" for="dLat">latitude</label>
+                            <div class="col-md-9 col-md-offset-1">
+                                <input type="text" required step="any" class="form-control" ng-model="item.lat" id="dLat" placeholder="latitude">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label" for="dLng">Longitude</label>
+                            <div class="col-md-9">
+                                <input type="text" required step="any" class="form-control" ng-model="item.lng" id="dLng" placeholder="Longitude">
+                            </div>
+                        </div>
+                        <div class="col-md-push-4 col-md-6 ">
+                            <button type="submit" class="form-control btn btn-primary">Valider</button>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+    </div>
+</script>
+
+<!-- Modal Hint -->
+<script type="text/ng-template" id="hintModal.html">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" ng-click="cancel()">&times;</button>
+        <h4 class="modal-title text-center">Indications</h4>
+    </div>
+    <div class="modal-body">
+        <table class="table table-bordered table-striped table-condensed" >
+            <thead>
+            <tr>
+                <th>Type d'indication</th>
+                <th>Indication</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="i in item">
+                <td>{{i.type | uppercase}}</td>
+                <td>
+                    <p ng-if="i.type=='text'">{{i.value}}</p>
+                    <img ng-if="i.type=='url'" ng-src="{{API_URL+i.value}}" width="80px" height="50px"/>
+                </td>
+                <td>
+                    <button class="btn btn-danger" ng-click="process(i)">Supprimer</button>
+                </td>
+            </tr>
+            </tbody>
+        </table >
+    </div>
+</script>
+
+<script type="text/ng-template" id="addHint.html">
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="cancel()">&times;</button>
+        <h4 class="modal-title text-center">Ajouter un Indice</h4>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-lg-push-2 col-sm-push-2 col-lg-8 col-sm-8">
+                <form role="form" ng-submit="process(item)" class="form-horizontal" enctype="multipart/form-data">
+                    <fieldset>
+
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="pType">Type</label>
+                            <div class="col-md-8">
+                                <input type="radio" ng-model="item.type" value="text" >
+                                Text
+                                <input type="radio" ng-model="item.type" value="url">
+                                Image
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="pLng">Indication</label>
+                            <div class="col-md-8">
+                                <input ng-if="item.type=='text'" type="text" ng-model=item.value required class="form-control input-sm"/>
+                                <input base-sixty-four-input ng-if="item.type=='url'" type="file" accept=".png, .jpg, .jpeg" required ng-model=item.value class="form-control input-sm"  />
+                            </div>
+                        </div>
+
+                        <div class="col-md-push-4 col-md-6 ">
+                            <button class="form-control btn btn-primary">Valider</button>
+                        </div>
+
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+    </div>
+</script>

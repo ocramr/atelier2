@@ -10,13 +10,7 @@ app.controller('HintController', ['$scope', '$http', 'DestinationFactory', 'clos
             return $scope.selected.id == hint.id;
         };
 
-        $scope.delete = function (hint) {
-            DestinationFactory.deleteHint(hint.id_destination, hint.id).then(function(response){
-                console.log(response)
-            },function(error){
-                console.log(error)
-            })
-        };
+
 
         $scope.reset = function () {
             $scope.selected = {};
