@@ -32,13 +32,16 @@
                 <form role="form" ng-submit="process()" class="form-horizontal" enctype="multipart/form-data">
                     <fieldset>
                         <div class="form-group">
-                            <label class="col-md-4 control-label" for="pName">Nom</label>
-                            <div class="col-md-8">
+                            <label class="col-md-2 control-label" for="pName">Nom</label>
+                            <div class="col-md-5">
                                 <input type="text" required class="form-control input-md" ng-model="item.name" id="pName" placeholder="Name">
+                            </div>
+                            <div class="col-md-5">
+                                <a ng-shref="{{a}}" ng-show="item.name" id="Help" class="form-control btn btn-primary" ng-click="getLocationOfDestination()">Need Locations?</a>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-md-4 control-label" for="pLat">latitude</label>
+                            <label class="col-md-4 control-label left" for="pLat">Latitude</label>
                             <div class="col-md-8">
                                 <input type="text" required step="any" class="form-control" ng-model="item.lat" id="pLat" placeholder="latitude">
                             </div>
