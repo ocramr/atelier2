@@ -103,7 +103,7 @@ $app->group('/user', function (){
 
     $this->post('/login', UserController::class. ':login')->setName('login');
 
-})->add('CORS');
+});
 
 /**
  * @apiGroup Places
@@ -214,7 +214,7 @@ $app->group('/places', function (){
 
     $this->post('[/]', ManagementController::class. ':addPlace');
     
-})->add('CORS');
+});
 
 /**
  * @apiGroup Destinations
@@ -431,7 +431,7 @@ $app->group('/destinations', function (){
     $this->post('', ManagementController::class. ':createDestination')->setName('createDestination');
     $this->put('/{id}', ManagementController::class. ':updateDestination')->setName('updateDestination');
 
-})->add('CORS');
+});
 
 /**
  * @apiGroup Levels
@@ -507,7 +507,7 @@ $app->group('/levels', function (){
 
     $this->get('', UserController::class. ':getLevels')->setName('levels');
 
-})->add('CORS');
+});
 
 /**
  * @apiGroup Games
@@ -622,7 +622,7 @@ $app->group('/game', function () {
 
     $this->get('/ranking', GameController::class. ':ranking')->setName('ranking');
 
-})->add('CORS');
+});
 
-$app->post('/game/play', GameController::class. ':playGame')->setName('playgame')->add('CORS');
+$app->post('/game/play', GameController::class. ':playGame')->setName('playgame');
 
