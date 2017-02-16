@@ -1,5 +1,5 @@
-angular.module('app').controller('DestinationController', ['$scope', '$http','DataService', 'API_URL',
-    function($scope, $http, DataService, API_URL) {
+angular.module('app').controller('DestinationController', ['$scope', '$http',
+    'DataService', 'API_URL', function($scope, $http, DataService, API_URL) {
 
     $scope.API_URL = API_URL;
 

@@ -2,7 +2,7 @@ angular.module('app').factory('GameFactory', ['API_URL','$http',function (API_UR
 
     function setConfigToken(token)
     {
-        var config = {  
+        var config = {
             headers: {
                 'Authorization': 'Token ' + token,
                 'Content-Type': 'application/json'
@@ -15,7 +15,7 @@ angular.module('app').factory('GameFactory', ['API_URL','$http',function (API_UR
         play:function (json) {
             return $http.post(API_URL+'game/play', json);
         },
-        finish:function (id, json, token) 
+        finish:function (id, json, token)
         {
             return $http.put(API_URL+'game/'+id+'/save', json, setConfigToken(token));
         },

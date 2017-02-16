@@ -91,7 +91,8 @@ app.controller('DestinationController', ['$scope','$sce', '$http', 'DestinationF
                     'items' : function () {
                         return {
                             item : response.data,
-                            saveFunction : deleteHint
+                            saveFunction : deleteHint,
+                            API_URL: API_URL
                         }
                     }
                 };
@@ -109,7 +110,8 @@ app.controller('DestinationController', ['$scope','$sce', '$http', 'DestinationF
                 'items' : function () {
                     return {
                         item : {id_destination : id_destination},
-                        saveFunction : saveHint
+                        saveFunction : saveHint,
+                        API_URL: API_URL
                     }
                 }
             };

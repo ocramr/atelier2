@@ -11,7 +11,8 @@ angular.module('app').service('Game', [function(){
             this.places = data.places;
             this.destination = data.destination;
             this.isPlaying = true;
-        };
+            this.currentPosition = data.currentPosition || 0 ;
+        }
 
         return Game;
     }

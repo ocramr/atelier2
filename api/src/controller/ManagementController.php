@@ -34,7 +34,7 @@ class ManagementController extends AbstractController
         $destination->lng = filter_var($arguments["lng"], FILTER_SANITIZE_STRING);
         $destination->lat = filter_var($arguments["lat"], FILTER_SANITIZE_STRING);
         if ($destination->save())
-            return $this->json_success($res, 200, json_encode($destination));
+            return $this->json_success($res, 201, json_encode($destination));
         else
             return $this->json_error($res, 500, "Erreur d'ajout");
     }
@@ -149,10 +149,10 @@ class ManagementController extends AbstractController
 
         $newHint = new Hint();
         $newHint->value = $data['value'];
-        $newHint->id_destination = $args['id_dest'];
         try{
             $destination = Destination::where('id','=',$args['id_dest'])->firstOrFail();
             $newHint->type = $data['type'];
+            $newHint->destination()->associate($destination);
             $newHint->value = ($newHint->type == 'url') ? 'img/'.Util::uploadFromData($data['value'], uniqid($destination->name)) : $data['value'] ;
             if($newHint->save()) return $this->json_success($resp, 201, $newHint->toJson());
             else                return $this->json_error($resp, 500, "Erreur d'ajout");

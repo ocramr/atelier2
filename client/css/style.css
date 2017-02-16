@@ -5898,7 +5898,7 @@ body {
   height: 100%;
   background-repeat: no-repeat;
   background-position: 16px 9px;
-  padding: 27px; }
+  padding: 10%; }
   .bubble .bubble-text {
     text-align: center;
     margin-top: 15%;

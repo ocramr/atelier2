@@ -3,7 +3,9 @@
 
 namespace app\model;
 
-class User extends \Illuminate\Database\Eloquent\Model
+use Illuminate\Database\Eloquent\Model;
+
+class User extends Model
 {
     protected $table = 'user';
     public $timestamps = false;

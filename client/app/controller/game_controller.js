@@ -1,52 +1,119 @@
 angular.module('app').controller('GameController', ['$scope', '$http', 'Game','GameFactory', 'LevelFactory','DataService', '$rootScope',
     function($scope, $http, Game, GameFactory, LevelFactory, DataService, $rootScope){
 
+        $scope.newGame={};
         $scope.levels = [];
         $scope.position = 0;
         $scope.markers = [];
         $scope.paths = [];
         $scope.ranking = [];
-        initValues();
 
-        function initValues() {
-            $scope.newGame={};
+        var getGame = function () {
+            return JSON.parse(localStorage.getItem("findYourWay"));
+        };
+
+        var saveGame = function (game) {
+            localStorage.setItem("findYourWay", JSON.stringify(game));
+        };
+
+        var deleteLocalSavedGame = function () {
+            localStorage.removeItem("findYourWay");
+        };
+
+        var loadLevels = function () {
+            if(!$scope.levels || $scope.levels.length == 0) {
+                LevelFactory.all().then(function (response) {
+                    $scope.levels = response.data;
+                }, function (error) {
+                    console.log(error);
+                });
+            }
+        };
+
+        var centerMap = function () {
+            angular.extend($scope, {
+                events: {
+                    map: {
+                        enable: ['click', 'drag', 'blur', 'touchstart', 'moveend'],
+                        logic: 'emit'
+                    }
+                },
+                cen: {
+                    lat: 47.282448,
+                    lng: 1.883957,
+                    zoom: 6
+                }
+            });
+        };
+
+        var resetValues = function () {
             $scope.markers = [];
             $scope.paths = [];
             $scope.position = 0;
             $rootScope.position = $scope.position;
             DataService.reset();
-        }
-         //$scope.current_time = 0;
-        $scope.getTime = function(event,data){
-            console.log(data)
-            //$scope.current_time = data.millis;
-        }
-        
+        };
+
+         var initValues = function() {
+             if(getGame()){
+                 $scope.$broadcast('timer-reset');
+                 $scope.game = getGame();
+                 $scope.game.isPlaying = true;
+                 $scope.position = $scope.game.currentPosition;
+                 DataService.listPlaces($scope.game.places);
+                 DataService.listDestination($scope.game.destination);
+                 $scope.countdownVal = parseInt($scope.game.current_duration);
+                 $scope.$broadcast('timer-start');
+                 $scope.game.places.forEach(function (e,i) {
+                     if(i<$scope.position){
+                         $scope.markers.push({
+                             lat: parseFloat(e.lat),
+                             lng: parseFloat(e.lng)
+                         })
+                     }
+                     if($scope.position > 1)
+                     {
+                         $scope.paths = {
+                             p1: {
+                                 color: 'green',
+                                 weight: 4,
+                                 latlngs: $scope.markers
+                             }
+                         }
+                     }
+                 });
+                 deleteLocalSavedGame();
+             }
+
+        };
+
         $scope.pauseOrResume = function () {
             if ($scope.game.isPlaying) {
                 $scope.current= angular.element("#mytimer")[0]['innerHTML'];
-                localStorage.setItem("findYourWay",JSON.stringify($scope.game.current_duration=$scope.current))
+                $scope.game.current_duration=$scope.current;
                 $scope.game.isPlaying = false;
-                localStorage.setItem("findYourWay", JSON.stringify($scope.game));
+                $scope.game.currentPosition = $scope.position;
+                saveGame($scope.game);
                 angular.element('#pauseModal').modal('show');
             } else {
-                var game = JSON.parse(localStorage.getItem("findYourWay"));
+                var game = getGame();
                 if (game) {
-                    $scope.$broadcast('timer-reset');
+
                     $scope.countdownVal = parseInt(game.current_duration);
                     $scope.$broadcast('timer-start');
                     $scope.game = game;
                     $scope.game.isPlaying = true;
-                    localStorage.removeItem("findYourWay");
+                    $scope.position = $scope.game.currentPosition;
+                    deleteLocalSavedGame();
                     angular.element('#pauseModal').modal('hide');
                 }
             }
-        }
+        };
         $scope.start = function () { 
             if($scope.newGame.pseudo && $scope.newGame.level){
                 GameFactory.play({"pseudo" : $scope.newGame.pseudo, "level": $scope.newGame.level}).then(function (response) {
+                    resetValues();
                     angular.element('#myModal').modal('hide');
-                    initValues();
                     $scope.game = new Game(response.data);
                     DataService.listPlaces($scope.game.places);
                     DataService.listDestination($scope.game.destination);
@@ -57,7 +124,6 @@ angular.module('app').controller('GameController', ['$scope', '$http', 'Game','G
                     console.log(error);
                 });
             }
-
         };
 
         $scope.ranking = function () {
@@ -81,44 +147,15 @@ angular.module('app').controller('GameController', ['$scope', '$http', 'Game','G
                 });
         };
 
-        $scope.init = function () {
-            angular.extend($scope, {
-                events: {
-                    map: {
-                        enable: ['click', 'drag', 'blur', 'touchstart', 'moveend'],
-                        logic: 'emit'
-                    }
-                },
-                cen: {
-                    lat: 47.282448,
-                    lng: 1.883957,
-                    zoom: 6
-                }
-            });
 
-            if(!$scope.levels || $scope.levels.length == 0) {
-                LevelFactory.all().then(function (response) {
-                    $scope.levels = response.data;
-                }, function (error) {
-                    console.log(error);
-                });
-            }
-            if(localStorage.getItem("findYourWay") != null)
-            {
-                var game = JSON.parse(localStorage.getItem("findYourWay"));
-                    initValues();
-                    $scope.game = new Game(game);
-                    DataService.listPlaces(game.places);
-                    DataService.listDestination(game.destination);
-                    $scope.$broadcast('timer-reset');
-                    $scope.countdownVal = parseInt(game.current_duration);
-                    $scope.$broadcast('timer-start');
-            }
-                            
-        };
         $scope.$on('timer-tick', function (event, data) {
             if(data.millis === 0 )
             {
+                $scope.game = {};
+                DataService.reset();
+                $scope.position = 0;
+                $scope.$broadcast('timer-clear');
+                localStorage.clear();
                 angular.element('#gameover').modal('show');
             }
         });
@@ -126,8 +163,8 @@ angular.module('app').controller('GameController', ['$scope', '$http', 'Game','G
         $scope.$on("leafletDirectiveMap.click", function(event, args){
             if ($scope.game && $scope.game.isPlaying) {
                 //Get lat and lng of the clicked place
-                clicked_lat = args.leafletEvent.latlng.lat;
-                clicked_lng = args.leafletEvent.latlng.lng;
+                var clicked_lat = args.leafletEvent.latlng.lat;
+                var clicked_lng = args.leafletEvent.latlng.lng;
 
                 if($scope.position < 5)
                 {
@@ -224,6 +261,13 @@ angular.module('app').controller('GameController', ['$scope', '$http', 'Game','G
         $scope.hide_gameover_modal = function()
         {
             angular.element('#gameover').modal('hide');
+        };
+
+        $scope.init = function () {
+            loadLevels();
+            centerMap();
+            initValues();
+
         };
 
         $scope.init();

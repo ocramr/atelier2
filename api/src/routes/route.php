@@ -621,8 +621,9 @@ $app->group('/game', function () {
     $this->put('/{id}/save', GameController::class. ':save')->setName('saveGame');
 
     $this->get('/ranking', GameController::class. ':ranking')->setName('ranking');
+    $this->post('/play', GameController::class. ':playGame')->setName('playgame');
 
 });
 
-$app->post('/game/play', GameController::class. ':playGame')->setName('playgame');
+
 
