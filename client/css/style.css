@@ -5874,6 +5874,15 @@ body {
   text-align: center;
   vertical-align: middle; }
 
+.ind2{
+    text-align: center;
+    font-weight: bold;
+    padding: 6px;
+}
+.txt {
+    margin-top: 20%;
+}
+
 .text-indice {
   font-weight: bold;
   word-wrap: break-word;

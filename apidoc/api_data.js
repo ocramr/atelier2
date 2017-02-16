@@ -548,7 +548,7 @@ define({ "api": [
       "examples": [
         {
           "title": "exemple de réponse en cas de succès",
-          "content": "HTTP/1.1 200 OK\n\n{\n   categorie : {\n       \"last_name\"  : \"Nom\" ,\n       \"first_name\" : \"PRénom\",\n       \"username\" : \"user1\",\n       \"token\" : \"$2y$10$30Z9Pdft7rzJqHWlYhcA2Oaf92YCsdfhDFds455SDs2481Sd21361sDSsdsqAsq\"\n   }\n}",
+          "content": "HTTP/1.1 200 OK\n\n{\n   user : {\n       \"last_name\"  : \"Nom\" ,\n       \"first_name\" : \"PRénom\",\n       \"username\" : \"user1\",\n       \"token\" : \"$2y$10$30Z9Pdft7rzJqHWlYhcA2Oaf92YCsdfhDFds455SDs2481Sd21361sDSsdsqAsq\"\n   }\n}",
           "type": "json"
         }
       ]
@@ -616,7 +616,7 @@ define({ "api": [
       "examples": [
         {
           "title": "exemple de réponse en cas de succès",
-          "content": "HTTP/1.1 200 OK\n\n{\n   categorie : {\n       \"last_name\"  : \"Nom\" ,\n       \"first_name\" : \"PRénom\",\n       \"username\" : \"user1\",\n       \"password\" : \"$2y$10$30Z9Pdft7rzJqHWlYhcA2Oaf92YCPqjQuRgsxukULVK5D5aNzYNlq\"\n   }\n}",
+          "content": "HTTP/1.1 200 OK\n\n{\n   user : {\n       \"last_name\"  : \"Nom\" ,\n       \"first_name\" : \"PRénom\",\n       \"username\" : \"user1\",\n       \"password\" : \"$2y$10$30Z9Pdft7rzJqHWlYhcA2Oaf92YCPqjQuRgsxukULVK5D5aNzYNlq\"\n   }\n}",
           "type": "json"
         }
       ]

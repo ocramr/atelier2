@@ -161,7 +161,7 @@ angular.module('app').controller('GameController', ['$scope', '$http', 'Game','G
                         }
                     }else
                     {
-                        console.log("Réssayer !!");
+                        alert("Réssayer !!");
                     }
                 }
                 else
