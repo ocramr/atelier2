@@ -50,7 +50,7 @@ $app->options('/{routes:.+}', function ($request, $response, $args) {
  *     HTTP/1.1 200 OK
  *
  *     {
- *        categorie : {
+ *        user : {
  *            "last_name"  : "Nom" ,
  *            "first_name" : "PRénom",
  *            "username" : "user1",
@@ -83,7 +83,7 @@ $app->options('/{routes:.+}', function ($request, $response, $args) {
  *     HTTP/1.1 200 OK
  *
  *     {
- *        categorie : {
+ *        user : {
  *            "last_name"  : "Nom" ,
  *            "first_name" : "PRénom",
  *            "username" : "user1",
