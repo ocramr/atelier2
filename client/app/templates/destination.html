@@ -1,15 +1,4 @@
 
-<!--<h1 class="text-center ">Destination</h1><br/>
-<div ng-repeat="hint in destination.hints | limitTo:position">
-    <div ng-if="hint.type == 'text'">
-        <p><b>Astuce : </b>{{hint.value}} | Type text</p>
-    </div>
-    <div ng-if="hint.type == 'url'">
-        <p><b>Astuce : </b>{{hint.value}} | Type URL</p>
-        Vhost ou autre solution pour acceder au rep img
-    </div>
-</div>-->
-
 <p class="ind" ng-if="hint.type == 'text'">{{hint.value}}</p>
 <p class="ind"ng-if="hint.type == 'url'"><img ng-src="{{API_URL+hint.value}}" alt="Img {{hint.value}}" /></p>
 

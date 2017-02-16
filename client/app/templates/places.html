@@ -1,9 +1,3 @@
-<!--<h1 class="text-center">Places</h1><br/>
-<p ng-if="" class="bubble-text">{{places[position].indication}} | Type {{places[position].type_indication}} |  {{places[position].name}}</p>
-<p class="bubble-text">{{places[position].indication}} | Type {{places[position].type_indication}}</p>
-<h4>Indication : </h4>-->
-
-
 <p class="ind" ng-if="places[position].type_indication == 'text'">{{places[position].indication}}</p>
 <p class="ind"ng-if="places[position].type_indication == 'url'"><img ng-src="{{API_URL+places[position].indication}}" alt="Img {{places[position].indication}}"/></p>
 
